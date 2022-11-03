@@ -1,7 +1,9 @@
-### Delivery App
+# Delivery App
+
 <div align="center">
-  <img src="https://res.cloudinary.com/jorge-tarifa/image/upload/v1665118200/carrito-market-mix/Magna_hoka4e.jpg"/>
+  <img  src="https://res.cloudinary.com/jorge-tarifa/image/upload/v1665118200/carrito-market-mix/Magna_hoka4e.jpg"/>
 </div>
+
 ## Installation
 Clone el proyecto con el siguiente comando
 
@@ -20,7 +22,7 @@ git clone https://github.com/drbobby27/delivery.git
 `VUEJS / NODEJS / SEQUELIZE / EXPRESS / CLOUDINARY / BOOTSTRAP / CSS`
 
 ## Back Log
-https://dtorof.atlassian.net/jira/software/projects/RMA/boards/1
+[https://dtorof.atlassian.net/jira/software/projects/RMA/boards/4](https://dtorof.atlassian.net/jira/software/projects/DEL/boards/4)
 
 ## Contribuidores
 [Yennifer Ortiz](https://github.com/yortizher)/
