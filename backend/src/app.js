@@ -11,6 +11,8 @@ import { employeesRouter } from './routes/employees.route.js'
 import { positionsRouter } from './routes/positions.route.js'
 import { router } from './routes/auth.route.js'
 import { productCategoryRouter } from "./routes/product_category.route.js"
+import { domicileCRouter } from "./routes/domicile-company.route.js"
+
 const app = express()
 
 app.use(cors())
@@ -27,5 +29,6 @@ app.use('//api/v1/product-category', productCategoryRouter)
 app.use(employeesRouter)
 app.use(positionsRouter)
 app.use(router)
+app.use(domicileCRouter)
 
 export default app

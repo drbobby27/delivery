@@ -27,7 +27,7 @@ const { STRING, INTEGER } = DataTypes
             allowNull: false
         },
         category_id:{ 
-            type: STRING,
+            type: INTEGER,
             allowNull: false
         }
         })
@@ -35,5 +35,5 @@ const { STRING, INTEGER } = DataTypes
 
         Product.belongsTo(ProductCategory, {foreignKey: 'category_id', sourceKey: 'id'});
         ProductCategory.hasMany(Product, {foreignKey: 'category_id', targetId: 'id'});
-
+        
         export default Product

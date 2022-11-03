@@ -1,6 +1,6 @@
 import {  DataTypes } from "sequelize";
 import { db } from "../db/db.js";
-
+import DomicileC from "./domicile-company.model.js"
 const { STRING, INTEGER } = DataTypes
 
 export const Deliverman = db.define('deliverman',{ 
@@ -34,6 +34,9 @@ export const Deliverman = db.define('deliverman',{
             allowNull: false
         }
         })
+
+        Deliverman.belongsTo(DomicileC, {foreignKey: 'company_id', sourceKey: 'id'});
+        DomicileC.hasMany(Deliverman, {foreignKey: 'company_id', targetId: 'id'});
 
 
         
