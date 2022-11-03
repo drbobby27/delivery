@@ -4,6 +4,7 @@ import cors from 'cors'
 import fileupload from 'express-fileupload'
 import { employeesRouter } from './routes/employees.route.js'
 import { positionsRouter } from './routes/positions.route.js'
+import { router } from './routes/auth.route.js'
 const app = express()
 
 app.use(cors())
@@ -13,5 +14,6 @@ app.use(express.urlencoded({ limit: '50mb', extended: true }))
 app.use(fileupload({useTempFiles: true}))
 app.use(employeesRouter)
 app.use(positionsRouter)
+app.use(router)
 
 export default app

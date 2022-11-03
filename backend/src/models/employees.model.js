@@ -24,6 +24,11 @@ const { STRING, INTEGER } = DataTypes
                 type: STRING,
                 allowNull: false
             },
+            password:{
+                type: STRING,
+                allowNull: false
+            },
+
             role_id: {
                 type: INTEGER,
                 allowNull: false

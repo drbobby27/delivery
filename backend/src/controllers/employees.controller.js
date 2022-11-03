@@ -1,5 +1,5 @@
 import { Employees } from '../models/employees.model.js'
-
+import bcryptjs from 'bcrypt'
 
 
 export const employees = async (req,res) => {
@@ -29,15 +29,16 @@ export const employeesById = async (req,res) => {
 }
 
 export const createEmployees = async  (req,res) => {
+    const salt = bcryptjs.genSaltSync();//uses the bcrypt npm package
     try{
-        const { name,adress,email,phoneNumber,role_id } = req.body
-    if( !name || !adress || !email || !phoneNumber || !role_id ){
+        const { name,adress,email,phoneNumber, password,role_id } = req.body
+    if( !name || !adress || !email || !phoneNumber || !password|| !role_id ){
         return res.status(400).json({error: "Uno o más campos vacios"})
     }
     const createEmployees = await Employees.create({
-        name,adress,email,phoneNumber,role_id
+        name,adress,email,phoneNumber,password: bcryptjs.hashSync( req.body.password.toString(), salt ),role_id
     })
-    res.status(200).json({message: 'Specie was created succesfully', createEmployees})
+    res.status(200).json({message: 'Employee was created succesfully', createEmployees})
     }catch(error){
         console.log(error)
     }
@@ -59,14 +60,20 @@ export const deleteEmployees = async (req,res) => {
 }
 
 export const editEmployees = async (req,res) => {
+    const salt = bcryptjs.genSaltSync();
     const { id } = req.params
     try {
-        const { name } = req.body
+        const { name,adress,email,phoneNumber,password,role_id } = req.body
     
         const editEmployees = await Employees.findByPk(id)
         editEmployees.name = name
+        editEmployees.adress = adress
+        editEmployees.email = email
+        editEmployees.phoneNumber = phoneNumber
+        editEmployees.password = bcryptjs.hashSync( password.toString(), salt )
+        editEmployees.role_id = role_id
         await editEmployees.save()
-    
+        
         res.status(200).json({message: `Register with id:${id} was succesfully edited`, editEmployees})
       } catch (err) {
         return res.status(500).json({ message: err})
