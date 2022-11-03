@@ -6,7 +6,7 @@
 
 
 ## Clonar repositorio
-Podrás clonar y/o forkear el código haciendo uso de:  
+Podrás clonar el proyecto haciendo uso del siguiente comando desde la terminal de su preferencia:  
 
 ```bash
 git clone https://github.com/drbobby27/delivery.git
