@@ -8,7 +8,6 @@ export const getProducts = async (req,res) => {
     }catch(err){
         console.log(err);
     }
-   
 }
 
 export const productById = async (req,res) => {
@@ -63,13 +62,17 @@ export const deleteProduct = async (req,res) => {
 export const editProduct = async (req,res) => {
     const { id } = req.params
     try {
-        const { product_name, price, description, image_url, category_id  } = req.body
+        const  {tempFilePath:fileStr}  = req.files.image_url
+
+        const uploadResponse = await cloudinary.uploader.upload( fileStr, { upload_preset: "pets_folder" })
+
+        const { product_name, price, description,  category_id  } = req.body
     
         const editRegister = await Product.findByPk(id)
         editRegister.product_name = product_name
         editRegister.price = price
         editRegister.description = description
-        editRegister.image_url = image_url
+        editRegister.image_url = uploadResponse.secure_url
         editRegister.category_id = category_id
         await editRegister.save()
     
