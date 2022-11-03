@@ -4,19 +4,30 @@
   <img  src="https://res.cloudinary.com/jorge-tarifa/image/upload/v1665118200/carrito-market-mix/Magna_hoka4e.jpg"/>
 </div>
 
-## Installation
-Clone el proyecto con el siguiente comando
 
-```bash
-https://github.com/drbobby27/delivery.git
-```
 ## Clonar repositorio
 Podrás clonar y/o forkear el código haciendo uso de:  
 
 ```bash
 git clone https://github.com/drbobby27/delivery.git
 ```
+## Installation
+Después de clonar el repositorio, abra la terminal con la ruta raíz del proyecto, ingrese a la carpeta frontend e instale las dependencias requeridas para su funcionamiento, de la siguiente manera: 
 
+```bash
+cd frontend && npm install
+```
+
+## Regrese a la ruta raíz del proyecto de la siguiente manera: 
+
+```bash
+cd ..
+```
+## Ingrese ahora a la carpeta backend e instale las dependencias requeridas para su funcionamiento
+
+```bash
+cd backend && npm install
+```
 
 ## Tecnologias usadas
 `VUEJS / NODEJS / SEQUELIZE / EXPRESS / CLOUDINARY / BOOTSTRAP / CSS`
