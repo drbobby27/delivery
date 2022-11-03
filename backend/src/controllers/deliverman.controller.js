@@ -27,14 +27,19 @@ export const delivermanById = async (req,res) => {
 }
 
 export const createDeliverman = async  (req,res) => {
-    const { full_name, phone_number, address, cc, email, company_id } = req.body
-    if( !full_name || !phone_number || !address || !cc || !email || !company_id){
-        return res.status(400).json({error: "Uno o más campos vacios"})
+    try {
+        const { full_name, phone_number, address, cc, email, company_id } = req.body
+        if( !full_name || !phone_number || !address || !cc || !email || !company_id){
+            return res.status(400).json({error: "Uno o más campos vacios"})
+        }
+        const createRegister = await Deliverman.create({
+            full_name, phone_number, address, cc, email, company_id 
+        })
+        res.status(200).json({message: "Register was created succesfully", createRegister})
+           
+    } catch (error) {
+        console.log(error)
     }
-    const createRegister = await Deliverman.create({
-        full_name, phone_number, address, cc, email, company_id 
-    })
-    res.status(200).json({message: "Register was created succesfully", createRegister})
 }
 
 export const deleteDeliverman = async (req,res) => {

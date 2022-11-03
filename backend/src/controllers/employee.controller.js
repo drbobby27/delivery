@@ -27,14 +27,18 @@ export const employeeById = async (req,res) => {
 }
 
 export const createEmployee = async  (req,res) => {
-    const { full_name, phone_number, address, cc, email, rol_id } = req.body
-    if( !full_name || !phone_number || !address || !cc || !email || !rol_id  ){
-        return res.status(400).json({error: "Uno o más campos vacios"})
+    try {
+        const { full_name, phone_number, address, cc, email, rol_id } = req.body
+        if( !full_name || !phone_number || !address || !cc || !email || !rol_id  ){
+            return res.status(400).json({error: "Uno o más campos vacios"})
+        }
+        const createRegister = await Employee.create({
+            full_name, phone_number, address, cc, email, rol_id 
+        })
+        res.status(200).json({message: "Register was created succesfully", createRegister})   
+    } catch (error) {
+        console.log(error)        
     }
-    const createRegister = await Employee.create({
-        full_name, phone_number, address, cc, email, rol_id 
-    })
-    res.status(200).json({message: "Register was created succesfully", createRegister})
 }
 
 export const deleteEmployee = async (req,res) => {

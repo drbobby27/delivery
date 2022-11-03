@@ -27,14 +27,19 @@ export const orderById = async (req,res) => {
 }
 
 export const createOrder = async  (req,res) => {
-    const { order_number, date_order, address, state, purchase_id,deliverman_id } = req.body
-    if( !order_number || !date_order || !address || !state || !purchase_id || !deliverman_id  ){
-        return res.status(400).json({error: "Uno o más campos vacios"})
+    try {
+        const { order_number, date_order, address, state, purchase_id,deliverman_id } = req.body
+        if( !order_number || !date_order || !address || !state || !purchase_id || !deliverman_id  ){
+            return res.status(400).json({error: "Uno o más campos vacios"})
+        }
+        const createRegister = await Order.create({
+            order_number, date_order, address, state, purchase_id, deliverman_id 
+        })
+        res.status(200).json({message: "Register was created succesfully", createRegister})
+           
+    } catch (error) {
+        console.log(error)        
     }
-    const createRegister = await Order.create({
-        order_number, date_order, address, state, purchase_id, deliverman_id 
-    })
-    res.status(200).json({message: "Register was created succesfully", createRegister})
 }
 
 export const deleteOrder = async (req,res) => {

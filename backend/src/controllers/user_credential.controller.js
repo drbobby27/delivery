@@ -27,6 +27,7 @@ export const credentialById = async (req,res) => {
 }
 
 export const createCredential = async  (req,res) => {
+   try {
     const { username, password, employee_id } = req.body
     if( !username || !password || !employee_id ){
         return res.status(400).json({error: "Uno o más campos vacios"})
@@ -34,7 +35,10 @@ export const createCredential = async  (req,res) => {
     const createRegister = await UserCredentials.create({
         username, password, employee_id
     })
-    res.status(200).json({message: "Register was created succesfully", createRegister})
+    res.status(200).json({message: "Register was created succesfully", createRegister}) 
+   } catch (error) {
+    console.log(error)    
+   }
 }
 
 export const deleteCredential = async (req,res) => {

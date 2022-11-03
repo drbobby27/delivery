@@ -1,4 +1,5 @@
 import { Product } from '../models/product.model.js'
+import { cloudinary } from "../helpers/helper.js"
 
 export const getProducts = async (req,res) => {
     try{
@@ -27,14 +28,22 @@ export const productById = async (req,res) => {
 }
 
 export const createProduct = async  (req,res) => {
-    const { product_name, price, description, image_url, category_id } = req.body
-    if( !product_name || !price || !description || !image_url || !category_id ){
-        return res.status(400).json({error: "Uno o más campos vacios"})
-    }
+
+    try {
+    const  {tempFilePath:fileStr}  = req.files.image_url
+    const { product_name, price, description,  category_id } = req.body
+
+    const uploadResponse = await cloudinary.uploader.upload( fileStr, { upload_preset: "pets_folder" })
+
     const createRegister = await Product.create({
-        product_name, price, description, image_url, category_id 
+        product_name, price, description, image_url: uploadResponse.secure_url, category_id 
     })
     res.status(200).json({message: "Register was created succesfully", createRegister})
+
+    } catch (error) {
+        console.error(error)
+    }
+    
 }
 
 export const deleteProduct = async (req,res) => {
