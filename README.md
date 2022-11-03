@@ -28,7 +28,7 @@ cd ..
 cd backend && npm install
 ```
 
-### Inicie el servidor con el siguiente comando:
+### Una vez termine la instalación de depencias del backend, inicie el servidor con el siguiente comando:
 
 ```bash
 npm start
@@ -41,7 +41,7 @@ cd ..
 ### Ahora corra la aplicacion con el siguiente comando:  
 
 ```bash
-npm run dev
+cd frontend && npm run dev
 ```
 
 ## Tecnologias usadas
