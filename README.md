@@ -51,7 +51,7 @@ cd frontend && npm run dev
 [https://dtorof.atlassian.net/jira/software/projects/RMA/boards/4](https://dtorof.atlassian.net/jira/software/projects/DEL/boards/4)
 
 ## Contribuidores
-* [Yennifer Ortiz](https://github.com/yortizher)
+*  [Yennifer Ortiz](https://github.com/yortizher)
 *  [Jorge Arley](https://github.com/drbobby27)
 *  [Anyelith Jacobo](https://github.com/anyelithj)
 *  [Diego Toro](https://github.com/Dtorof)
