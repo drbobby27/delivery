@@ -1,9 +1,10 @@
 import {  DataTypes } from "sequelize";
 import { db } from "../db/db.js";
+import { ProductCategory } from './product_category.model.js'
 
 const { STRING, INTEGER } = DataTypes
 
-export const Product = db.define('product',{ 
+ const Product = db.define('product',{ 
         id: {
             type: INTEGER,
             primaryKey: true,
@@ -32,4 +33,7 @@ export const Product = db.define('product',{
         })
 
 
-        
+        Product.belongsTo(ProductCategory, {foreignKey: 'category_id', sourceKey: 'id'});
+        ProductCategory.hasMany(Product, {foreignKey: 'category_id', targetId: 'id'});
+
+        export default Product
