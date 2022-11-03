@@ -5,7 +5,7 @@ import {
     createDetailPurchase,
     deleteDetailPurchase,
     editDetailPurchase
-} from '../controllers/detail_puchase.controller.js'
+} from '../controllers/detail_purchase.controller.js'
 
 
 export const detailPurchaseRouter = Router()

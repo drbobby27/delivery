@@ -11,7 +11,7 @@ import { employeesRouter } from './routes/employees.route.js'
 import { positionsRouter } from './routes/positions.route.js'
 import { router } from './routes/auth.route.js'
 import { productCategoryRouter } from "./routes/product_category.route.js"
-import { detailPurchaseRouter } from "./routes/detail_puchase.route.js"
+import { detailPurchaseRouter } from "./routes/detail_purchase.route.js"
 
 const app = express()
 
