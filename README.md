@@ -36,7 +36,7 @@ cd backend && npm install
 [https://dtorof.atlassian.net/jira/software/projects/RMA/boards/4](https://dtorof.atlassian.net/jira/software/projects/DEL/boards/4)
 
 ## Contribuidores
-1. [Yennifer Ortiz](https://github.com/yortizher)/
-2. [Jorge Arley](https://github.com/drbobby27)/
-3. [Anyelith Jacobo](https://github.com/anyelithj)/
-4. [Diego Toro](https://github.com/Dtorof)/
+* [Yennifer Ortiz](https://github.com/yortizher)/
+*  [Jorge Arley](https://github.com/drbobby27)/
+*  [Anyelith Jacobo](https://github.com/anyelithj)/
+*  [Diego Toro](https://github.com/Dtorof)/
