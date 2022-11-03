@@ -11,7 +11,8 @@ export const dialect = process.env.dialect
 export const cloudinary = v2
 
 cloudinary.config({
-    cloud_name: process.env.CLOUDINARY_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET,
+    cloud_name: 'jorge-tarifa',
+    api_key: 984487691413983,
+    api_secret: 'jCsjzSl3-dYjd3UZ0ZpWZ01x7Hw'
 });
+

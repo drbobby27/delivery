@@ -12,7 +12,7 @@ const { STRING, INTEGER } = DataTypes
                 type: STRING,
                 allowNull: false
             },
-            address: {
+            adress: {
                 type: STRING,
                 allowNull: false
             },
