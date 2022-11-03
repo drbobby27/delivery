@@ -31,12 +31,12 @@ export const employeesById = async (req,res) => {
 export const createEmployees = async  (req,res) => {
     const salt = bcryptjs.genSaltSync();//uses the bcrypt npm package
     try{
-        const { name,address,email,phoneNumber, password,role_id } = req.body
-    if( !name || !address || !email || !phoneNumber || !password|| !role_id ){
+        const { name,adress,email,phoneNumber, password,role_id } = req.body
+    if( !name || !adress || !email || !phoneNumber || !password|| !role_id ){
         return res.status(400).json({error: "Uno o más campos vacios"})
     }
     const createEmployees = await Employees.create({
-        name,address,email,phoneNumber,password: bcryptjs.hashSync( req.body.password.toString(), salt ),role_id
+        name,adress,email,phoneNumber,password: bcryptjs.hashSync( req.body.password.toString(), salt ),role_id
     })
     res.status(200).json({message: 'Employee was created succesfully', createEmployees})
     }catch(error){
@@ -63,11 +63,11 @@ export const editEmployees = async (req,res) => {
     const salt = bcryptjs.genSaltSync();
     const { id } = req.params
     try {
-        const { name,address,email,phoneNumber,password,role_id } = req.body
+        const { name,adress,email,phoneNumber,password,role_id } = req.body
     
         const editEmployees = await Employees.findByPk(id)
         editEmployees.name = name
-        editEmployees.address = address
+        editEmployees.adress = adress
         editEmployees.email = email
         editEmployees.phoneNumber = phoneNumber
         editEmployees.password = bcryptjs.hashSync( password.toString(), salt )

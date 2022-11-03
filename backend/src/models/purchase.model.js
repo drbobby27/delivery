@@ -23,18 +23,11 @@ export const Purchase = db.define('purchase',{
         employee_id:{ 
             type: INTEGER,
             allowNull: false
-        },
-        order_id: {
-            type: INTEGER,
-            allowNull: false
         }
         })
 
 
-        Purchase.belongsTo(Order, {foreignKey: 'order_id', sourceKey: 'id'});
-        Order.hasMany(Purchase, {foreignKey: 'order_id', targetId: 'id'});
+        
 
 
-        Purchase.belongsTo(Deliverman, {foreignKey: 'employee_id', sourceKey: 'id'});
-        Deliverman.hasMany(Purchase, {foreignKey: 'employee_id', targetId: 'id'});
         

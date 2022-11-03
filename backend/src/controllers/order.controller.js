@@ -28,12 +28,13 @@ export const orderById = async (req,res) => {
 
 export const createOrder = async  (req,res) => {
     try {
-        const { client_name, address, phone_number, state, employee_id  } = req.body
-        if( !client_name || !phone_number || !address || !state || !employee_id ){
+        const { order_number, date_order, address, state, purchase_id,deliverman_id,employee_id } = req.body
+        
+        if( !order_number || !date_order || !address || !state || !purchase_id || !deliverman_id ||!employee_id   ){
             return res.status(400).json({error: "Uno o más campos vacios"})
         }
         const createRegister = await Order.create({
-            client_name, address, phone_number, state, employee_id
+            order_number, date_order, address, state, purchase_id, deliverman_id,employee_id
         })
         res.status(200).json({message: "Register was created succesfully", createRegister})
            
@@ -59,13 +60,15 @@ export const deleteOrder = async (req,res) => {
 export const editOrder= async (req,res) => {
     const { id } = req.params
     try {
-        const { client_name, address, phone_number, state, employee_id} = req.body
+        const { order_number, date_order, address, state, purchase_id,deliverman_id,employee_id } = req.body
     
         const editRegister = await Order.findByPk(id)
         editRegister.client_name = client_name
         editRegister.address = address
         editRegister.phone_number = phone_number
         editRegister.state = state
+        editRegister.purchase_id = purchase_id
+        editRegister.deliverman_id = deliverman_id
         editRegister.employee_id = employee_id
         await editRegister.save()
     
