@@ -36,7 +36,7 @@ export const createCategory = async  (req,res) => {
    await ProductCategory.create({
         type
     })
-    res.status(200).json({message: "Register was created succesfully", createRegister})
+    res.status(200).json({message: "Register was created succesfully", createCategory})
 
     } catch (error) {
         console.error(error)
