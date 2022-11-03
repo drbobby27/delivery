@@ -28,6 +28,22 @@ cd ..
 cd backend && npm install
 ```
 
+### Inicie el servidor con el siguiente comando:
+
+```bash
+npm start
+```
+### Regrese a la ruta raíz con el siguiente comando:  
+
+```bash
+cd ..
+```
+### Ahora corra la aplicacion con el siguiente comando:  
+
+```bash
+npm run dev
+```
+
 ## Tecnologias usadas
 `VUEJS / NODEJS / SEQUELIZE / EXPRESS / CLOUDINARY / BOOTSTRAP / CSS`
 
