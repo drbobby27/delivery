@@ -27,7 +27,7 @@ const { STRING, INTEGER } = DataTypes
             allowNull: false
         },
         category_id:{ 
-            type: STRING,
+            type: INTEGER,
             allowNull: false
         }
         })
