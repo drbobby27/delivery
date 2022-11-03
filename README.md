@@ -11,18 +11,18 @@ Podrás clonar el proyecto haciendo uso del siguiente comando desde la terminal 
 git clone https://github.com/drbobby27/delivery.git
 ```
 ### Instalación
-Después de clonar el repositorio, abra la terminal con la ruta raíz del proyecto, ingrese a la carpeta frontend e instale las dependencias requeridas para su funcionamiento, de la siguiente manera: 
+Después de clonar el repositorio, abra la terminal con la ruta raíz del proyecto, ingrese a la carpeta frontend e instale las dependencias requeridas para su funcionamiento, con el siguiente comando: 
 
 ```bash
 cd frontend && npm install
 ```
 
-### Regrese a la ruta raíz del proyecto de la siguiente manera: 
+### Regrese a la ruta raíz del proyecto  con el siguiente comando: 
 
 ```bash
 cd ..
 ```
-### Ingrese ahora a la carpeta backend e instale las dependencias requeridas para su funcionamiento
+### Ingrese ahora a la carpeta backend e instale las dependencias requeridas para su funcionamiento  con el siguiente comando:
 
 ```bash
 cd backend && npm install
