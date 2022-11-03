@@ -20,12 +20,11 @@ export const Purchase = db.define('purchase',{
         client_name:{
             type: STRING,
             allowNull: false
-        },
-        employee_id:{ 
-            type: STRING,
-            allowNull: false
         }
         })
+
+
+        
 
 
         

@@ -13,6 +13,7 @@ export const getDomicileC = async (req,res) => {
 export const domicileCById = async (req,res) => {
     const { id } = req.params
     try{
+        
         const domicileCById= await  DomicileC.findOne({
             where: {
               id,
@@ -61,12 +62,12 @@ export const editDomicileC = async (req,res) => {
     try {
         const {  name, address } = req.body
     
-        const editDomicileC = await Deliverman.findByPk(id)
-        editDomicileC.ame = full_name
+        const editDomicileC = await DomicileC.findByPk(id)
+        editDomicileC.name = name
         editDomicileC.address = address
-        await editRegister.save()
+        await editDomicileC.save()
     
-        res.status(200).json({message: `Register with id:${id} was succesfully edited`, editRegister})
+        res.status(200).json({message: `Register with id:${id} was succesfully edited`, editDomicileC})
       } catch (err) {
         return res.status(500).json({ message: err})
       }
