@@ -7,8 +7,9 @@ import { delivermanRouter } from './routes/deliverman.route.js'
 import { orderRouter } from './routes/order.route.js'
 import { productRouter } from './routes/product.route.js'
 import { purchaseRouter } from "./routes/purchase.route.js"
-
-
+import { employeesRouter } from './routes/employees.route.js'
+import { positionsRouter } from './routes/positions.route.js'
+import { router } from './routes/auth.route.js'
 const app = express()
 
 app.use(cors())
@@ -21,5 +22,8 @@ app.use('/api/v1/deliverman', delivermanRouter)
 app.use('/api/v1/order', orderRouter)
 app.use('/api/v1/product', productRouter)
 app.use('/api/v1/purchase', purchaseRouter)
+app.use(employeesRouter)
+app.use(positionsRouter)
+app.use(router)
 
 export default app
