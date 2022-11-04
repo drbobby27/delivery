@@ -2,7 +2,7 @@ import { DetailPurchase } from '../models/detail_purchase.model.js'
 
 export const DetailPurchases = async (req,res) => {
     try{
-        const  detailPurchaseList = await DetailPurchase.findAll()
+        const  detailPurchaseList = await DetailPurchase.findAll({ include: { all: true }})
         res.json( detailPurchaseList)
     }catch(err){
         console.log(err);
