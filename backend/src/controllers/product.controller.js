@@ -1,9 +1,10 @@
 import  Product from '../models/product.model.js'
+import { ProductCategory } from '../models/product_category.model.js'
 import { cloudinary } from "../helpers/helper.js"
 
 export const getProducts = async (req,res) => {
     try{
-        const productList = await Product.findAll()
+        const productList = await Product.findAll({include:[{model:ProductCategory}]})
         res.json(productList)
     }catch(err){
         console.log(err);
