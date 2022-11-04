@@ -1,4 +1,4 @@
-<script setup>
+<!-- <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 import View_Administration from './module_administration/View_Administration.vue';
 
@@ -12,4 +12,4 @@ import View_Administration from './module_administration/View_Administration.vue
 
 <style scoped>
 
-</style>
+</style> -->
