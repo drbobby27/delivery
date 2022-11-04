@@ -32,12 +32,25 @@ export const Order = db.define('order',{
             type: INTEGER,
             allowNull: false
         },
-        employee_id:{ 
+        deliverman_id:{ 
+            type: INTEGER,
+            allowNull: false
+        },
+        purchase_id:{ 
             type: INTEGER,
             allowNull: false
         }
         })
 
+        Order.belongsTo(Deliverman, {foreignKey: 'deliverman_id', sourceKey: 'id'});
+        Deliverman.hasMany(Order, {foreignKey: 'deliverman_id', targetId: 'id'});
+
+        Order.belongsTo(Purchase, {foreignKey: 'purchase_id', sourceKey: 'id'});
+        Purchase.hasMany(Order, {foreignKey: 'purchase_id', targetId: 'id'});
+
+
+        Order.belongsTo(Employees, {foreignKey: 'employee_id', sourceKey: 'id'});
+        Employees.hasMany(Order, {foreignKey: 'employee_id', targetId: 'id'});
 
 
 

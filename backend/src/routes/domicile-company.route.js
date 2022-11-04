@@ -10,8 +10,8 @@ import {
 export const domicileCRouter = Router()
 
 
-domicileCRouter.get('/api/v1/domicileC', getDomicileC)
-domicileCRouter.get('/api/v1/domicileC/:id', domicileCById)
-domicileCRouter.post('/api/v1/domicileC', createDomicileC)
-domicileCRouter.put('/api/v1/domicileC/:id', editDomicileC)
-domicileCRouter.delete('/api/v1/domicileC/:id', deleteDomicileC)
+domicileCRouter.get('/api/v1/delivery-company', getDomicileC)
+domicileCRouter.get('/api/v1/delivery-company/:id', domicileCById)
+domicileCRouter.post('/api/v1/delivery-company', createDomicileC)
+domicileCRouter.put('/api/v1/delivery-company/:id', editDomicileC)
+domicileCRouter.delete('/api/v1/delivery-company/:id', deleteDomicileC)
