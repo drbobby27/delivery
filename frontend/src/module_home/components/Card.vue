@@ -41,87 +41,106 @@ const products = [
 </script>
 
 <template>
-   <div class="row burger text-center my-5 mx-5">
-        <div class="col-12 col-sm-8 col-lg-3" v-for="item in products" :key="item.name">
-          <div class="card">
-            <img :src="item.image" class="img-fluid rounded-start" alt="..." />
-            <div class="card-body">
-              <div class="row">
-                <h4>{{item.name}}</h4>
-              </div>
-              <div class="row">
-                <h6>{{item.description}}</h6>
-              </div>
-            </div>
-            <div class="row mb-3" id="price">
-              <h4 >${{item.price}}</h4>
-            </div>
-            <div class="row">
-              <div class="col-3">
-                <button id="menos" :disabled="item.qty <= 1" type="button"
-                  ><i class="fa-solid fa-minus"></i></button>
-              </div>
-              <div class="col-6">
-                <input id="medio" type="number" v-model.number="item.qty">
-              </div>
-              <div class="col-3">
-                <button id="mas" type="button" ><i
-                    class="fa-solid fa-plus"></i></button>
-              </div>
-            </div>
-            <button v-if="item.qty >= 1"  type="button" class="btn  mt-3"
-              data-bs-toggle="modal" data-bs-target="#exampleModal22">
-              Agregar
-            </button>
-            <button v-if="item.qty < 1"  type="button" class="btn  mt-3"
-              >
-              Agregar
-            </button>
-
-          </div>
+        <div class="row m-5">
+            <h2 class="text-muted text-center my-5">Productos</h2>
+            <div class="col products ">
+                <div class="card" :style="{ transform: animateCard === item.id ? 'rotateY(360deg)' :'' ,width: '18rem', border:'none'}" v-for="item in products" :key="item.id">
+                    <img :src="item.image" class="img-fluid rounded-start" alt="...">
+                    <div class="card-body">
+                        <div class="card-header">
+                            <h4>{{item.name}}</h4>
+                            <h4>${{item.price}}</h4>
+                        </div>
+                        <div class="card-desc">
+                            <p>{{item.description}}</p>
+                        </div>
+                        <div class="card-quantity">
+                            <button type="button" @click="updateQtyBurgers('remove', item.id)">-</button>
+                            <input id="medio" type="number">
+                            <button type="button" @click="updateQtyBurgers('add', item.id )">+</button>
+                        </div>
+                        <div class="footer-cta">
+                            <button type="button" class="btn" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal22">
+                                    Agregar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>          
         </div>
-      </div>
 </template>
 
 <style scoped>
 
-.burger #medio{
-    width: 100%;
-}
-.burger  #mas, #menos{
-    width: 60%;
-    border: none;
-}
-.burger  #mas{
-    background-color: green;
-}
-.burger  #menos{
-    background-color: red;
-}
-.burger .btn{
-    border-color: black;
-    color: black;
-}
-.burger .btn:hover{
-    background-color: orange;
-    color: white;
-    border-style: none;
-}
- .burger .card{
-    margin-bottom: 40px;
-    
-}
- .burger .card .card-body{
-    height:8rem;
-   
-}
- .burger .card img{
-    height:12rem;
-   
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  padding: 1rem 13px;
+  gap: 36px;
+  border: none !important;
+  perspective: 800px; 
 }
 
- #price{
-    margin-top: 18%!important;
- }
+.card-body { 
+    position: relative;
+}
+
+.products .card {
+  height: 28rem;
+  transition: all .5s ease-out;
+  overflow: hidden;
+}
+
+/* .products .card:hover {
+    transform: scale(1.056465);
+} */
+.btn {
+    background: #b20837;
+    color: #f0e9cb;
+    width: 100%;
+}
+.products .card:hover img {
+    width: 100%;
+    transform: scale(1.09) rotateY(0);
+}
+
+.products .card img {
+    width: 180%;
+    height: 11rem;
+    object-fit: cover;
+    transition: all .3s ease-in-out;    
+    transform: scale(1);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+}
+.card-quantity{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.card-quantity button {
+    border: none !important;
+    background: transparent !important;
+    font-size: 2rem;
+}
+
+.footer-cta {
+    display: flex;
+    justify-content: space-around;
+    position: absolute;
+    bottom: 1.4rem;
+    left: 0;
+    right: 0;
+}
+.footer-cta button {
+    border: none !important;
+
+}
 
 </style>
