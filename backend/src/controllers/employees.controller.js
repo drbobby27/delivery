@@ -1,10 +1,11 @@
 import { Employees } from '../models/employees.model.js'
+import { Positions } from '../models/positions.model.js'
 import bcryptjs from 'bcrypt'
 
 
 export const employees = async (req,res) => {
     try{
-        const employeesList = await Employees.findAll()
+        const employeesList = await Employees.findAll({include:[{model:Positions}]})
         res.json(employeesList)
     }catch(err){
         console.log(err);

@@ -1,8 +1,9 @@
-import  { Deliverman }  from '../models/deliverman.model.js'
+import  { DomicileC }  from '../models/domicile-company.model.js'
+import  { Deliverman }  from '../models/deliverman.model.js' 
 
 export const getDelivermans = async (req,res) => {
     try{
-        const delivermanList = await Deliverman.findAll()
+        const delivermanList = await Deliverman.findAll({include:[{model:DomicileC}]})
         res.json(delivermanList)
     }catch(err){
         console.log(err);

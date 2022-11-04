@@ -2,7 +2,7 @@ import { Order } from '../models/order.model.js'
 
 export const getOrders = async (req,res) => {
     try{
-        const orderList = await Order.findAll()
+        const orderList = await Order.findAll({ include: { all: true }})
         res.json(orderList)
     }catch(err){
         console.log(err);
