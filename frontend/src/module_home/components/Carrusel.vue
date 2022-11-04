@@ -1,70 +1,53 @@
 <script setup>
 </script>
 <template>
-  <div
-    id="carouselExampleInterval"
-    class="carousel slide"
-    data-bs-ride="carousel"
-  >
-    <div class="carousel-inner">
-      <div class="carousel-item active" data-bs-interval="10000">
-        <img
-          src="https://i.ibb.co/0KZGdBv/hot-spicy-burger-ys.jpg"
-          class="d-block w-100"
-          alt="..."
-          width="980"
-          height="630"
-        />
-      </div>
-      <div class="carousel-item" data-bs-interval="2000">
-        <img
-          src="https://i.ibb.co/P6mm7xq/hotd.png"
-          class="d-block w-100"
-          alt="..."
-          width="980"
-          height="630"
-        />
-      </div>
-      <div class="carousel-item">
-        <img
-          src="https://i.ibb.co/4Smfrsd/pexels-photo-1639562.jpg"
-          class="d-block w-100"
-          alt="..."
-          width="980"
-          height="630"
-        />
+   <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="https://media.istockphoto.com/id/1410814538/es/foto/hamburguesa-con-queso-con-encurtidos-cebollas-y-lechuga.jpg?s=612x612&w=0&k=20&c=1uXWDLFbSPqnSOOvqFATPAkQsBfT7uxHiIy1ysm7pB8=" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>First slide label</h5>
+        <p>Some representative placeholder content for the first slide.</p>
       </div>
     </div>
-    <button
-      class="carousel-control-prev"
-      type="button"
-      data-bs-target="#carouselExampleInterval"
-      data-bs-slide="prev"
-    >
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button
-      class="carousel-control-next"
-      type="button"
-      data-bs-target="#carouselExampleInterval"
-      data-bs-slide="next"
-    >
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
+    <div class="carousel-item">
+      <img src="https://media.istockphoto.com/id/1393615893/es/foto/perritos-calientes-artesanos-en-brioche-rolls-con-encurtidos-cebolla-y-delicias.jpg?s=612x612&w=0&k=20&c=e-6wb8MHT7251S5HTilvlGyvPUngYwxywd4Q7vXlVfQ=" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>Second slide label</h5>
+        <p>Some representative placeholder content for the second slide.</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="https://media.istockphoto.com/id/1272532785/es/foto/hamburguesa-doble-con-queso-americano-y-patatas-fritas-en-bollo-de-pretzel.jpg?s=612x612&w=0&k=20&c=YIX7lPtNF7Vz7mhsJIT_yPc0dW5Lqy0XRjZFTrpGQ2g=" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>Third slide label</h5>
+        <p>Some representative placeholder content for the third slide.</p>
+      </div>
+    </div>
   </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
 </template>
 <style scoped>
-.carousel-item  img{
-    max-height: 89vh;
+.carousel-item.active img {
+    height: 25rem;
+    object-fit: cover;
 }
-.carousel{
-    margin-top: 70px;
-    min-height: 50vh;
+.carousel-item img {
+    height: 25rem;
+    object-fit: cover;
 }
-#carousel {
-    position: relative;
-    filter: grayscale(30%);
-}
+
 </style>
