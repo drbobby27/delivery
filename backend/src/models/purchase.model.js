@@ -1,6 +1,8 @@
 import {  DataTypes } from "sequelize";
 import { db } from "../db/db.js";
 
+
+
 const { STRING, INTEGER } = DataTypes
 
 export const Purchase = db.define('purchase',{ 
@@ -16,16 +18,11 @@ export const Purchase = db.define('purchase',{
         total_value: {
             type: INTEGER,
             allowNull: false
-        },
-        client_name:{
-            type: STRING,
-            allowNull: false
-        },
-        employee_id:{ 
-            type: STRING,
-            allowNull: false
         }
         })
+
+
+        
 
 
         

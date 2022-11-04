@@ -1,4 +1,4 @@
-import { Deliverman } from '../models/deliverman.model.js'
+import  { Deliverman }  from '../models/deliverman.model.js'
 
 export const getDelivermans = async (req,res) => {
     try{
@@ -28,12 +28,12 @@ export const delivermanById = async (req,res) => {
 
 export const createDeliverman = async  (req,res) => {
     try {
-        const { full_name, phone_number, address, cc, email, company_id } = req.body
-        if( !full_name || !phone_number || !address || !cc || !email || !company_id){
+        const { full_name, phone_number, company_id } = req.body
+        if( !full_name || !phone_number ||  !company_id){
             return res.status(400).json({error: "Uno o más campos vacios"})
         }
         const createRegister = await Deliverman.create({
-            full_name, phone_number, address, cc, email, company_id 
+            full_name, phone_number, company_id
         })
         res.status(200).json({message: "Register was created succesfully", createRegister})
            
@@ -59,14 +59,11 @@ export const deleteDeliverman = async (req,res) => {
 export const editDeliverman = async (req,res) => {
     const { id } = req.params
     try {
-        const {  full_name, phone_number, address, cc, email, company_id  } = req.body
+        const {  full_name, phone_number, company_id  } = req.body
     
         const editRegister = await Deliverman.findByPk(id)
         editRegister.full_name = full_name
         editRegister.phone_number = phone_number
-        editRegister.address = address
-        editRegister.cc = cc
-        editRegister.email = email 
         editRegister.company_id = company_id 
         await editRegister.save()
     

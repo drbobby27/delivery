@@ -28,12 +28,10 @@ export const purchaseById = async (req,res) => {
 
 export const createPurchase = async  (req,res) => {
     try {
-        const { date_purchase, total_value, client_name, employee_id } = req.body
-        if( !date_purchase || !total_value || !client_name || !employee_id ){
-            return res.status(400).json({error: "Uno o más campos vacios"})
-        }
+        const { date_purchase, total_value } = req.body
+        
         const createRegister = await Purchase.create({
-            date_purchase, total_value, client_name, employee_id 
+            date_purchase, total_value 
         })
         res.status(200).json({message: "Register was created succesfully", createRegister})
            
@@ -59,13 +57,12 @@ export const deletePurchase = async (req,res) => {
 export const editPurchase= async (req,res) => {
     const { id } = req.params
     try {
-        const { date_purchase, total_value, client_name, employee_id  } = req.body
+        const { date_purchase, total_value } = req.body
     
         const editRegister = await Purchase.findByPk(id)
         editRegister.date_purchase = date_purchase
         editRegister.total_value = total_value
-        editRegister.client_name = client_name
-        editRegister.employee_id = employee_id
+       
         await editRegister.save()
     
         res.status(200).json({message: `Register with id:${id} was succesfully edited`, editRegister})

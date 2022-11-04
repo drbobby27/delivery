@@ -1,5 +1,8 @@
 import {  DataTypes } from "sequelize";
 import { db } from "../db/db.js";
+import { Deliverman } from "./deliverman.model.js";
+import { Purchase } from "./purchase.model.js";
+import {Employees} from "./employees.model.js"
 
 const { STRING, INTEGER } = DataTypes
 
@@ -9,11 +12,7 @@ export const Order = db.define('order',{
             primaryKey: true,
             autoIncrement: true,
         },
-        order_number:{
-            type: INTEGER,
-            allowNull: false
-        },
-        date_order: {
+        client_name:{
             type: STRING,
             allowNull: false
         },
@@ -21,19 +20,39 @@ export const Order = db.define('order',{
             type: STRING,
             allowNull: false
         },
+        phone_number: {
+            type: STRING,
+            allowNull: false
+        },
         state:{ 
             type: STRING,
             allowNull: false
         },
-        purchase_id:{ 
+        employee_id:{ 
             type: INTEGER,
             allowNull: false
         },
         deliverman_id:{ 
             type: INTEGER,
             allowNull: false
+        },
+        purchase_id:{ 
+            type: INTEGER,
+            allowNull: false
         }
         })
+
+        Order.belongsTo(Deliverman, {foreignKey: 'deliverman_id', sourceKey: 'id'});
+        Deliverman.hasMany(Order, {foreignKey: 'deliverman_id', targetId: 'id'});
+
+        Order.belongsTo(Purchase, {foreignKey: 'purchase_id', sourceKey: 'id'});
+        Purchase.hasMany(Order, {foreignKey: 'purchase_id', targetId: 'id'});
+
+
+        Order.belongsTo(Employees, {foreignKey: 'employee_id', sourceKey: 'id'});
+        Employees.hasMany(Order, {foreignKey: 'employee_id', targetId: 'id'});
+
+
 
 
         
