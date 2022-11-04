@@ -1,5 +1,8 @@
 <script setup>
-import { onMounted, ref } from "vue";
+import { onMounted, ref ,computed, watch} from "vue";
+import Modal from "./Modal.vue"
+
+
 
 let productTypeName = ref("");
 let name = ref("");
@@ -53,11 +56,25 @@ const products = [
     qty: 1,
   },
 ];
+
+//logica para las imagenes del modal
+
+// watch(
+//   ()=>productTypeName.value,(value,prevValue)=>{
+//     if(productTypeName.value==productType[0]){
+//           return
+//     }
+//     if(productTypeName.value==productType[1]){
+//          return
+//     }
+// }
+// )
+
 </script>
 
 <template>
   <div
-    class="row usuarios border border-dark border-2 m-3 justify-content-center"
+    class="row usuarios  m-3 justify-content-center"
   >
     <div class="col-12 col-sm-12 col-lg-6">
       <div class="row">
@@ -115,9 +132,9 @@ const products = [
         <h3>Crear productos</h3>
       </div>
 
-      <div class="row">
-        <div class="col">
-          <label>Tipo de producto</label>
+      <div class="row mt-3">
+        <div class="col ">
+          <label  class="form-label">Tipo de producto</label>
           <select
             v-model="productTypeName"
             name="seleccionProducto"
@@ -167,7 +184,7 @@ const products = [
           <label class="form-label">Seleccionar imagen</label>
         </div>
       </div>
-      <!--Imagenes Hamburguesas-->
+      <!--Imagenes-->
       <div class="row mt-1">
         <div class="col">
           <button
@@ -180,19 +197,7 @@ const products = [
           </button>
         </div>
       </div>
-      <!--Imagenes Perritos-->
-      <div class="row mt-1">
-        <div class="col">
-          <button
-            type="button"
-            class="btn-8"
-            data-bs-toggle="modal"
-            data-bs-target="#exampleModal1"
-          >
-            Imagenes
-          </button>
-        </div>
-      </div>
+      <!--Fin Imagenes -->
       <div class="row">
         <div class="col">
           <span class="error" v-if="error5" style="color: red"
@@ -200,11 +205,55 @@ const products = [
           >
         </div>
       </div>
-      <div class="row m-3">
-        <div class="col">
+      <div class="row m-1">
+        
           <button type="button" class="custom-btn btn-9">Guardar</button>
-        </div>
+        
       </div>
     </div>
   </div>
+  <Modal :image="products"/>
 </template>
+<style scoped>
+
+.form-label{
+    margin-bottom: 1%;
+    margin-top: 1%;
+}
+
+
+.custom-btn{
+    width: 100%;
+    height: 40px;
+    color: var(--blanco);
+  
+  }
+  .btn-9 {
+    border: none;
+    color: #fff;
+    background-color: rgb(255, 115, 0) ;
+    margin-top: 2%;
+}
+.btn-9:hover {
+  border: none;
+  border-style: solid;
+  border-color: var(--negro);
+  border-width: 1px;
+  background-color:var(--blanco);
+  color: var(--negro);
+
+}
+.btn-8{
+    background-color: grey;
+    color:white;
+    border: none;
+}
+.btn-8:hover{
+  border: none;
+  border-style: solid;
+  border-color: var(--negro);
+  border-width: 1px;
+  background-color:var(--blanco);
+  color: var(--negro);
+}
+</style>

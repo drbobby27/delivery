@@ -45,7 +45,7 @@ const products = [
 
 <template>
     <div class="row">
-                <div class="row  title2 my-3 text-center">
+                <div class="row  title2 mt-5 text-center">
                     <h3>Historial de ventas</h3>
                 </div>
                 <div class="col m-5">
@@ -84,3 +84,15 @@ const products = [
                 </div>
             </div>
 </template>
+<style scoped>
+
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap");
+* {
+  font-family: "Montserrat", sans-serif;
+}
+#bordeTable{
+  border-bottom:1px solid rgb(255, 255, 255);
+  border-left:1px solid rgb(255, 255, 255);
+}
+
+</style>

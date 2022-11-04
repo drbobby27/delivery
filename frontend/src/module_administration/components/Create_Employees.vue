@@ -55,9 +55,9 @@ const products = [
 
 <template>
     
-    <div  class="row usuarios m-3  border border-dark border-1  justify-content-center">
+    <div  class="row usuarios m-3   justify-content-center">
                 
-                <div class="col-12 col-sm-12 col-lg-6">
+                <div class="col-12 col-sm-12 col-lg-6 ">
                     <div class="col">
                         <div class="row">
                             <div class="row mt-3 mb-4  text-center ">
@@ -87,23 +87,23 @@ const products = [
                 </div>
                 <div class="col-12 col-sm-12 col-lg-6">
                     <div class="row mt-3 text-center ">
-                        <h3>Crear Empleados</h3>
+                        <h3>Crear empleados</h3>
                     </div>
                     <div class="row ">
-                        <div class="col">
+                        <div class="col mt-3">
                             <label class="form-label">Nombre</label>
-                            <input v-model="name.value" class="form-control" type="text">
+                            <input v-model="name" class="form-control" type="text">
                             <span class="error" v-if="error1" style="color: red;">Por favor ingrese un nombre</span>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row mt-1">
                         <div class="col">
                             <label class="form-label">Usuario</label>
                             <input v-model="username.value" class="form-control" type="text">
                             <span class="error" v-if="error2" style="color: red;">Por favor ingrese un usuario</span>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row ">
                         <div class="col">
                             <label class="form-label">Contraseña</label>
                             <input v-model="password" class="form-control" type="text">
@@ -111,7 +111,7 @@ const products = [
                                 contraseña</span>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row mt-1">
                         <div>
                             <label class="form-label">Rol</label>
                             <select v-model="rol" name="seleccionProducto" id="seleccionProducto"
@@ -121,15 +121,20 @@ const products = [
                             <span class="error3" v-if="error4" style="color: red;">Por favor ingrese un rol</span>
                         </div>
                     </div>
-                    <div class="row m-3">
-                        <div class="col">
+                    <div class="row m-1 ">
+                        
                             <button  class="custom-btn btn-9" type="button">Guardar</button>
-                        </div>
+                        
                     </div>
                 </div>
             </div>
 </template>
 <style scoped>
+.form-label{
+    margin-bottom: 1%;
+    margin-top: 1%;
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Bungee+Spice&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@800&family=Source+Sans+Pro:wght@900&display=swap');
@@ -139,109 +144,33 @@ const products = [
     --negro:rgb(0, 0, 0);
     --blanco:#fff;
 }
-body{
-    
-    margin-bottom: 0;
-    background-color: #f2f5f7;
 
-    
-}
-#app{
-    width: 100%;
-  
-    
-}
-.select select{
-  width: 70%;
-  margin-left: 15px;
-  border-style: solid;
-  border-width: 1px;
-  border-radius: 11px;
-  border-color: var(--negro);
-}
+
 .usuarios{
     color: var(--negro);
    
 }
-.modal .modal-dialog .modal-content .modal-body .card img{
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    width: 100%;
-    height: 150px;
-}
 .custom-btn{
-    width: 100%;
+    
+    align-items: center;
     height: 40px;
     color: var(--blanco);
   
   }
   .btn-9 {
-  border: none;
-  background-color: var(--dorado);
+    border: none;
+    color: #fff;
+    background-color: rgb(255, 115, 0) ;
+    margin-top: 2%;
 }
 .btn-9:hover {
+  border: none;
   border-style: solid;
   border-color: var(--negro);
   border-width: 1px;
   background-color:var(--blanco);
   color: var(--negro);
 
-}
-.btn-8{
-    background-color: grey;
-    color:var(--blanco);
-    border: none;
-}
-.btn-8:hover{
-    background-color:var(--dorado);
-    color:var(--negro);
-}
-.container .title{
-  margin-left: 10px;
-  color: var(--dorado);
-  font-family: 'Roboto', sans-serif;
-} 
-.container .title2{
-  margin-left: 0px;
-  color: var(--dorado);
-  font-family: 'Roboto', sans-serif;
-} 
-#tabla thead  th{
-  color: var(--negro);
-  font-size: 150%;
-  border-right-style: groove;
-}
-.btn-89{
-  background-color: var(--dorado);
-  color:var(--blanco);
-  border: none;
-}
-.btn-89:hover{
-  background-color:var(--blanco);
-  color:var(--negro);
-  border: 1px solid var(--negro);
-}
-#bordeTable{
-  border-bottom:1px solid rgb(255, 255, 255);
-  border-left:1px solid rgb(255, 255, 255);
-}
-.open {
-  font-size: 2rem;
-  color: var(--negro); 
-  
-}
-#principalContainer{
-  background-color: rgb(255, 255, 255)!important;
-  border-color: white!important;
-}
-
-#exit{
-  margin-top: 15px;
-  margin-right: 0px;
-}
-.back-red{		
-  border: 5px solid var(--dorado);
 }
 
 </style>
