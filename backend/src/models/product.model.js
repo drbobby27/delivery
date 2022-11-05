@@ -12,23 +12,27 @@ const { STRING, INTEGER } = DataTypes
         },
         product_name:{
             type: STRING,
-            allowNull: false
+            allowNull: true
         },
         price: {
             type: INTEGER,
-            allowNull: false
+            allowNull: true
         },
-        description:{
+        long_desc:{
             type: STRING,
-            allowNull: false
+            allowNull: true
+        },
+        short_desc:{
+            type: STRING,
+            allowNull: true
         },
         image_url:{ 
             type: STRING,
-            allowNull: false
+            allowNull: true
         },
         category_id:{ 
             type: INTEGER,
-            allowNull: false
+            allowNull: true
         }
         })
 

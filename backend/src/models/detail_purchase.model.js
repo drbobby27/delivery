@@ -22,11 +22,11 @@ export const DetailPurchase = db.define('detail-purchase',{
     }, 
     amount: {
         type: INTEGER,
-        allowNull: false
+        allowNull: true
     },
     total: {
         type: INTEGER,
-        allowNull: false
+        allowNull: true
     }
 
     })
