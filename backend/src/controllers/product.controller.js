@@ -31,12 +31,12 @@ export const createProduct = async  (req,res) => {
 
     try {
     const  {tempFilePath:fileStr}  = req.files.image_url
-    const { product_name, price, long_description, short_description,  category_id } = req.body
+    const { product_name, price, long_desc, short_desc,  category_id } = req.body
 
     const uploadResponse = await cloudinary.uploader.upload( fileStr, { upload_preset: "pets_folder" })
 
     const createRegister = await Product.create({
-        product_name, price, long_description, short_description, image_url: uploadResponse.secure_url, category_id 
+        product_name, price, long_desc, short_desc, image_url: uploadResponse.secure_url, category_id 
     })
     res.status(200).json({message: "Register was created succesfully", createRegister})
 
@@ -67,13 +67,13 @@ export const editProduct = async (req,res) => {
 
         const uploadResponse = await cloudinary.uploader.upload( fileStr, { upload_preset: "pets_folder" })
 
-        const { product_name, price, long_description, short_description,  category_id } = req.body
+        const { product_name, price, long_desc, short_desc,  category_id } = req.body
     
         const editRegister = await Product.findByPk(id)
         editRegister.product_name = product_name
         editRegister.price = price
-        editRegister.long_description = long_description
-        editRegister.short_description = short_description
+        editRegister.long_desc = long_desc
+        editRegister.short_desc = short_desc
         editRegister.image_url = uploadResponse.secure_url
         editRegister.category_id = category_id
         await editRegister.save()
