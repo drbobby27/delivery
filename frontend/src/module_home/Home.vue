@@ -9,7 +9,7 @@ import Footer from './components/Footer.vue';
 
 <template>
    <Navbar/>
-   <Carrusel/>
+   <!-- <Carrusel/> -->
    <Card/>
    <Footer/>
 </template>
