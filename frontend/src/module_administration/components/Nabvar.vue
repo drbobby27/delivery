@@ -4,10 +4,10 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light p-2" >
     
-      <router-link to="/Administración" class="navbar-brand" href="#"
+      <a  class="navbar-brand" href="#"
         ><span class="icon">Administración</span
         ><i class="fa-solid fa-gears"></i
-      ></router-link>
+      ></a>
       <button
         class="navbar-toggler"
         type="button"
