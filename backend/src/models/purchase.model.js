@@ -13,11 +13,11 @@ export const Purchase = db.define('purchase',{
         },
         date_purchase:{
             type: STRING,
-            allowNull: false
+            allowNull: true
         },
         total_value: {
             type: INTEGER,
-            allowNull: false
+            allowNull: true
         }
         })
 

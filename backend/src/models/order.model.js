@@ -14,19 +14,19 @@ export const Order = db.define('order',{
         },
         client_name:{
             type: STRING,
-            allowNull: false
+            allowNull: true
         },
         address:{
             type: STRING,
-            allowNull: false
+            allowNull: true
         },
         phone_number: {
             type: STRING,
-            allowNull: false
+            allowNull: true
         },
         state:{ 
             type: STRING,
-            allowNull: false
+            allowNull: true
         },
         employee_id:{ 
             type: INTEGER,
