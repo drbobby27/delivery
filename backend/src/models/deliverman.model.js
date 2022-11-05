@@ -11,11 +11,11 @@ const { STRING, INTEGER } = DataTypes
         },
         full_name:{
             type: STRING,
-            allowNull: false
+            allowNull: true
         },
         phone_number: {
             type: STRING,
-            allowNull: false
+            allowNull: true
         },
         company_id:{ 
             type: INTEGER,
