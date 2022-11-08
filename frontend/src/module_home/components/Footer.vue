@@ -21,7 +21,7 @@
        </a>
       </div>
       <div class="footer-main-copyright">
-        <span>© 2022 Creado por Trainee Developer de Market Mix</span>
+        <span>© 2022 Creado por Trainees Developers de Market Mix</span>
       </div>
     </footer>
 </template>
@@ -34,6 +34,9 @@
     margin: 5% auto 0;
     padding: 15px;
   }
+  .footer-main-icons {
+       display: flex;
+  }
   .icon-link {
     margin: 12px;
     text-decoration: none;
@@ -41,5 +44,17 @@
   }
   .icon-link:hover {
     color: #b08338;
+ }
+ @media (min-width: 481px) {
+    .footer-main-icons {
+      justify-content: center;
+      align-items: center;
+  }
+ }
+ @media (min-width: 768px) {
+   .footer-main-icons {
+      justify-content: center;
+      align-items: center;    
+  }
  }
 </style>
