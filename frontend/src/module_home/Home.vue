@@ -13,6 +13,7 @@ import Login from './components/Login.vue';
    <login/>
    <Carrusel/> -->
     <Card/>
+   
    <Footer/>
 </template>
 

@@ -28,7 +28,7 @@ onMounted(() => {
         <img :src="item.image_url" class="d-block w-100" alt="...">
         <div class="carousel-caption d-none d-md-block">
           <h5>{{item.product_name}}</h5>
-          <p>{{item.description}}</p>
+          <p>{{item.short_desc}}</p>
         </div>
       </div>
     </div>
