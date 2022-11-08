@@ -5,13 +5,11 @@ import { useShoppingCartStore } from '../../stores/shoppingCart';
 const  shopping_cart = useShoppingCartStore(); 
 
 const products = ref([])
-const qty = ref(0)
+const handleInput = ref(0)
 const ErrorQty = false
-// const shopping_cart = ref([])
-
-const getProducts = async()=> {
+const getProducts = () => {
         const urlData = "http://localhost:7000/api/v1/product"
-        await fetch(urlData)
+        fetch(urlData)
         .then(resp => resp.json())
         .then(data => products.value= data)
         // console.log(products)
@@ -20,16 +18,16 @@ const getProducts = async()=> {
 onMounted(() => {
   getProducts(); 
 })
+console.log(handleInput);
 const updateQty = (action) => {
-    qty.value  = action === "add" ? qty.value + 1 : qty.value - 1; 
-    console.log(qty) 
-    return qty   
+    handleInput.value  = action === "add" ? handleInput.value + 1 : handleInput.value - 1; 
+    console.log(handleInput) 
+    return handleInput   
 }
 const validation = () => {
   
 }
-const addCart = (item, qty) => {
-    // console.log("Hola...😊", qty)
+const addProductCart = (item, qty) => {
   let product = {
         id: item.id,
         product_name: item.product_name,
@@ -37,18 +35,28 @@ const addCart = (item, qty) => {
         long_desc: item.long_desc,
         image_url: item.image_url,
         category_id: item.category_id,
-        quantity: qty,
+        quantity: handleInput.value,
+        subTotal: handleInput.value * item.price,
   }
   shopping_cart.create(product)
-  console.log(shopping_cart)
-  return shopping_cart
+  shopping_cart.totalToPay();
 }
+// const addCart = () => {    
+//       const existentProduct =  shopping_cart.findShoppingCart(prod => prod.name === item.product_name);
+//       if (existentProduct){     
+//         existentProduct.quantity += product.quantity; 
+//         existentProduct.subTotal =  subTotalNumber + this.productBuy.subTotalNumber 
+//         existentProduct.subTotalNumber =  (subTotalNumber) + this.productBuy.subTotalNumber
+//         return 
+//       }   
+//       this.cartData.push(this.productBuy);
+//     }
 </script>
 
 <template>
-    <div class="row m-5">
+    <div class="row m-5 px-5">
             <h2 class="text-muted text-center my-5">Productos</h2>
-            <div class="col products ">
+            <div class="col products">
                 <div class="card" v-for="item in products" :key="item.id">
                     <img :src="item.image_url" class="img-fluid rounded-start" alt="...">
                     <div class="card-body">
@@ -60,13 +68,13 @@ const addCart = (item, qty) => {
                             <p>{{item.long_desc}}</p>
                         </div>
                         <div class="card-quantity">
-                            <button type="button" @click="updateQty('remove')">-</button>
-                            <input id="medio" type="number" v-model="qty">
-                            <span class="error" style="color: red" v-if="ErrorQty"></span>
-                            <button type="button"  @click="updateQty('add')">+</button>
+                            <button type="button"  @click="updateQty('remove', item.id)">-</button>
+                            <!-- <input id="medio" type="number" :value="handleInput" @change="(e) =>$emit('update:handleInput',e.target.value)"> -->
+                            <input class="input" :id="item.id" type="number" v-model="handleInput" >
+                            <button type="button"  @click="updateQty('add', item.id)">+</button>
                         </div>
                         <div class="footer-cta">
-                            <button type="button" class="btn" @click="addCart(item, qty)">
+                            <button type="button" class="btn" @click="addProductCart(item, qty)">
                                 Agregar
                             </button>
                         </div>
@@ -96,10 +104,10 @@ const addCart = (item, qty) => {
   transition: all .5s ease-out;
   overflow: hidden;
 }
+.input {
+    text-align: center;
+}
 
-/* .products .card:hover {
-    transform: scale(1.056465);
-} */
 .btn {
     background: #b20837;
     color: #f0e9cb;
