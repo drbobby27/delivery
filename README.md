@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 ### Delivery App
 <div align="center">
   <img width="600" height="400"  src="https://res.cloudinary.com/jorge-tarifa/image/upload/v1665118200/carrito-market-mix/Magna_hoka4e.jpg"/>
