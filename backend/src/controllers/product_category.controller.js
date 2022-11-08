@@ -52,7 +52,7 @@ export const deleteCategory = async (req,res) => {
                 id
             }
         })
-         res.status(200).json({message: `Register with id:${id} was succesfully removed`})
+         res.status(200).json({message: `Register with id:${id} was succesfully removed.`})
        }catch(err){
             console.error(err)
        }
