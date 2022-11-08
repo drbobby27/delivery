@@ -56,7 +56,6 @@ cd frontend && npm run dev
 *  [Jorge Arley](https://github.com/drbobby27)
 *  [Anyelith Jacobo](https://github.com/anyelithj)
 *  [Diego Toro](https://github.com/Dtorof)
-=======
-# Delivery App
+
 
 
