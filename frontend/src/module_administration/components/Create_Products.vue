@@ -234,11 +234,12 @@ const view = () => {
 //       const file = event.target.files[0];
 //       url.value = URL.createObjectURL(file);
 //     }
+let url = null
 
-//  const onFileChange =(e) =>{
-//           url.value = e.target.files[0];
-//           console.log(url.value);
-//       }
+ const onFileChange =(e) =>{
+          // url = e.target.files[0];
+          console.log(e);
+      }
 
 //   const file = ref(null)
 //   const rpt = ref(null)
@@ -253,10 +254,10 @@ const view = () => {
 
 
 
-  const onImageSelected = (event)=>{
+  // const onImageSelected = (event)=>{
 
-    image_url.value = document.getElementById('event')
-  }
+  //   image_url.value = document.getElementById('event')
+  // }
 
 </script>
 
@@ -415,7 +416,7 @@ const view = () => {
               v-model="category_id"
               name="seleccionProducto"
               id="seleccionProducto"
-              class="form-select text-center"
+              class="form-select "
             >
               <option
                 v-for="(item, index) in category"
@@ -468,7 +469,7 @@ const view = () => {
         <div class="row">
           <div class="col">
             <label class="form-label">Imagen</label><br />
-            <input type="file" @change="onImageSelected(event)" multiple />
+            <input type="file" @change="onFileChange(e)" />
             <span class="error" v-if="error6" style="color: red"
               >Por favor ingrese una imagen</span
             >

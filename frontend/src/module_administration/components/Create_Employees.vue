@@ -5,6 +5,7 @@ let name = ref("");
 let phoneNumber = ref("");
 let email = ref("");
 let password = ref("");
+let password1 = ref("");
 let address = ref("");
 let role_id = ref("");
 
@@ -27,6 +28,8 @@ let error3 = ref(false);
 let error4 = ref(false);
 let error5 = ref(false);
 let error6 = ref(false);
+let error10 = ref(false);
+let error11 = ref(false);
 
 let error7 = ref(false);
 
@@ -40,6 +43,14 @@ const message = (position, title, text, time) => {
     text: text,
     showConfirmButton: false,
     timer: time,
+  });
+};
+
+const message1 = (title, text) => {
+  Swal.fire({
+    icon: "error",
+    title: "Oops...",
+    text: "Something went wrong!",
   });
 };
 
@@ -64,6 +75,16 @@ const getError = () => {
   } else {
     error4.value = false;
   }
+  if (password1.value == "") {
+    error10.value = true;
+  } else {
+    error10.value = false;
+  }
+  if (password.value !== password1.value) {
+    error11.value = true;
+  } else {
+    error11.value = false;
+  }
   if (address.value == "") {
     error5.value = true;
   } else {
@@ -76,19 +97,12 @@ const getError = () => {
   }
 };
 
-// const getError1 = () => {
-//   if (name.value == "") {
-//     error7.value = true;
-//   } else {
-//     error7.value = false;
-//   }
-// };
-
 const clear = () => {
   name.value = "";
   phoneNumber.value = "";
   email.value = "";
   password.value = "";
+  password1.value = "";
   address.value = "";
   role_id.value = "";
 };
@@ -100,7 +114,9 @@ const validation = () => {
     error3.value == true ||
     error4.value == true ||
     error5.value == true ||
-    error6.value == true
+    error6.value == true ||
+    error10.value == true ||
+    error11.value == true
   ) {
   } else {
     sendData();
@@ -172,9 +188,17 @@ const employeesDelete = () => {
 };
 
 const editEmployees = () => {
-  
   getError();
-  if (error1.value == true || error2.value == true || error3.value == true || error4.value == true || error5.value == true || error6.value == true) {
+  if (
+    error1.value == true ||
+    error2.value == true ||
+    error3.value == true ||
+    error4.value == true ||
+    error5.value == true ||
+    error6.value == true ||
+    error10.value == true ||
+    error11.value == true
+  ) {
     getError();
   } else {
     const formData01 = new FormData();
@@ -205,8 +229,6 @@ const editEmployees = () => {
       .catch((error) => {
         console.error("Error:", error);
       });
-
-    
   }
 };
 
@@ -373,7 +395,7 @@ const view = () => {
         </div>
       </div>
     </div>
-      <!-- Fin modal eliminar -->
+    <!-- Fin modal eliminar -->
 
     <div class="col-12 col-sm-12 col-lg-6" v-if="create">
       <div class="row mt-3 text-center">
@@ -400,7 +422,7 @@ const view = () => {
       <div class="row">
         <div class="col">
           <label class="form-label">Email</label>
-          <input v-model="email" class="form-control" type="text" />
+          <input v-model="email" class="form-control" type="email" />
           <span class="error2" v-if="error3" style="color: red"
             >Por favor ingrese una email</span
           >
@@ -409,9 +431,24 @@ const view = () => {
       <div class="row">
         <div class="col">
           <label class="form-label">Contraseña</label>
-          <input v-model="password" class="form-control" type="text" />
+          <input v-model="password" class="form-control" type="password" />
           <span class="error2" v-if="error4" style="color: red"
             >Por favor ingrese una contraseña</span
+          >
+          <span class="error2" v-if="error11" style="color: red"
+            >Las constraseñas no coinciden</span
+          >
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <label class="form-label">Confirmar contraseña</label>
+          <input v-model="password1" class="form-control" type="password" />
+          <span class="error2" v-if="error10" style="color: red"
+            >Por favor ingrese una contraseña</span
+          >
+          <span class="error2" v-if="error11" style="color: red"
+            >Las constraseñas no coinciden</span
           >
         </div>
       </div>

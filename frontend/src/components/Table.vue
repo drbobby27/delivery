@@ -23,7 +23,7 @@ defineProps({
           <td>{{textFirst}}</td>
           <td>{{textSecond}}</td>
           <td>
-            <button type="button" class="btn btn-danger">Eliminar</button>
+            <button type="button" class="btn btn-danger">Enviar</button>
           </td>
         </tr>
       </tbody>
