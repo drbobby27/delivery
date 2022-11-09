@@ -47,9 +47,9 @@ import { RouterLink, RouterView } from 'vue-router'
           >
         </li>
         <li class="nav-item">
-          <a  class="nav-link active" href="#"
+          <router-link to="/"  class="nav-link active" href="#"
             >Cerrar Sesión <i class="fa-solid fa-right-from-bracket"></i
-          ></a>
+          ></router-link>
         </li>
       </ul>
     </div>

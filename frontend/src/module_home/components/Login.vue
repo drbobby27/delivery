@@ -66,19 +66,27 @@ const sendData = async () => {
     })
     .then(function (data) {
       dateLogin.value=data
-      ///contiene todo
+      if(dateLogin.value.validLogin==true){
+        routing();
+        message(
+          "center",
+          "Ingreso correctamente",
+          "Ha iniciado sesión",
+          1500
+        );
+      }else{
+        message(
+          "center",
+          "Ingreso fallido",
+          "Verifique sus datos",
+          1500
+        );
+      }
     })
     .catch((error) => {
       console.error("Error:", error);
+      
     });
-
-  message(
-    "center",
-    "Ingreso correctamente",
-    "Ha iniciado sesión",
-    1500
-  );
-  routing();
 };
 
 const routing = () => {
@@ -88,31 +96,26 @@ const routing = () => {
   
   console.log(loginLocal.value.role_id);
   
-  
   if(loginLocal.value.role_id == 1){
-    component: () => import("../../module_chef/View_Chef.vue")
-    }
-    // router.push("/Chef")
+    
+    router.push("/Chef")}
   
   if(loginLocal.value.role_id == 2){
-    component: () => import("../../module_waiter/View_Waiter.vue")
-  }
+    router.push("/Empleado")}
+   
   if(loginLocal.value.role_id == 3){
-    component: () => import("../../module_domiciliary/View_Domiciliary.vue")
-  }
+    router.push("/Domiciliario")}
+    
   if(loginLocal.value.role_id == 4){
-   import("../../module_administration/View_Administration.vue")
-  }
-  console.log("triste");
+    router.push("/Administración")}
+      
+      
+     
+  console.log("final");
   
 }
 
-const data = async () => {
-  const urlData = "http://localhost:7000/api/v1/auth/login";
-  await fetch(urlData)
-    .then((resp) => resp.json())
-    .then((data) => (login.value = data));
-};
+
 </script>
 <template>
   <div
