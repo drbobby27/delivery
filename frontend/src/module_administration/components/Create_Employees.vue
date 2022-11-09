@@ -398,8 +398,11 @@ const view = () => {
     <!-- Fin modal eliminar -->
 
     <div class="col-12 col-sm-12 col-lg-6" v-if="create">
-      <div class="row mt-3 text-center">
+      <div class="row mt-3 text-center" v-if="action">
         <h3>Crear empleados</h3>
+      </div>
+      <div class="row mt-3 text-center" v-else>
+        <h3>Editar datos de empleados</h3>
       </div>
       <div class="row">
         <div class="col mt-3">

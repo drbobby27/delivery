@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from "vue";
+import { onMounted, ref, computed } from "vue";
 
 let product_name = ref("");
 let price = ref("");
@@ -72,14 +72,6 @@ const getError = () => {
   }
 };
 
-// const getError1 = () => {
-//   if (name.value == "") {
-//     error7.value = true;
-//   } else {
-//     error7.value = false;
-//   }
-// };
-
 const clear = () => {
   category_id.value = "";
   product_name.value = "";
@@ -98,6 +90,7 @@ const validation = () => {
     error5.value == true ||
     error6.value == true
   ) {
+
   } else {
     sendData();
     clear();
@@ -130,8 +123,8 @@ const sendData = async () => {
     1500
   );
   clear();
-  // create.value = false;
-  // create1.value = true;
+  create.value = false;
+  create1.value = true;
 };
 
 const data = async () => {
@@ -168,9 +161,15 @@ const productsDelete = () => {
 };
 
 const editProducts = () => {
-
   getError();
-  if (error1.value == true || error2.value == true || error3.value == true || error4.value == true || error5.value == true || error6.value == true) {
+  if (
+    error1.value == true ||
+    error2.value == true ||
+    error3.value == true ||
+    error4.value == true ||
+    error5.value == true ||
+    error6.value == true
+  ) {
     getError();
   } else {
     const formData01 = new FormData();
@@ -227,42 +226,31 @@ const view = () => {
   create.value = true;
   create1.value = false;
 };
-
-//
-/////
-// const onFileChange = (event) =>{
-//       const file = event.target.files[0];
-//       url.value = URL.createObjectURL(file);
-//     }
-let url = null
-
- const onFileChange =(e) =>{
-          url = e.target.files[0];
-          console.log(e);
-      }
-
-//   const file = ref(null)
-//   const rpt = ref(null)
-
-// const handleFileUpload = () => {
-//    // debugger;
-//    rpt.value=URL.createObjectURL(file)
-//     console.log("selected file",file.value.files)
-//     console.log(rpt.value);
-//     //Upload to server
-// }
+///
 
 
+let imagenMini = ref("");
 
-  // const onImageSelected = (event)=>{
-
-  //   image_url.value = document.getElementById('event')
-  // }
-
+const obtenerImagen = (e) => {
+  let file = e.target.files[0];
+  console.log(file);
+  image_url.value = file;
+  cargarImagen(file);
+};
+const cargarImagen = (file) => {
+  let reader = new FileReader();
+  reader.onload = (e) => {
+    imagenMini.value = e.target.result;
+  };
+  reader.readAsDataURL(file);
+};
+const imagenM = computed(() => {
+  return imagenMini.value;
+});
 </script>
 
 <template>
-<div class="row usuarios m-3 justify-content-center">
+  <div class="row usuarios m-3 justify-content-center">
     <div class="col-12 col-sm-12 col-lg-6" v-if="create1">
       <div class="col">
         <div class="row">
@@ -402,13 +390,16 @@ let url = null
         </div>
       </div>
     </div>
-      <!-- Fin modal eliminar -->
+    <!-- Fin modal eliminar -->
 
-      <div class="col-12 col-sm-12 col-lg-6" v-if="create">
-        <div class="row mt-3 text-center">
-          <h3>Crear productos</h3>
-        </div>
-
+    <div class="col-12 col-sm-12 col-lg-6" v-if="create">
+      <div class="row mt-3 text-center"  v-if="action">
+        <h3>Crear productos</h3>
+      </div>
+      <div class="row mt-3 text-center" v-else>
+        <h3>Editar datos de productos</h3>
+      </div>
+      <form enctype="multipart/form-data">
         <div class="row mt-3">
           <div class="col">
             <label class="form-label">Tipo de producto</label>
@@ -416,7 +407,7 @@ let url = null
               v-model="category_id"
               name="seleccionProducto"
               id="seleccionProducto"
-              class="form-select "
+              class="form-select"
             >
               <option
                 v-for="(item, index) in category"
@@ -469,36 +460,42 @@ let url = null
         <div class="row">
           <div class="col">
             <label class="form-label">Imagen</label><br />
-            <input  type="file" @change="onFileChange()" />
+            <input type="file" @change="obtenerImagen" class="form-control" />
             <span class="error" v-if="error6" style="color: red"
               >Por favor ingrese una imagen</span
             >
-            <!-- <div id="preview">
-              <img v-if="url" :src="url" />
-            </div> -->
+            <figure v-if="image_url">
+              <img
+                :src="imagenM"
+                width="200"
+                height="200"
+                alt="Imagen escogida"
+                class="mt-2"
+              />
+            </figure>
           </div>
         </div>
         <div class="row m-1">
           <button
-          v-if="action"
-          @click="validation()"
-          class="custom-btn btn-9"
-          type="button"
-        >
-          Guardar
-        </button>
-        <button
-          v-else
-          @click="editProducts()"
-          class="custom-btn btn-8"
-          type="button"
-        >
-          Actualizar
-        </button>
+            v-if="action"
+            @click="validation()"
+            class="custom-btn btn-9"
+            type="button"
+          >
+            Guardar
+          </button>
+          <button
+            v-else
+            @click="editProducts()"
+            class="custom-btn btn-8"
+            type="button"
+          >
+            Actualizar
+          </button>
         </div>
-      </div>
+      </form>
     </div>
-  
+  </div>
 </template>
 <style scoped>
 .form-label {
