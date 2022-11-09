@@ -30,7 +30,7 @@ const  leng = computed(() => shopping.getQuantityProducts);
                             <a class="nav-link" href="javascript:void(0)">Perros calientes</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="javascript:void(0)">Iniciar Sesión</a>
+                            <a data-bs-toggle="modal" data-bs-target="#exampleModal22"  class="nav-link" href="javascript:void(0)">Iniciar Sesión</a>
                         </li>
                         <li class="nav-item">
                             <a  id="car" class=" nav-link btn" type="button" data-bs-toggle="modal" data-bs-target="#cartModal">
@@ -51,71 +51,70 @@ const  leng = computed(() => shopping.getQuantityProducts);
     </header>
 </template>
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap");
 
-.navbar-brand{
-    color: #f0e9cb;
+.navbar-brand {
+  color: #f0e9cb;
 }
- .navbar-main {
-    background-color: #292728;
-    color: #f0e9cb;
- }
- .navbar-toggler {
-    border: none;
- }
- .navbar-toggler{
-     border: none;
- }
- .navbar-toggler:focus {
-    box-shadow: 0 0 0;
+.navbar-main {
+  background-color: #292728;
+  color: #f0e9cb;
 }
- .navbar-toggler-icon {
-      color: #f0e9cb;
- }
- .nav-link {
-    color: #f0e9cb;
-    font-size: 1.3rem;
- }
- .nav-link:hover {
-    color: #b08338;
- }
+.navbar-toggler {
+  border: none;
+}
+.navbar-toggler {
+  border: none;
+}
+.navbar-toggler:focus {
+  box-shadow: 0 0 0;
+}
+.navbar-toggler-icon {
+  color: #f0e9cb;
+}
+.nav-link {
+  color: #f0e9cb;
+  font-size: 1.3rem;
+}
+.nav-link:hover {
+  color: #b08338;
+}
 .logo {
-    color: #b20837;
-    font-family: 'Luckiest Guy', cursive;
-    font-size: 1.5rem;
+  color: #b20837;
+  font-family: "Luckiest Guy", cursive;
+  font-size: 1.5rem;
 }
 @media (min-width: 481px) {
-    .nav-link{
-        width: 90%;
-        margin: 2px 28px;
-        font-size: 0.8rem;
-    }
- }
- @media (min-width: 768px) {
-    .nav-link{
-        width: 90%;
-        margin: 2px 34px;
-        font-size: 0.9rem;
-    }
- }
+  .nav-link {
+    width: 90%;
+    margin: 2px 28px;
+    font-size: 0.8rem;
+  }
+}
+@media (min-width: 768px) {
+  .nav-link {
+    width: 90%;
+    margin: 2px 34px;
+    font-size: 0.9rem;
+  }
+}
 @media (min-width: 1023px) {
-    .navbar-collapse {
-        width: 80%;
-        flex-basis: 0%;
-        flex-grow: 0;
-        align-items: flex-end;
-    }
-    .nav-link{
-        width: 100%;
-        margin: 5px 40px;
-    }
-    .nav-link {
-        font-size: 1.4rem;
-    }
- 
-    .logo {
-        font-size: 2.3rem;
-    }
- }
- 
+  .navbar-collapse {
+    width: 80%;
+    flex-basis: 0%;
+    flex-grow: 0;
+    align-items: flex-end;
+  }
+  .nav-link {
+    width: 100%;
+    margin: 5px 40px;
+  }
+  .nav-link {
+    font-size: 1.4rem;
+  }
+
+  .logo {
+    font-size: 2.3rem;
+  }
+}
 </style>

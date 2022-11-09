@@ -4,10 +4,10 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light p-2" >
     
-      <router-link to="/Administración" class="navbar-brand" href="#"
+      <a  class="navbar-brand" href="#"
         ><span class="icon">Administración</span
         ><i class="fa-solid fa-gears"></i
-      ></router-link>
+      ></a>
       <button
         class="navbar-toggler"
         type="button"
@@ -40,14 +40,15 @@
             >
           </li>
           <li class="nav-item">
-            <router-link to="/" class="nav-link active" href="#"
+            <a  class="nav-link active" href="#"
               >Cerrar Sesión <i class="fa-solid fa-right-from-bracket"></i
-            ></router-link>
+            ></a>
           </li>
         </ul>
       </div>
     
   </nav>
+  <RouterView />
 </template>
 
 
