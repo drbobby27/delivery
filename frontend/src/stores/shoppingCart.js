@@ -4,11 +4,15 @@ export const useShoppingCartStore = defineStore('shoppingCartStore', {
     state: () => ({
         shopping_cart: [],
         quantity_products: 0,
-        total_payment: 0
+        total_payment: 0,
+        description_orden: []
+        
     }),
     getters: {
        getProducts : (state) =>  state.shopping_cart,
-       getTotalPayment : (state) => state.total_payment
+       getTotalPayment : (state) => state.total_payment,
+       getQuantityProducts:(state) => state.shopping_cart.length,
+    //    descriptionOrden: (state) => state.description_orden
     },
     actions: {
         create(product) {
@@ -29,11 +33,13 @@ export const useShoppingCartStore = defineStore('shoppingCartStore', {
             this.total_payment = pay
             return  this.total_payment
         },
+        descriptionOrden(){
+            this.description_orden = this.shopping_cart.map(prod => prod)
+            // this.description_orden = this.shopping_cart.map(prod => `${prod.quantity} - ${prod.name}`)
+            return description_orden
+        },
         loadShoppingCart() {
             this.shopping_cart = this.shopping_cart;
-        },
-        quantityProducts(){
-           this.quantity_products = this.shopping_cart.length;
         },
         clearState() {
             this.shopping_cart = {};
