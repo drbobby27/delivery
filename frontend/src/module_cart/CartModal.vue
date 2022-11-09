@@ -4,19 +4,13 @@ import { useShoppingCartStore } from '../stores/shoppingCart';
 import {computed} from 'vue'
 
 const  shopping_cart = useShoppingCartStore(); 
-// const  total_payment = useShoppingCartStore(); 
+
 const  valores = computed(() => shopping_cart.getProducts);
-// const  total_payment = computed(() => total_payment.getTotalPayment);
 
-// defineProps(['shopping_cart']);
-// for(let key in shopping_cart) console.log(key); 
-
-// // el mismo efecto con estos métodos:
-// console.log( Object.keys(shopping_cart) ); 
-// console.log( Object.values(shopping_cart) ); 
 </script>
 
 <template>
+    <div>
      <div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false"  id="cartModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-xl">
         <div class="modal-content">
@@ -33,18 +27,18 @@ const  valores = computed(() => shopping_cart.getProducts);
                         <th class="col-3 table99">Total</th>
                       </tr>
                     </thead>
-                     <!-- v-for="(item, i) in shopping_cart" -->
+                    <tbody>
                       <tr class="body" v-for="(item) in valores" :key="item.id">
                         <td>{{item.product_name}}</td>
                         <td>{{item.quantity}}</td>
                         <td>{{item.subTotal}}</td> 
                       </tr>
-                    <!-- </tbody> -->
+                    </tbody>
                     <tfoot>
                       <tr>
                         <th id="bordeTable"></th>
                         <th class="bordeB">Total a pagar</th>
-                        <!-- <th class="bordeB">{{total_payment}}</th> -->
+                        <th class="bordeB">{{shopping_cart.getTotalPayment}}</th>
                       </tr>
                     </tfoot>
                   </table>
@@ -57,13 +51,16 @@ const  valores = computed(() => shopping_cart.getProducts);
             <button id="closeCar"  type="button" class="btn btn-secondary" data-bs-dismiss="modal">
               Cerrar
             </button>
-            <button data-bs-toggle="modal" data-bs-target="#exampleModal99" type="button"
-              class="btn  modalsb">Ordenar</button>
-            <!-- <ClientModal/> -->
+           <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Ordenar
+           </button>
           </div>
         </div>
       </div>
     </div>
+    <!-- Modal -->
+    <ClientModal/>
+   </div>
 </template>
 <style scoped>
 .table-header, .btn {

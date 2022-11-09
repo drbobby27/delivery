@@ -2,12 +2,12 @@ import { defineStore } from 'pinia';
 
 export const useOrderStore = defineStore('orderStore', {
     state: () => ({
-        order: []
+        orders: []
     }),
 
     actions: {
-        create(shopping_cart ) {
-			this.order.push(shopping_cart )
+        create(orden ) {
+			this.orders.push(orden)
 		},
         loadOrder(order) {
             this.order = order;
