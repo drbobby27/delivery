@@ -31,7 +31,7 @@ console.log(valores)
                             <a class="nav-link" href="javascript:void(0)">Perros calientes</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="javascript:void(0)">Iniciar Sesión</a>
+                            <a data-bs-toggle="modal" data-bs-target="#exampleModal22"  class="nav-link" href="javascript:void(0)">Iniciar Sesión</a>
                         </li>
                         <li class="nav-item">
                             <a  id="car" class=" nav-link btn" type="button" data-bs-toggle="modal" data-bs-target="#cartModal">

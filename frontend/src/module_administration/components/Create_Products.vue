@@ -237,7 +237,7 @@ const view = () => {
 let url = null
 
  const onFileChange =(e) =>{
-          // url = e.target.files[0];
+          url = e.target.files[0];
           console.log(e);
       }
 
@@ -469,7 +469,7 @@ let url = null
         <div class="row">
           <div class="col">
             <label class="form-label">Imagen</label><br />
-            <input type="file" @change="onFileChange(e)" />
+            <input  type="file" @change="onFileChange()" />
             <span class="error" v-if="error6" style="color: red"
               >Por favor ingrese una imagen</span
             >

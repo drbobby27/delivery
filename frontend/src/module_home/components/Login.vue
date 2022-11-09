@@ -1,10 +1,20 @@
 <script setup >
 import { onMounted, ref } from "vue";
+import { useRoute, useRouter } from "vue-router";
+
+
+const route = useRoute();
+const router = useRouter();
+
 
 let email = ref("");
 let password = ref("");
+let dateLogin = ref([]);
+
+
 
 const login = ref([]);
+const loginLocal = ref([]);
 
 let error1 = ref(false);
 let error2 = ref(false);
@@ -51,21 +61,52 @@ const sendData = async () => {
     method: "POST",
     body: formData,
   })
-    .then((response) => response)
-    .then((response) => {})
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      dateLogin.value=data
+      ///contiene todo
+    })
     .catch((error) => {
       console.error("Error:", error);
     });
 
   message(
     "center",
-    "Creación completada",
-    "Se ha creado correctamente el producto",
+    "Ingreso correctamente",
+    "Ha iniciado sesión",
     1500
   );
-  console.log(login.value.email);
-  // clear();
+  routing();
 };
+
+const routing = () => {
+  
+  localStorage.setItem("dataUser",JSON.stringify(dateLogin.value.user));
+  loginLocal.value = JSON.parse(localStorage.getItem("dataUser"));
+  
+  console.log(loginLocal.value.role_id);
+  
+  
+  if(loginLocal.value.role_id == 1){
+    component: () => import("../../module_chef/View_Chef.vue")
+    }
+    // router.push("/Chef")
+  
+  if(loginLocal.value.role_id == 2){
+    component: () => import("../../module_waiter/View_Waiter.vue")
+  }
+  if(loginLocal.value.role_id == 3){
+    component: () => import("../../module_domiciliary/View_Domiciliary.vue")
+  }
+  if(loginLocal.value.role_id == 4){
+   import("../../module_administration/View_Administration.vue")
+  }
+  console.log("triste");
+  
+}
+
 const data = async () => {
   const urlData = "http://localhost:7000/api/v1/auth/login";
   await fetch(urlData)

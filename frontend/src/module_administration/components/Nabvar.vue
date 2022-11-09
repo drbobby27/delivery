@@ -40,14 +40,15 @@
             >
           </li>
           <li class="nav-item">
-            <router-link to="/" class="nav-link active" href="#"
+            <a  class="nav-link active" href="#"
               >Cerrar Sesión <i class="fa-solid fa-right-from-bracket"></i
-            ></router-link>
+            ></a>
           </li>
         </ul>
       </div>
     
   </nav>
+  <RouterView />
 </template>
 
 
