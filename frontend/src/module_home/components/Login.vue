@@ -1,10 +1,20 @@
 <script setup >
 import { onMounted, ref } from "vue";
+import { useRoute, useRouter } from "vue-router";
+
+
+const route = useRoute();
+const router = useRouter();
+
 
 let email = ref("");
 let password = ref("");
+let dateLogin = ref([]);
+
+
 
 const login = ref([]);
+const loginLocal = ref([]);
 
 let error1 = ref(false);
 let error2 = ref(false);
@@ -51,27 +61,61 @@ const sendData = async () => {
     method: "POST",
     body: formData,
   })
-    .then((response) => response)
-    .then((response) => {})
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      dateLogin.value=data
+      if(dateLogin.value.validLogin==true){
+        routing();
+        message(
+          "center",
+          "Ingreso correctamente",
+          "Ha iniciado sesión",
+          1500
+        );
+      }else{
+        message(
+          "center",
+          "Ingreso fallido",
+          "Verifique sus datos",
+          1500
+        );
+      }
+    })
     .catch((error) => {
       console.error("Error:", error);
+      
     });
+};
 
-  message(
-    "center",
-    "Creación completada",
-    "Se ha creado correctamente el producto",
-    1500
-  );
-  console.log(login.value.email);
-  // clear();
-};
-const data = async () => {
-  const urlData = "http://localhost:7000/api/v1/auth/login";
-  await fetch(urlData)
-    .then((resp) => resp.json())
-    .then((data) => (login.value = data));
-};
+const routing = () => {
+  
+  localStorage.setItem("dataUser",JSON.stringify(dateLogin.value.user));
+  loginLocal.value = JSON.parse(localStorage.getItem("dataUser"));
+  
+  console.log(loginLocal.value.role_id);
+  
+  if(loginLocal.value.role_id == 1){
+    
+    router.push("/Chef")}
+  
+  if(loginLocal.value.role_id == 2){
+    router.push("/Empleado")}
+   
+  if(loginLocal.value.role_id == 3){
+    router.push("/Domiciliario")}
+    
+  if(loginLocal.value.role_id == 4){
+    router.push("/Administración")}
+      
+      
+     
+  console.log("final");
+  
+}
+
+
 </script>
 <template>
   <div
