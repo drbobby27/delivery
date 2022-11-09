@@ -10,7 +10,7 @@ import Login from "./components/Login.vue";
 <template>
   <Navbar />
   <login />
-  <Carrusel /> -->
+  <Carrusel />
   <Card />
 
   <Footer />
