@@ -41,8 +41,8 @@ export const useShoppingCartStore = defineStore('shoppingCartStore', {
         loadShoppingCart() {
             this.shopping_cart = this.shopping_cart;
         },
-        clearState() {
-            this.shopping_cart = {};
+        clearsCart() {
+            // this.shopping_cart = [];
         }
     }
 })

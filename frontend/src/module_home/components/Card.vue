@@ -2,10 +2,10 @@
 import { reactive, ref, onMounted} from 'vue'
 import { useShoppingCartStore } from '../../stores/shoppingCart';
 
-const  shopping_cart = useShoppingCartStore(); 
+const shopping_cart = useShoppingCartStore(); 
 
 const products = ref([])
-const handleInput = ref(0)
+const handleInput = ref(1)
 const ErrorQty = false
 const getProducts = () => {
         const urlData = "http://localhost:7000/api/v1/product"
@@ -39,51 +39,41 @@ const addProductCart = (item, qty) => {
         subTotal: handleInput.value * item.price,
   }
   shopping_cart.create(product)
-  shopping_cart.totalToPay();
 }
-// const addCart = () => {    
-//       const existentProduct =  shopping_cart.findShoppingCart(prod => prod.name === item.product_name);
-//       if (existentProduct){     
-//         existentProduct.quantity += product.quantity; 
-//         existentProduct.subTotal =  subTotalNumber + this.productBuy.subTotalNumber 
-//         existentProduct.subTotalNumber =  (subTotalNumber) + this.productBuy.subTotalNumber
-//         return 
-//       }   
-//       this.cartData.push(this.productBuy);
-//     }
-</script>
 
+</script>
 <template>
-    <div class="row m-5 px-5">
-            <h2 class="text-muted text-center my-5">Productos</h2>
-            <div class="col products">
-                <div class="card" v-for="item in products" :key="item.id">
-                    <img :src="item.image_url" class="img-fluid rounded-start" alt="...">
-                    <div class="card-body">
-                        <div class="card-header">
-                            <h4>{{item.product_name}}</h4>
-                            <h4>${{item.price}}</h4>
-                        </div>
-                        <div class="card-desc">
-                            <p>{{item.long_desc}}</p>
-                        </div>
-                        <div class="card-quantity">
-                            <button type="button"  @click="updateQty('remove', item.id)">-</button>
-                            <!-- <input id="medio" type="number" :value="handleInput" @change="(e) =>$emit('update:handleInput',e.target.value)"> -->
-                            <input class="input" :id="item.id" type="number" v-model="handleInput" >
-                            <button type="button"  @click="updateQty('add', item.id)">+</button>
-                        </div>
-                        <div class="footer-cta">
-                            <button type="button" class="btn" @click="addProductCart(item, qty)">
-                                Agregar
-                            </button>
-                        </div>
+    <div class="row px-5">
+        <h2 class="text-muted text-center my-5">Productos</h2>
+        <div class="products">
+            <div class="card mb-3" style="max-width: 18rem;" v-for="item in products" :key="item.id">
+                <div class="card-header bg-transparent">
+                    <img :src="item.image_url" class="img-fluid rounded-start" alt="..."> 
+                </div>
+                <div class="card-body">
+                    <div class="card-header">
+                        <h4>{{item.product_name}}</h4>
+                        <h4>${{item.price}}</h4>
+                    </div>
+                    <div class="card-desc">
+                        <p>{{item.long_desc}}</p>
+                    </div>
+                    <div class="card-quantity">
+                        <button type="button"  @click="updateQty('remove', item.id)">-</button>
+                        <!-- <input id="medio" type="number" :value="handleInput" @change="(e) =>$emit('update:handleInput',e.target.value)"> -->
+                        <input class="input" :id="item.id" type="number" v-model="handleInput" >
+                        <button type="button" @click="updateQty('add', item.id)">+</button>
                     </div>
                 </div>
-            </div>          
-        </div>    
+                <div class="card-footer bg-transparent">
+                    <button type="button" class="btn" @click="addProductCart(item, qty)">
+                    Agregar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>  
 </template>
-
 <style scoped>
 
 .products {
@@ -93,6 +83,10 @@ const addProductCart = (item, qty) => {
   gap: 36px;
   border: none !important;
   perspective: 800px; 
+}
+
+.card-footer {
+    padding:0;
 }
 
 .card-body { 
@@ -105,6 +99,7 @@ const addProductCart = (item, qty) => {
   overflow: hidden;
 }
 .input {
+    width: 90%;
     text-align: center;
 }
 
@@ -135,6 +130,7 @@ const addProductCart = (item, qty) => {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    margin: 2px;
 }
 
 .card-quantity button {
@@ -153,7 +149,8 @@ const addProductCart = (item, qty) => {
 }
 .footer-cta button {
     border: none !important;
-
 }
 
 </style>
+
+
