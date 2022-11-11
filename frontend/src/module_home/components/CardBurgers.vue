@@ -38,7 +38,7 @@ const addProductCart = (item, qty) => {
         quantity: handleInput.value,
         subTotal: handleInput.value * item.price,
   }
-  shopping_cart.create(product)
+  shopping_cart.addCart(product) 
   shopping_cart.totalToPay();
 }
 

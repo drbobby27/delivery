@@ -15,14 +15,11 @@ export const useShoppingCartStore = defineStore('shoppingCartStore', {
     //    descriptionOrden: (state) => state.description_orden
     },
     actions: {
-        create(product) {
-			this.shopping_cart.push(product)
-		},
-        findShoppingCart(product) {
-            const existentProduct =  this.shopping_cart.find(prod => prod.name === product_name);
+        addCart(product) {
+            const existentProduct = this.shopping_cart.find(prod => prod.product_name === product.product_name);
             if (existentProduct){     
                 existentProduct.quantity += product.quantity; 
-                existentProduct.subTotal =  subTotal + this.product.subTotal
+                existentProduct.subTotal += product.subTotal
                 return 
             }   
             this.shopping_cart.push(product);
@@ -42,7 +39,8 @@ export const useShoppingCartStore = defineStore('shoppingCartStore', {
             this.shopping_cart = this.shopping_cart;
         },
         clearsCart() {
-            // this.shopping_cart = [];
+            this.shopping_cart = [];
+            this.total_payment = 0;
         }
     }
 })

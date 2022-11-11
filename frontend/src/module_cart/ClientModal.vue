@@ -31,7 +31,7 @@ const submitForm = async () => {
     addOrden();
     alert("success, form submitted!");
     clear();
-    // shopping_cart.clearsCart();
+    shopping_cart.clearsCart();
   } else {
     alert("error, form not submitted!");
   }
@@ -45,7 +45,7 @@ const clear=() =>{
    formData.address = '';
    formData.phone_number = '';
 }
-const  handleSubmit = () => fieldValidations()? error : createPerson();
+// const  handleSubmit = () => fieldValidations()? error : createPerson();
 
 
 

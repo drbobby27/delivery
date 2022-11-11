@@ -38,7 +38,7 @@ const addProductCart = (item, qty) => {
         quantity: handleInput.value,
         subTotal: handleInput.value * item.price,
   }
-  shopping_cart.create(product)
+  shopping_cart.addCart(product) 
   shopping_cart.totalToPay();
 }
 
@@ -83,12 +83,6 @@ const addProductCart = (item, qty) => {
     display: flex;
     gap: 36px;
     padding: 1rem 13px;
-  /* display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
- 
-  gap: 36px;
-  border: none !important;
-  perspective: 800px;  */
 }
 
 .card-footer {
@@ -100,6 +94,7 @@ const addProductCart = (item, qty) => {
 }
 
 .productsHotDog .card {
+  margin-right: 2px;
   height: 28rem;
   transition: all .5s ease-out;
   overflow: hidden;

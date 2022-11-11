@@ -27,11 +27,16 @@ const  valores = computed(() => shopping_cart.getProducts);
                         <th class="col-3 table99">Total</th>
                       </tr>
                     </thead>
-                    <tbody>
+                    <tbody v-if="valores.length">
                       <tr class="body" v-for="(item) in valores" :key="item.id">
                         <td>{{item.product_name}}</td>
                         <td>{{item.quantity}}</td>
                         <td>{{item.subTotal}}</td> 
+                      </tr>
+                    </tbody>
+                    <tbody v-else>
+                      <tr>
+                        <td colspan="5" class="text-center justify-content-center">Sin pedidos...</td>
                       </tr>
                     </tbody>
                     <tfoot>
