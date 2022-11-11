@@ -18,8 +18,8 @@ export const useShoppingCartStore = defineStore('shoppingCartStore', {
         create(product) {
 			this.shopping_cart.push(product)
 		},
-        findShoppingCart(cart) {
-            const existentProduct =  this.shopping_cart.find(prod => prod.name === item.product_name);
+        findShoppingCart(product) {
+            const existentProduct =  this.shopping_cart.find(prod => prod.name === product_name);
             if (existentProduct){     
                 existentProduct.quantity += product.quantity; 
                 existentProduct.subTotal =  subTotal + this.product.subTotal
