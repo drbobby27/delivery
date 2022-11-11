@@ -41,7 +41,7 @@ const addOrden = () => {
   let total_value = shopping_cart.getTotalPayment
   console.log(description)
   orden = { ...formData, description,total_value}; 
-  orders.create(orden)
+  orders.createOrden(orden)
 }
 const clear=() =>{
    formData.client_name = '';
