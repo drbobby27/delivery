@@ -40,6 +40,7 @@ const addProductCart = (item, qty) => {
   }
   shopping_cart.addCart(product) 
   shopping_cart.totalToPay();
+  shopping_cart.descriptionOrden()
 }
 
 </script>

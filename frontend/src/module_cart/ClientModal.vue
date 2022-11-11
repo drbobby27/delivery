@@ -37,7 +37,10 @@ const submitForm = async () => {
   }
 };
 const addOrden = () => {
-  orden = { ...formData }; 
+  let description = shopping_cart.getDescriptionOrden
+  let total_value = shopping_cart.getTotalPayment
+  console.log(description)
+  orden = { ...formData, description,total_value}; 
   orders.create(orden)
 }
 const clear=() =>{
