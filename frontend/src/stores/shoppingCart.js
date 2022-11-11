@@ -12,7 +12,7 @@ export const useShoppingCartStore = defineStore('shoppingCartStore', {
        getProducts : (state) =>  state.shopping_cart,
        getTotalPayment : (state) => state.total_payment,
        getQuantityProducts:(state) => state.shopping_cart.length,
-    //    descriptionOrden: (state) => state.description_orden
+       getDescriptionOrden: (state) => state.description_orden
     },
     actions: {
         addCart(product) {
@@ -32,8 +32,8 @@ export const useShoppingCartStore = defineStore('shoppingCartStore', {
         },
         descriptionOrden(){
             this.description_orden = this.shopping_cart.map(prod => prod)
-            // this.description_orden = this.shopping_cart.map(prod => `${prod.quantity} - ${prod.name}`)
-            return description_orden
+            this.description_orden = this.shopping_cart.map(prod => `${prod.quantity}-${prod.product_name}`)
+            return this.description_orden
         },
         loadShoppingCart() {
             this.shopping_cart = this.shopping_cart;
