@@ -3,11 +3,14 @@ import { reactive, ref, onMounted} from 'vue'
 import { useVuelidate } from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
 import {  useOrderStore } from '../stores/order';
+import { useShoppingCartStore } from '../stores/shoppingCart';
 import {computed} from 'vue'
 
 const orders =  useOrderStore(); 
 
-const orden = ref({})
+const shopping_cart = useShoppingCartStore(); 
+
+let orden = ref({})
 
 const formData = reactive({
   client_name: "",
@@ -27,15 +30,26 @@ const submitForm = async () => {
   if(result) {
     addOrden();
     alert("success, form submitted!");
+    clear();
+    shopping_cart.clearsCart();
   } else {
     alert("error, form not submitted!");
   }
 };
-
 const addOrden = () => {
-  
-  orders.create(formData)
+  let description = shopping_cart.getDescriptionOrden
+  let total_value = shopping_cart.getTotalPayment
+  console.log(description)
+  orden = { ...formData, description,total_value}; 
+  orders.createOrden(orden)
 }
+const clear=() =>{
+   formData.client_name = '';
+   formData.address = '';
+   formData.phone_number = '';
+}
+// const  handleSubmit = () => fieldValidations()? error : createPerson();
+
 
 
 </script>

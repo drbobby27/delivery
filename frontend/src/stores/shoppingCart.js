@@ -12,17 +12,14 @@ export const useShoppingCartStore = defineStore('shoppingCartStore', {
        getProducts : (state) =>  state.shopping_cart,
        getTotalPayment : (state) => state.total_payment,
        getQuantityProducts:(state) => state.shopping_cart.length,
-    //    descriptionOrden: (state) => state.description_orden
+       getDescriptionOrden: (state) => state.description_orden
     },
     actions: {
-        create(product) {
-			this.shopping_cart.push(product)
-		},
-        findShoppingCart(cart) {
-            const existentProduct =  this.shopping_cart.find(prod => prod.name === item.product_name);
+        addCart(product) {
+            const existentProduct = this.shopping_cart.find(prod => prod.product_name === product.product_name);
             if (existentProduct){     
                 existentProduct.quantity += product.quantity; 
-                existentProduct.subTotal =  subTotal + this.product.subTotal
+                existentProduct.subTotal += product.subTotal
                 return 
             }   
             this.shopping_cart.push(product);
@@ -35,14 +32,15 @@ export const useShoppingCartStore = defineStore('shoppingCartStore', {
         },
         descriptionOrden(){
             this.description_orden = this.shopping_cart.map(prod => prod)
-            // this.description_orden = this.shopping_cart.map(prod => `${prod.quantity} - ${prod.name}`)
-            return description_orden
+            this.description_orden = this.shopping_cart.map(prod => `${prod.quantity}-${prod.product_name}`)
+            return this.description_orden
         },
         loadShoppingCart() {
             this.shopping_cart = this.shopping_cart;
         },
-        clearState() {
-            this.shopping_cart = {};
+        clearsCart() {
+            this.shopping_cart = [];
+            this.total_payment = 0;
         }
     }
 })
