@@ -1,32 +1,132 @@
 <script setup>
-import { onMounted, ref, computed } from "vue";
-
-let product_name = ref("");
-let price = ref("");
-let long_desc = ref("");
-let short_desc = ref("");
-let image_url = ref("");
-let category_id = ref("");
+import { reactive, ref, onMounted, computed, watch } from "vue";
+import { useVuelidate } from "@vuelidate/core";
+import { required, email } from "@vuelidate/validators";
 
 const create = ref(false);
 const create1 = ref(true);
-
 const category = ref([]);
-
 const products = ref([]);
-
 const idUrl = ref("");
-
 let action = ref(true);
-
-let error1 = ref(false);
-let error2 = ref(false);
-let error3 = ref(false);
-let error4 = ref(false);
-let error5 = ref(false);
-let error6 = ref(false);
-
 let error7 = ref(false);
+let manyTries = ref(true);
+
+const state = reactive({
+  product_name: "",
+  price: "",
+  long_desc: "",
+  short_desc: "",
+  image_url: "",
+  category_id: "",
+});
+
+const rules = computed(() => {
+  return {
+    product_name: {
+      required,
+    },
+    price: {
+      required,
+    },
+    long_desc: {
+      required,
+    },
+    short_desc: {
+      required,
+    },
+    image_url: {
+      required,
+    },
+    category_id: {
+      required,
+    },
+  };
+});
+
+const $v = useVuelidate(rules, state);
+
+const createProducts = async () => {
+  const result = await $v.value.$validate();
+  if (result) {
+    sendData();
+  } else {
+    message1(
+      "Verifique que todos los campos este llenos",
+    );
+  }
+};
+
+const sendData = async () => {
+  const formData = new FormData();
+  formData.append("product_name", state.product_name);
+  formData.append("price", state.price);
+  formData.append("long_desc", state.long_desc);
+  formData.append("short_desc", state.short_desc);
+  formData.append("image_url", state.image_url);
+  formData.append("category_id", state.category_id);
+
+  const urlDB = `https://delivery-production-8572.up.railway.app/api/v1/product`;
+  await fetch(urlDB, {
+    method: "POST",
+    body: formData,
+  })
+    .then((response) => response)
+    .then((response) => {})
+
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+
+  message(
+    "center",
+    "Creación completada",
+    "Se ha creado correctamente el producto",
+    1500
+  );
+  clear();   //////////////////////////////////////// todo rojo
+  create.value = false;
+  create1.value = true;
+};
+
+const edit = async () => {
+  const result1 = await $v.value.$validate();
+  if (result1) {
+    const formData01 = new FormData();
+    formData01.append("product_name", state.product_name);
+    formData01.append("price", state.price);
+    formData01.append("long_desc", state.long_desc);
+    formData01.append("short_desc", state.short_desc);
+    formData01.append("image_url", state.image_url);
+    formData01.append("category_id", state.category_id);
+
+    const urlData = `https://delivery-production-8572.up.railway.app/api/v1/product/${idUrl.value}`;
+    fetch(urlData, {
+      method: "PUT",
+      body: formData01,
+    })
+      .then((response) => response)
+      .then((response) => {
+        data();
+        message(
+          "center",
+          "Actualización completada",
+          "Se ha actualizado correctamente el producto",
+          1500
+        );
+        create.value = false;
+        create1.value = true;
+     
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  } else {
+    message1(
+      "Verifique que todos los campos este llenos",
+    );
+  }
+};
 
 const message = (position, title, text, time) => {
   Swal.fire({
@@ -38,110 +138,31 @@ const message = (position, title, text, time) => {
     timer: time,
   });
 };
-
-const getError = () => {
-  if (category_id.value == "") {
-    error1.value = true;
-  } else {
-    error1.value = false;
-  }
-  if (product_name.value == "") {
-    error2.value = true;
-  } else {
-    error2.value = false;
-  }
-  if (short_desc.value == "") {
-    error3.value = true;
-  } else {
-    error3.value = false;
-  }
-  if (long_desc.value == "") {
-    error4.value = true;
-  } else {
-    error4.value = false;
-  }
-  if (price.value == "") {
-    error5.value = true;
-  } else {
-    error5.value = false;
-  }
-  if (image_url.value == "") {
-    error6.value = true;
-  } else {
-    error6.value = false;
-  }
-};
-
-const clear = () => {
-  category_id.value = "";
-  product_name.value = "";
-  price.value = "";
-  long_desc.value = "";
-  short_desc.value = "";
-  image_url.value = "";
-};
-const validation = () => {
-  getError();
-  if (
-    error1.value == true ||
-    error2.value == true ||
-    error3.value == true ||
-    error4.value == true ||
-    error5.value == true ||
-    error6.value == true
-  ) {
-
-  } else {
-    sendData();
-    clear();
-  }
-};
-const sendData = async () => {
-  const formData = new FormData();
-  formData.append("product_name", product_name.value);
-  formData.append("price", price.value);
-  formData.append("long_desc", long_desc.value);
-  formData.append("short_desc", short_desc.value);
-  formData.append("image_url", image_url.value);
-  formData.append("category_id", category_id.value);
-
-  const urlDB = `http://localhost:7000/api/v1/product`;
-  await fetch(urlDB, {
-    method: "POST",
-    body: formData,
-  })
-    .then((response) => response)
-    .then((response) => {})
-    .catch((error) => {
-      console.error("Error:", error);
-    });
-
-  message(
-    "center",
-    "Creación completada",
-    "Se ha creado correctamente el producto",
-    1500
-  );
-  clear();
-  create.value = false;
-  create1.value = true;
+const message1 = ( text,) => {
+  Swal.fire({
+    icon: "error",
+    title: "Oops...",
+    text: text,
+  });
 };
 
 const data = async () => {
-  const urlData = "http://localhost:7000/api/v1/product";
+  const urlData =
+    "https://delivery-production-8572.up.railway.app/api/v1/product";
   await fetch(urlData)
     .then((resp) => resp.json())
     .then((data) => (products.value = data));
 };
 const data1 = async () => {
-  const urlData = "http://localhost:7000/api/v1/product-category";
+  const urlData =
+    "https://delivery-production-8572.up.railway.app/api/v1/product-category";
   await fetch(urlData)
     .then((resp) => resp.json())
     .then((data) => (category.value = data));
 };
 
 const productsDelete = () => {
-  const urlData = `http://localhost:7000/api/v1/product/${idUrl.value}`;
+  const urlData = `https://delivery-production-8572.up.railway.app/api/v1/product/${idUrl.value}`;
   fetch(urlData, {
     method: "DELETE",
   })
@@ -160,93 +181,85 @@ const productsDelete = () => {
   );
 };
 
-const editProducts = () => {
-  getError();
-  if (
-    error1.value == true ||
-    error2.value == true ||
-    error3.value == true ||
-    error4.value == true ||
-    error5.value == true ||
-    error6.value == true
-  ) {
-    getError();
-  } else {
-    const formData01 = new FormData();
-    formData01.append("product_name", product_name.value);
-    formData01.append("price", price.value);
-    formData01.append("long_desc", long_desc.value);
-    formData01.append("short_desc", short_desc.value);
-    formData01.append("image_url", image_url.value);
-    formData01.append("category_id", category_id.value);
-
-    const urlData = `http://localhost:7000/api/v1/product/${idUrl.value}`;
-    fetch(urlData, {
-      method: "PUT",
-      body: formData01,
-    })
-      .then((response) => response)
-      .then((response) => {
-        data();
-        message(
-          "center",
-          "Actualización completada",
-          "Se ha actualizado correctamente el producto",
-          1500
-        );
-        create.value = false;
-        create1.value = true;
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  }
-};
-
 onMounted(() => {
   data();
   data1();
 });
+
+const clear = () => {
+  state.category_id= "";
+  state.product_name= "";
+  state.price= "";
+  state.long_desc= "";
+  state.short_desc= "";
+  state.image_url= "";
+};
 
 const prueba = (data, action1) => {
   if (action1) {
     idUrl.value = data.id;
   } else {
     action.value = false;
-    product_name.value = data.product_name;
-    price.value = data.price;
-    long_desc.value = data.long_desc;
-    short_desc.value = data.short_desc;
-    image_url.value = data.image_url;
-    category_id.value = data.category_id;
+    state.product_name = data.product_name;
+    state.price = data.price;
+    state.long_desc = data.long_desc;
+    state.short_desc = data.short_desc;
+    state.image_url = data.image_url;
+    state.category_id = data.category_id;
     idUrl.value = data.id;
   }
 };
+
+///
+
+let imgMini = ref("");
+
+const getImage = (e) => {
+  let file = e.target.files[0];
+  console.log(file);
+  state.image_url = file;
+  showPicture(file);
+};
+
+const showPicture = (file) => {
+  let reader = new FileReader();
+
+  reader.onload = (e) => {
+    imgMini.value = e.target.result;
+  };
+  reader.readAsDataURL(file);
+};
+
+const imagenM = computed(() => {
+  return imgMini.value;
+});
+
+////
 const view = () => {
   create.value = true;
   create1.value = false;
 };
-///
 
-
-let imagenMini = ref("");
-
-const obtenerImagen = (e) => {
-  let file = e.target.files[0];
-  console.log(file);
-  image_url.value = file;
-  cargarImagen(file);
+const try10 = () => {
+  manyTries.value = true;
+  
 };
-const cargarImagen = (file) => {
-  let reader = new FileReader();
-  reader.onload = (e) => {
-    imagenMini.value = e.target.result;
-  };
-  reader.readAsDataURL(file);
+
+const try11 = () => {
+  manyTries.value = false;
 };
-const imagenM = computed(() => {
-  return imagenMini.value;
-});
+
+const prueba1 =() => {
+  console.log("entro");
+  if (manyTries.value) {
+    createProducts()
+    console.log("crear");
+  }else{
+    edit()
+    console.log("editar");
+  }
+  
+};
 </script>
 
 <template>
@@ -261,7 +274,7 @@ const imagenM = computed(() => {
         <div class="row">
           <div class="row mt-3 mb-4 text-center">
             <div class="col">
-              <button class="btn btn-outline-success" @click="view()">
+              <button class="btn btn-outline-success" @click="view(), try10()">
                 Crear producto
               </button>
             </div>
@@ -296,7 +309,7 @@ const imagenM = computed(() => {
                       type="button"
                       class="btn btn-success me-3"
                       title="Editar"
-                      @click="prueba(item, false), view()"
+                      @click="prueba(item, false), view(), try11()"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -381,7 +394,7 @@ const imagenM = computed(() => {
                 @click="productsDelete(item)"
                 data-bs-dismiss="modal"
                 type="button"
-                class="btn btn-primary"
+                class="btn btn-success"
               >
                 Si
               </button>
@@ -393,21 +406,23 @@ const imagenM = computed(() => {
     <!-- Fin modal eliminar -->
 
     <div class="col-12 col-sm-12 col-lg-6" v-if="create">
-      <div class="row mt-3 text-center"  v-if="action">
+      <form enctype="multipart/form-data"  @submit.prevent="prueba1">
+      <div class="row mt-3 text-center" v-if="manyTries">
         <h3>Crear productos</h3>
       </div>
       <div class="row mt-3 text-center" v-else>
         <h3>Editar datos de productos</h3>
       </div>
-      <form enctype="multipart/form-data">
+      <!-- <form enctype="multipart/form-data"> -->
         <div class="row mt-3">
           <div class="col">
             <label class="form-label">Tipo de producto</label>
             <select
-              v-model="category_id"
+              v-model="state.category_id"
               name="seleccionProducto"
               id="seleccionProducto"
               class="form-select"
+              :class="{ 'is-invalid': $v.category_id.$error }"
             >
               <option
                 v-for="(item, index) in category"
@@ -416,84 +431,152 @@ const imagenM = computed(() => {
                 :value="item.id"
               ></option>
             </select>
-            <span class="error" v-if="error1" style="color: red"
-              >Por favor seleccione el tipo de producto</span
+            <span
+              v-for="error in $v.category_id.$errors"
+              :key="error.$uid"
+              class="text-danger"
             >
+              {{ (error.$message = "Por favor ingrese una categoría") }}
+            </span>
           </div>
         </div>
         <div class="row">
           <div class="col">
             <label class="form-label">Nombre del producto</label>
-            <input v-model="product_name" class="form-control" type="text" />
-            <span class="error" v-if="error2" style="color: red"
-              >Por favor ingrese el nombre del producto</span
+            <input
+              type="text"
+              placeholder="Ingresa un nombre"
+              class="form-control my-3"
+              v-model="state.product_name"
+              :class="{ 'is-invalid': $v.product_name.$error }"
+            />
+            <span
+              v-for="error in $v.product_name.$errors"
+              :key="error.$uid"
+              class="text-danger"
             >
+              {{
+                (error.$message = "Por favor ingrese el nombre del producto")
+              }}
+            </span>
           </div>
         </div>
         <div class="row">
           <div class="col">
             <label class="form-label">Descripción básica</label>
-            <input v-model="short_desc" class="form-control" type="text" />
-            <span class="error" v-if="error3" style="color: red"
-              >Por favor ingrese la descripción del producto</span
+            <input
+              type="text"
+              placeholder="Ingresa una descripcíon basica"
+              class="form-control my-3"
+              v-model="state.short_desc"
+              :class="{ 'is-invalid': $v.short_desc.$error }"
+            />
+            <span
+              v-for="error in $v.short_desc.$errors"
+              :key="error.$uid"
+              class="text-danger"
             >
+              {{
+                (error.$message =
+                  "Por favor ingrese una descripción básica del producto")
+              }}
+            </span>
           </div>
         </div>
         <div class="row">
           <div class="col">
-            <label class="form-label">Descripción básica</label>
-            <input v-model="long_desc" class="form-control" type="text" />
-            <span class="error" v-if="error4" style="color: red"
-              >Por favor ingrese la descripción del producto</span
+            <label class="form-label">Descripción detallada</label>
+
+            <textarea
+              placeholder="Ingresa una descripción detallada "
+              class="form-control my-3"
+              v-model="state.long_desc"
+              :class="{ 'is-invalid': $v.long_desc.$error }"
+            ></textarea>
+            <span
+              v-for="error in $v.long_desc.$errors"
+              :key="error.$uid"
+              class="text-danger"
             >
+              {{
+                (error.$message =
+                  "Por favor ingrese una descripción detallada del producto")
+              }}
+            </span>
           </div>
         </div>
         <div class="row">
           <div class="col">
             <label class="form-label">Precio</label>
-            <input v-model="price" class="form-control" type="number" />
-            <span class="error" v-if="error5" style="color: red"
-              >Por favor ingrese el precio del producto</span
+            <input
+              type="text"
+              placeholder="Ingresa un precio"
+              class="form-control my-3"
+              v-model="state.price"
+              :class="{ 'is-invalid': $v.price.$error }"
+            />
+            <span
+              v-for="error in $v.price.$errors"
+              :key="error.$uid"
+              class="text-danger"
             >
+              {{ (error.$message = "Por favor ingrese el precio del producto") }}
+            </span>
           </div>
         </div>
         <div class="row">
           <div class="col">
             <label class="form-label">Imagen</label><br />
-            <input type="file" @change="obtenerImagen" class="form-control" />
-            <span class="error" v-if="error6" style="color: red"
-              >Por favor ingrese una imagen</span
+            <input type="file" @change="getImage" class="form-control" />
+            <span
+              v-for="error in $v.image_url.$errors"
+              :key="error.$uid"
+              class="text-danger"
             >
-            <figure v-if="image_url">
-              <img
-                :src="imagenM"
-                width="200"
-                height="200"
-                alt="Imagen escogida"
-                class="mt-2"
-              />
-            </figure>
+              {{ (error.$message = "Por favor ingrese una imagen") }}
+            </span>
+            <div v-if="action" class="mt-3">
+              <figure v-if="state.image_url">
+                <img
+                  :src="imagenM"
+                  width="200"
+                  height="200"
+                  alt="Imagen escogida1"
+                />
+              </figure>
+            </div>
+            <div class="mt-3" v-else>
+              <figure v-if="state.image_url">
+                <img
+                  :src="state.image_url"
+                  width="200"
+                  height="200"
+                  alt="Imagen escogida"
+                />
+              </figure>
+            </div>
           </div>
         </div>
-        <div class="row m-1">
+        <div class="row">
           <button
             v-if="action"
-            @click="validation()"
+           
             class="custom-btn btn-9"
-            type="button"
+            type="submit"
           >
             Guardar
           </button>
           <button
             v-else
-            @click="editProducts()"
+            
             class="custom-btn btn-8"
-            type="button"
+            type="submit"
           >
             Actualizar
           </button>
         </div>
       </form>
+    <!-- </form> -->
     </div>
   </div>
 </template>
@@ -523,9 +606,10 @@ const imagenM = computed(() => {
   color: var(--negro);
 }
 .btn-8 {
-  background-color: grey;
-  color: white;
   border: none;
+  color: #fff;
+  background-color: rgb(15, 128, 39);
+  margin-top: 2%;
 }
 .btn-8:hover {
   border: none;
