@@ -8,7 +8,7 @@ const products = ref([])
 const handleInput = ref(1)
 const ErrorQty = false
 const getProducts = () => {
-        const urlData = "http://localhost:7000/api/v1/product"
+        const urlData = "https://delivery-production-8572.up.railway.app/api/v1/product"
         fetch(urlData)
         .then(resp => resp.json())
         .then(data => products.value= data)

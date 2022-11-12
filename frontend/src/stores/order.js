@@ -9,6 +9,7 @@ export const useOrderStore = defineStore('orderStore', {
     }),
     getters: {
         getOrders : (state) =>  state.orders,
+        // getQuantityOrders:(state) => state.orders.length,
         getChefsOrders : (state) => state.chefs_orders,
         getEmployeeOrders: (state) => state.employee_orders,
         getDomiciliaryOrders: (state) => state.domiciliary_orders,
@@ -33,7 +34,7 @@ export const useOrderStore = defineStore('orderStore', {
         clearEmployeeOrders(index) {
             if(index>=0) {
                 let [serve] = this.employee_orders.splice(index,1)
-                // serve.domiciliary = ""
+                serve.domiciliary = ""
                 this.domiciliary_orders.push(serve)
                 console.log(this.employee_orders)
                 console.log(this.domiciliary_orders)

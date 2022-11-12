@@ -2,6 +2,12 @@
 import {  useOrderStore } from '../stores/order';
 
 const chefs_orders = useOrderStore(); 
+
+function handleClick(i) {
+    console.log("👩🏻‍🦰",i)
+    chefs_orders.clearChefsOrders(i)
+}
+
 </script>
 <template>
    <div class="container mx-4">
@@ -18,10 +24,10 @@ const chefs_orders = useOrderStore();
                       </tr>
                     </thead>
                     <tbody v-if="chefs_orders.getChefsOrders.length">
-                      <tr class="body" v-for="(item) in chefs_orders.getChefsOrders" :key="item.id">
+                      <tr class="body" v-for="(item,i) in chefs_orders.getChefsOrders" :key="item.i">
                         <td></td>
                         <td>{{item.description.join()}}</td>
-                        <td><button class="btn" @click="sendOrder(i)">Listo</button></td> 
+                        <td><button class="btn" @click="handleClick(i)">Listo</button></td> 
                       </tr>
                     </tbody>
                     <tbody v-else>
