@@ -67,7 +67,7 @@ import { RouterLink, RouterView } from 'vue-router'
   background-color: rgb(169, 173, 173);
 }
 .router-link-exact-active {
-  color: rgb(255, 115, 0) !important;
+  color: #b20837 !important;
 }
 
 * {

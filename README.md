@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 ### Delivery App
 <div align="center">
   <img width="600" height="400"  src="https://res.cloudinary.com/jorge-tarifa/image/upload/v1665118200/carrito-market-mix/Magna_hoka4e.jpg"/>
@@ -56,7 +56,6 @@ cd frontend && npm run dev
 *  [Jorge Arley](https://github.com/drbobby27)
 *  [Anyelith Jacobo](https://github.com/anyelithj)
 *  [Diego Toro](https://github.com/Dtorof)
-=======
-# Delivery App
 
->>>>>>> 16bd9c992a7233452a547c049a48a096be2b4058
+
+

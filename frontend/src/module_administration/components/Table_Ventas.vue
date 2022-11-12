@@ -45,10 +45,10 @@ const products = [
 
 <template>
     <div class="row">
-                <div class="row  title2 mt-5 text-center">
+                <div class="row  title2 mt-3 text-center">
                     <h3>Historial de ventas</h3>
                 </div>
-                <div class="col m-5">
+                <div class="col m-3">
                     <!-- tabla-->
                     <div class="row" id="tabla">
                         <div class="container pe-4 ps-4">
@@ -94,5 +94,8 @@ const products = [
   border-bottom:1px solid rgb(255, 255, 255);
   border-left:1px solid rgb(255, 255, 255);
 }
+/* .title2{
+    color: #b20837;
+} */
 
 </style>
