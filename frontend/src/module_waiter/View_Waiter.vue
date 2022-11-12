@@ -6,18 +6,21 @@ const employee_orders = useOrderStore();
 
 const domiciliarys = ref([])
 
-// const getDomiciliary = () => {
-//         const urlData = "http://http://localhost:7000/api/v1/deliverman"
-//         console.log(urlData)
-//         fetch(urlData)
-//         .then(resp => resp.json())
-//         .then(data => domiciliarys.value= data)
-//         console.log(domiciliarys)
-//    };
+const getDomiciliary = () => {
+        const urlData = "https://delivery-production-8572.up.railway.app/api/v1/deliverman"
+        fetch(urlData)
+        .then(resp => resp.json())
+        .then(data => domiciliarys.value= data)
+        console.log(domiciliarys)
+   };
 
-// onMounted(() => {
-//   getDomiciliary(); 
-// })
+onMounted(() => {
+  getDomiciliary(); 
+})
+
+function handleClick(i) {
+    employee_orders.clearChefsOrders(i)
+}
 </script>
 <template>
   <div class="container mx-4">
@@ -35,15 +38,15 @@ const domiciliarys = ref([])
                       </tr>
                     </thead>
                     <tbody v-if="employee_orders.getEmployeeOrders.length">
-                      <tr class="body" v-for="(item) in employee_orders.getEmployeeOrders" :key="item.id">
+                      <tr class="body" v-for="(item, i) in employee_orders.getEmployeeOrders" :key="item.id">
                         <td></td>
-                        <td>{{item.description}}</td>
+                        <td>{{item.description.join()}}</td>
                         <td> 
-                            <!-- <select name="seleccionProducto" id="seleccionProducto" class="form-select  text-center" v-model="dbOrdersEmployee[index].domiciliary">
-                                <option v-for="(item, index) in domiciliarys" v-text="item.full_name">Seleccione domiciliario</option>
-                            </select> -->
+                            <select name="seleccionProducto" id="seleccionProducto" class="form-select text-center">
+                                <option v-for="(item, index) in domiciliarys" v-text="item.full_name"></option>
+                            </select>
                         </td>
-                        <td><button class="btn" @click="sendOrder(i)">Listo</button></td>
+                        <td><button class="btn" @click="handleClick(i)">Listo</button></td>
                       </tr>
                     </tbody>
                     <tbody v-else>

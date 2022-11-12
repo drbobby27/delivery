@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, ref, unref, onMounted} from 'vue'
+import { reactive, ref, unref, onMounted, toRefs} from 'vue'
 import { useShoppingCartStore } from '../../stores/shoppingCart';
 import Card from '../components/Card.vue'
 
@@ -18,17 +18,21 @@ const getProducts = () => {
         console.log("😎...", unref(dataProducts))
    };
 
+
 onMounted(() => {
   getProducts(); 
 })
+const {product_name,price, long_desc, short_desc, image_url, category_id, category} = toRefs(dataProducts)
+console.log("🧔🏿...", product_name,price, long_desc, short_desc, image_url, category_id, category)
 console.log(handleInput);
 const updateQty = (action) => {
     handleInput.value  = action === "add" ? handleInput.value + 1 : handleInput.value - 1; 
     console.log(handleInput) 
     return handleInput   
 }
-const validation = () => {
-}
+// const category = () => {
+ 
+// }
 
 const addProductCart = (item, qty) => {
   let product = {
@@ -47,7 +51,7 @@ const addProductCart = (item, qty) => {
 </script>
 <template>
 <div>
-    <!-- {{dataProducts.value}} -->
+    {{dataProducts}}
  <Card :dataProducts="dataProducts" />  
  <!-- <Card :dataProducts="dataProducts" v-if="dataProducts.category.type === 'Hamburguesa'"/>   -->
 
