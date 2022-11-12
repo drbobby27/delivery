@@ -14,26 +14,27 @@ const router = createRouter({
       name: "Administración",
       component: () =>
         import("../module_administration/View_Administration.vue"),
+      children:[
+        {
+          path: "/CrearEmpleados",
+          name: "Empleados",
+          component: () =>
+            import("../module_administration/components/Create_Employees.vue"),
+        },
+        {
+          path: "/CrearProductos",
+          name: "Productos",
+          component: () =>
+            import("../module_administration/components/Create_Products.vue"),
+        },
+        {
+          path: "/Historial",
+          name: "Historial",
+          component: () =>
+            import("../module_administration/components/Table_Ventas.vue"),
+        },
+      ]
     },
-    {
-      path: "/CrearEmpleados",
-      name: "Empleados",
-      component: () =>
-        import("../module_administration/components/Create_Employees.vue"),
-    },
-    {
-      path: "/CrearProductos",
-      name: "Productos",
-      component: () =>
-        import("../module_administration/components/Create_Products.vue"),
-    },
-    {
-      path: "/Historial",
-      name: "Historial",
-      component: () =>
-        import("../module_administration/components/Table_Ventas.vue"),
-    },
-     
     {
       path: "/Empleado",
       name: "empleado",

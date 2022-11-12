@@ -56,7 +56,7 @@ const sendData = async () => {
   formData.append("email", email.value);
   formData.append("password", password.value);
 
-  const urlDB = `http://localhost:7000/api/v1/auth/login`;
+  const urlDB = `https://delivery-production-8572.up.railway.app/api/v1/auth/login`;
   await fetch(urlDB, {
     method: "POST",
     body: formData,
@@ -135,7 +135,7 @@ const routing = () => {
               </div>
             </div>
             <div class="row" id="user">
-              <img src="https://i.ibb.co/r5zDPN1/pngwing-com-1.png" />
+              <img class="user"  src="https://i.ibb.co/0FXdxnM/user2-0.png" alt="user2-0">
             </div>
             <div class="row">
               <div class="col">
@@ -174,15 +174,15 @@ const routing = () => {
   </div>
 </template>
 <style scoped>
-#user {
-  width: 30vh;
+#user .user {
+  width: 55vh;
   height: 30vh;
   display: block;
   margin: auto;
 }
 .btn-1 {
   width: 100%;
-  background-color: rgb(175, 152, 23);
+  background: #b20837;
   color: white;
 }
 </style>

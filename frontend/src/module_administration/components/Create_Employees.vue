@@ -1,138 +1,69 @@
 <script setup>
-import { onMounted, ref } from "vue";
+import { reactive, ref, onMounted, computed, watch } from "vue";
+import { useVuelidate } from "@vuelidate/core";
+import { required, email, sameAs, helpers } from "@vuelidate/validators";
 
-let name = ref("");
-let phoneNumber = ref("");
-let email = ref("");
-let password = ref("");
-let password1 = ref("");
-let address = ref("");
-let role_id = ref("");
+const state = reactive({
+  name: "",
+  phoneNumber: "",
+  email: "",
+  password: "",
+  password1: "",
+  address: "",
+  role_id: "",
+});
 
-const create = ref(false);
-const create1 = ref(true);
+const rules = computed(() => {
+  return {
+    name: {
+      required,
+    },
+    phoneNumber: {
+      required,
+    },
+    email: {
+      required,
+      email,
+    },
+    password: {
+      required,
+    },
+    password1: {
+      required,
+      sameasPassword: sameAs(state.password),
+    },
+    address: {
+      required,
+    },
+    role_id: {
+      required,
+    },
+  };
+});
 
-const roles = ref([]);
+const $v = useVuelidate(rules, state);
 
-const employees = ref([]);
-
-const idUrl = ref("");
-
-const nameEdit = ref("");
-
-let action = ref(true);
-
-let error1 = ref(false);
-let error2 = ref(false);
-let error3 = ref(false);
-let error4 = ref(false);
-let error5 = ref(false);
-let error6 = ref(false);
-let error10 = ref(false);
-let error11 = ref(false);
-
-let error7 = ref(false);
-
-// const roles = ["administrador", "chef", "empleado", "domiciliario"];
-
-const message = (position, title, text, time) => {
-  Swal.fire({
-    position: position,
-    icon: "success",
-    title: title,
-    text: text,
-    showConfirmButton: false,
-    timer: time,
-  });
-};
-
-const message1 = (title, text) => {
-  Swal.fire({
-    icon: "error",
-    title: "Oops...",
-    text: "Something went wrong!",
-  });
-};
-
-const getError = () => {
-  if (name.value == "") {
-    error1.value = true;
-  } else {
-    error1.value = false;
-  }
-  if (phoneNumber.value == "") {
-    error2.value = true;
-  } else {
-    error2.value = false;
-  }
-  if (email.value == "") {
-    error3.value = true;
-  } else {
-    error3.value = false;
-  }
-  if (password.value == "") {
-    error4.value = true;
-  } else {
-    error4.value = false;
-  }
-  if (password1.value == "") {
-    error10.value = true;
-  } else {
-    error10.value = false;
-  }
-  if (password.value !== password1.value) {
-    error11.value = true;
-  } else {
-    error11.value = false;
-  }
-  if (address.value == "") {
-    error5.value = true;
-  } else {
-    error5.value = false;
-  }
-  if (role_id.value == "") {
-    error6.value = true;
-  } else {
-    error6.value = false;
-  }
-};
-
-const clear = () => {
-  name.value = "";
-  phoneNumber.value = "";
-  email.value = "";
-  password.value = "";
-  password1.value = "";
-  address.value = "";
-  role_id.value = "";
-};
-const validation = () => {
-  getError();
-  if (
-    error1.value == true ||
-    error2.value == true ||
-    error3.value == true ||
-    error4.value == true ||
-    error5.value == true ||
-    error6.value == true ||
-    error10.value == true ||
-    error11.value == true
-  ) {
-  } else {
+const submit = async () => {
+  const result = await $v.value.$validate();
+  if (result) {
     sendData();
-    clear();
+  } else {
+    message1(
+      "Verifique que todos los campos este llenos",
+    );
   }
 };
+
 const sendData = async () => {
   const formData = new FormData();
-  formData.append("name", name.value);
-  formData.append("phoneNumber", phoneNumber.value);
-  formData.append("email", email.value);
-  formData.append("password", password.value);
-  formData.append("address", address.value);
-  formData.append("role_id", role_id.value);
+  formData.append("name", state.name);
+  formData.append("phoneNumber", state.phoneNumber);
+  formData.append("email", state.email);
+  formData.append("password", state.password);
+  formData.append("address", state.address);
+  formData.append("role_id", state.role_id);
 
-  const urlDB = `http://localhost:7000/api/v1/employees`;
+  const urlDB = `https://delivery-production-8572.up.railway.app/api/v1/employees`;
   await fetch(urlDB, {
     method: "POST",
     body: formData,
@@ -149,67 +80,23 @@ const sendData = async () => {
     "Se ha creado correctamente el registro",
     1500
   );
-  clear();
+
   create.value = false;
   create1.value = true;
 };
 
-const data = async () => {
-  const urlData = "http://localhost:7000/api/v1/employees";
-  await fetch(urlData)
-    .then((resp) => resp.json())
-    .then((data) => (employees.value = data));
-};
-const data1 = async () => {
-  const urlData = "http://localhost:7000/api/v1/positions";
-  await fetch(urlData)
-    .then((resp) => resp.json())
-    .then((data) => (roles.value = data));
-};
-
-const employeesDelete = () => {
-  const urlData = `http://localhost:7000/api/v1/employees/${idUrl.value}`;
-  fetch(urlData, {
-    method: "DELETE",
-  })
-    .then((response) => response)
-    .then((response) => {
-      data();
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
-  message(
-    "center",
-    "Eliminada correctamente",
-    "Se ha eliminado un empleado",
-    1500
-  );
-};
-
-const editEmployees = () => {
-  getError();
-  if (
-    error1.value == true ||
-    error2.value == true ||
-    error3.value == true ||
-    error4.value == true ||
-    error5.value == true ||
-    error6.value == true ||
-    error10.value == true ||
-    error11.value == true
-  ) {
-    getError();
-  } else {
+const submit1 = async () => {
+  const result1 = await $v.value.$validate();
+  if (result1) {
     const formData01 = new FormData();
-    formData01.append("name", name.value);
-    formData01.append("phoneNumber", phoneNumber.value);
-    formData01.append("email", email.value);
-    formData01.append("password", password.value);
-    formData01.append("address", address.value);
-    formData01.append("role_id", role_id.value);
+    formData01.append("name", state.name);
+    formData01.append("phoneNumber", state.phoneNumber);
+    formData01.append("email", state.email);
+    formData01.append("password", state.password);
+    formData01.append("address", state.address);
+    formData01.append("role_id", state.role_id);
 
-    const urlData = `http://localhost:7000/api/v1/employees/${idUrl.value}`;
+    const urlData = `https://delivery-production-8572.up.railway.app/api/v1/employees/${idUrl.value}`;
     fetch(urlData, {
       method: "PUT",
       body: formData01,
@@ -229,8 +116,97 @@ const editEmployees = () => {
       .catch((error) => {
         console.error("Error:", error);
       });
+  } else {
+    message1(
+      "Verifique que todos los campos este llenos",
+  
+  );
   }
 };
+
+const create = ref(false);
+const create1 = ref(true);
+
+const roles = ref([]);
+
+const employees = ref([]);
+
+const idUrl = ref("");
+
+
+let action = ref(true);
+
+let manyTries = ref(true);
+
+
+
+const prueba1 =() => {
+  if (manyTries.value) {
+    submit()
+    console.log("crear");
+  }else{
+    submit1()
+    console.log("editar");
+  }
+  
+};
+
+
+// const roles = ["administrador", "chef", "empleado", "domiciliario"];
+
+const message = (position, title, text, time) => {
+  Swal.fire({
+    position: position,
+    icon: "success",
+    title: title,
+    text: text,
+    showConfirmButton: false,
+    timer: time,
+  });
+};
+
+const message1 = ( text,) => {
+  Swal.fire({
+    icon: "error",
+    title: "Oops...",
+    text: text,
+  });
+};
+
+const data = async () => {
+  const urlData = "https://delivery-production-8572.up.railway.app/api/v1/employees";
+  await fetch(urlData)
+    .then((resp) => resp.json())
+    .then((data) => (employees.value = data));
+};
+const data1 = async () => {
+  const urlData = "https://delivery-production-8572.up.railway.app/api/v1/positions";
+  await fetch(urlData)
+    .then((resp) => resp.json())
+    .then((data) => (roles.value = data));
+};
+
+const employeesDelete = () => {
+  const urlData = `https://delivery-production-8572.up.railway.app/api/v1/employees/${idUrl.value}`;
+  fetch(urlData, {
+    method: "DELETE",
+  })
+    .then((response) => response)
+    .then((response) => {
+      data();
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+  message(
+    "center",
+    "Eliminada correctamente",
+    "Se ha eliminado un empleado",
+    1500
+  );
+};
+
+
 
 onMounted(() => {
   data();
@@ -242,19 +218,29 @@ const prueba = (data, action1) => {
     idUrl.value = data.id;
   } else {
     action.value = false;
-    name.value = data.name;
-    phoneNumber.value = data.phoneNumber;
-    role_id.value = data.role_id;
-    email.value = data.email;
-    password.value = data.password;
-    address.value = data.address;
-    role_id.value = data.role_id;
+    state.name = data.name;
+    state.phoneNumber = data.phoneNumber;
+    state.role_id = data.role_id;
+    state.email = data.email;
+    state.password = data.password;
+    state.address = data.address;
+    state.role_id = data.role_id;
     idUrl.value = data.id;
   }
 };
 const view = () => {
   create.value = true;
   create1.value = false;
+  // action.value = true;
+  // action.value=
+};
+const try10 = () => {
+  manyTries.value = true;
+  
+};
+const try11 = () => {
+  manyTries.value = false;
+  
 };
 </script>
 
@@ -270,7 +256,7 @@ const view = () => {
         <div class="row">
           <div class="row mt-3 mb-4 text-center">
             <div class="col">
-              <button class="btn btn-outline-success" @click="view()">
+              <button class="btn btn-outline-success" @click="view(), try10()">
                 Crear empleado
               </button>
             </div>
@@ -301,7 +287,7 @@ const view = () => {
                       type="button"
                       class="btn btn-success me-3"
                       title="Editar"
-                      @click="prueba(item, false), view()"
+                      @click="prueba(item, false), view(),try11()"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -398,112 +384,177 @@ const view = () => {
     <!-- Fin modal eliminar -->
 
     <div class="col-12 col-sm-12 col-lg-6" v-if="create">
-      <div class="row mt-3 text-center" v-if="action">
-        <h3>Crear empleados</h3>
-      </div>
-      <div class="row mt-3 text-center" v-else>
-        <h3>Editar datos de empleados</h3>
-      </div>
-      <div class="row">
-        <div class="col mt-3">
-          <label class="form-label">Nombre</label>
-          <input v-model="name" class="form-control" type="text" />
-          <span class="error" v-if="error1" style="color: red"
-            >Por favor ingrese un nombre</span
-          >
+      <form @submit.prevent="prueba1">
+        <div class="row mt-3 text-center" v-if="manyTries">
+          <h3>Crear empleados</h3>
         </div>
-      </div>
-      <div class="row mt-1">
-        <div class="col">
-          <label class="form-label">Teléfono</label>
-          <input v-model="phoneNumber" class="form-control" type="text" />
-          <span class="error" v-if="error2" style="color: red"
-            >Por favor ingrese un teléfono</span
-          >
+        <div class="row mt-3 text-center" v-else>
+          <h3>Editar datos de empleados</h3>
         </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <label class="form-label">Email</label>
-          <input v-model="email" class="form-control" type="email" />
-          <span class="error2" v-if="error3" style="color: red"
-            >Por favor ingrese una email</span
-          >
+        <div class="row">
+          <div class="col mt-3">
+            <label class="form-label">Nombre</label>
+            <input
+              v-model="state.name"
+              class="form-control"
+              type="text"
+              placeholder="Ingrese el nombre"
+              :class="{ 'is-invalid': $v.name.$error }"
+            />
+            <span
+              v-for="error in $v.name.$errors"
+              :key="error.$uid"
+              class="text-danger"
+            >
+              {{ (error.$message = "Por favor ingrese un nombre") }}
+            </span>
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <label class="form-label">Contraseña</label>
-          <input v-model="password" class="form-control" type="password" />
-          <span class="error2" v-if="error4" style="color: red"
-            >Por favor ingrese una contraseña</span
-          >
-          <span class="error2" v-if="error11" style="color: red"
-            >Las constraseñas no coinciden</span
-          >
+        <div class="row mt-1">
+          <div class="col">
+            <label class="form-label">Teléfono</label>
+            <input
+              v-model="state.phoneNumber"
+              class="form-control"
+              type="text"
+              placeholder="Ingrese el telefóno"
+              :class="{ 'is-invalid': $v.phoneNumber.$error }"
+            />
+            <span
+              v-for="error in $v.phoneNumber.$errors"
+              :key="error.$uid"
+              class="text-danger"
+            >
+              {{ (error.$message = "Por favor ingrese un telefono") }}
+            </span>
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <label class="form-label">Confirmar contraseña</label>
-          <input v-model="password1" class="form-control" type="password" />
-          <span class="error2" v-if="error10" style="color: red"
-            >Por favor ingrese una contraseña</span
-          >
-          <span class="error2" v-if="error11" style="color: red"
-            >Las constraseñas no coinciden</span
-          >
+        <div class="row">
+          <div class="col">
+            <label class="form-label">Email</label>
+            <input
+              v-model="state.email"
+              class="form-control"
+              type="email"
+              placeholder="Ingrese el correo"
+              :class="{ 'is-invalid': $v.email.$error }"
+            />
+            <span
+              v-for="error in $v.email.$errors"
+              :key="error.$uid"
+              class="text-danger"
+            >
+              {{ (error.$message = "Por favor ingrese un correo") }}
+            </span>
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <label class="form-label">Dirección</label>
-          <input v-model="address" class="form-control" type="text" />
-          <span class="error2" v-if="error5" style="color: red"
-            >Por favor ingrese una dirección</span
-          >
+        <div class="row">
+          <div class="col">
+            <label class="form-label">Contraseña</label>
+            <input
+              type="password"
+              placeholder="Ingresa una contraseña"
+              class="form-control my-3"
+              v-model="state.password"
+              :class="{ 'is-invalid': $v.password.$error }"
+            />
+            <span
+              v-for="error in $v.password.$errors"
+              :key="error.$uid"
+              class="text-danger"
+            >
+              {{ (error.$message = "Por favor ingrese una contraseña") }}
+            </span>
+          </div>
         </div>
-      </div>
-      <div class="row mt-1">
-        <div>
-          <label class="form-label">Rol</label>
-          <select
-            v-model="role_id"
-            name="seleccionProducto"
-            id="seleccionProducto"
-            class="form-select"
-          >
-            <option
-              v-for="(item, index) in roles"
-              v-text="item.name"
-              :key="index"
-              :value="item.id"
-            ></option>
-          </select>
-          <span class="error3" v-if="error6" style="color: red"
-            >Por favor ingrese un rol</span
-          >
+        <div class="row">
+          <div class="col">
+            <label class="form-label">Confirmar contraseña</label>
+            <input
+              type="password"
+              placeholder="Confirma la contraseña"
+              class="form-control my-3"
+              v-model="state.password1"
+              :class="{ 'is-invalid': $v.password1.$error }"
+            />
+            <span
+              v-for="error in $v.password1.$errors"
+              :key="error.$uid"
+              class="text-danger"
+            >
+              {{
+                (error.$message = "Por favor ingrese nuevamente la contraseña")
+              }}
+            </span>
+            <!-- <p>{{ $v.password1 }}</p> -->
+            <p
+              class="text-danger"
+              v-if="!$v.password1.sameasPassword.$response"
+            >
+              Ingrese la contraseña correcta
+            </p>
+          </div>
         </div>
-      </div>
+        <div class="row">
+          <div class="col">
+            <label class="form-label">Dirección</label>
+            <input
+              type="text"
+              placeholder="Ingresa una dirección"
+              class="form-control my-3"
+              v-model="state.address"
+              :class="{ 'is-invalid': $v.address.$error }"
+            />
+            <span
+              v-for="error in $v.address.$errors"
+              :key="error.$uid"
+              class="text-danger"
+            >
+              {{ (error.$message = "Por favor ingrese una dirección") }}
+            </span>
+          </div>
+        </div>
+        <div class="row mt-1">
+          <div>
+            <label class="form-label">Rol</label>
+            <select
+              v-model="state.role_id"
+              name="seleccionProducto"
+              id="seleccionProducto"
+              class="form-select"
+              :class="{ 'is-invalid': $v.role_id.$error }"
+            >
+              <option
+                v-for="(item, index) in roles"
+                v-text="item.name"
+                :key="index"
+                :value="item.id"
+              ></option>
+            </select>
+            <span
+              v-for="error in $v.role_id.$errors"
+              :key="error.$uid"
+              class="text-danger"
+            >
+              {{ (error.$message = "Por favor ingrese un rol") }}
+            </span>
+          </div>
+        </div>
 
-      <div class="row m-1">
-        <button
-          v-if="action"
-          @click="validation()"
-          class="custom-btn btn-9"
-          type="button"
-        >
-          Guardar
-        </button>
-        <button
-          v-else
-          @click="editEmployees()"
-          class="custom-btn btn-8"
-          type="button"
-        >
-          Actualizar
-        </button>
-      </div>
+        <div class="row m-1">
+          <button v-if="action" class="custom-btn btn-9" type="submit">
+            Guardar
+          </button>
+          <button
+            v-else
+           
+            class="custom-btn btn-8"
+            type="submit"
+          >
+            Actualizar
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 </template>

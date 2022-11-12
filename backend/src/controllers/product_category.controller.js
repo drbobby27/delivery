@@ -36,7 +36,7 @@ export const createCategory = async  (req,res) => {
    await ProductCategory.create({
         type
     })
-    res.status(200).json({message: "Register was created succesfully", createCategory})
+    res.status(200).json({message: "Register was created succesfully.", createCategory})
 
     } catch (error) {
         console.error(error)
@@ -52,7 +52,7 @@ export const deleteCategory = async (req,res) => {
                 id
             }
         })
-         res.status(200).json({message: `Register with id:${id} was succesfully removed`})
+         res.status(200).json({message: `Register with id:${id} was succesfully removed...`})
        }catch(err){
             console.error(err)
        }
