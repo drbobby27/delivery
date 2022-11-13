@@ -11,11 +11,11 @@ export const DomicileC = db.define('domicileCompany',{
         },
         name:{
             type: STRING,
-            allowNull: false
+            allowNull: true
         },
         address:{ 
             type: STRING,
-            allowNull: false
+            allowNull: true
         }
         })
 
