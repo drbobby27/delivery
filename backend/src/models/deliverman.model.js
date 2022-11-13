@@ -19,7 +19,7 @@ const { STRING, INTEGER } = DataTypes
         },
         company_id:{ 
             type: INTEGER,
-            allowNull: false
+            allowNull: true
         }
         })
 
