@@ -30,15 +30,15 @@ export const Order = db.define('order',{
         },
         employee_id:{ 
             type: INTEGER,
-            allowNull: false
+            allowNull: true
         },
         deliverman_id:{ 
             type: INTEGER,
-            allowNull: false
+            allowNull: true
         },
         purchase_id:{ 
             type: INTEGER,
-            allowNull: false
+            allowNull: true
         }
         })
 
