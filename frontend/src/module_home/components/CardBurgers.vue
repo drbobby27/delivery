@@ -5,8 +5,10 @@ import { useShoppingCartStore } from '../../stores/shoppingCart';
 const shopping_cart = useShoppingCartStore(); 
 
 const products = ref([])
+
 const handleInput = ref(1)
 const ErrorQty = false
+
 const getProducts = () => {
         const urlData = "https://delivery-production-8572.up.railway.app/api/v1/product"
         fetch(urlData)

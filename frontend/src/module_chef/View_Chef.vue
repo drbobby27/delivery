@@ -18,9 +18,9 @@ function handleClick(i) {
                   <table class="table table-bordered mt-4 table-strip text-center">
                     <thead class="table table-header">
                       <tr>
-                        <th class="col-3 table99">Número pedido</th>
-                        <th class="col-3 table99">Descripción</th>
-                        <th class="col-3 table99">Opción</th>
+                        <th class="col-3">Número pedido</th>
+                        <th class="col-3">Descripción</th>
+                        <th class="col-3">Opción</th>
                       </tr>
                     </thead>
                     <tbody v-if="chefs_orders.getChefsOrders.length">
