@@ -3,8 +3,10 @@ import { reactive, ref, onMounted} from 'vue'
 import {  useOrderStore } from '../stores/order';
 
 const employee_orders = useOrderStore(); 
-
+// const domiciliary = useOrderStore(); 
+let domiciliary = ref("")
 const domiciliarys = ref([])
+
 
 const getDomiciliary = () => {
         const urlData = "https://delivery-production-8572.up.railway.app/api/v1/deliverman"
@@ -19,7 +21,7 @@ onMounted(() => {
 })
 
 function handleClick(i) {
-    employee_orders.clearChefsOrders(i)
+    employee_orders.clearEmployeeOrders(i)
 }
 </script>
 <template>
@@ -31,18 +33,18 @@ function handleClick(i) {
                   <table class="table table-bordered mt-4 table-strip text-center">
                     <thead class="table table-header">
                       <tr>
-                        <th class="col-3 table99">Número pedido</th>
-                        <th class="col-3 table99">Descripción</th>
-                        <th class="col-3 table99">Domiciliario</th>
-                          <th class="col-3 table99">Opción</th>
+                        <th class="col-3">Número pedido</th>
+                        <th class="col-3">Descripción</th>
+                        <th class="col-3">Domiciliario</th>
+                          <th class="col-3">Opción</th>
                       </tr>
                     </thead>
                     <tbody v-if="employee_orders.getEmployeeOrders.length">
-                      <tr class="body" v-for="(item, i) in employee_orders.getEmployeeOrders" :key="item.id">
+                      <tr class="body" v-for="(item, i) in employee_orders.getEmployeeOrders" :key="i">
                         <td></td>
                         <td>{{item.description.join()}}</td>
                         <td> 
-                            <select name="seleccionProducto" id="seleccionProducto" class="form-select text-center">
+                            <select name="seleccionProducto" id="seleccionProducto" class="form-select text-center" v-model="domiciliary">
                                 <option v-for="(item, index) in domiciliarys" v-text="item.full_name"></option>
                             </select>
                         </td>

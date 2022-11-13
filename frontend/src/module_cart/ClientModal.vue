@@ -45,8 +45,7 @@ const submitForm = async () => {
 };
 const addOrden = () => {
   let description = shopping_cart.getDescriptionOrden
-  let total_value = shopping_cart.getTotalPayment
-  orden = { ...formData, description,total_value}; 
+  orden = { ...formData,description}; 
   orders.createOrden(orden)
 }
 
@@ -90,7 +89,7 @@ const message = (position, title, text, time) => {
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body container px-5">
-        <form @submit.prevent="sendOrden"> 
+        <form @submit.prevent="submitForm"> 
                 <div class="row mt-2">
                   <label class="form-label">Nombre</label>
                   <input class="form-control" type="text" v-model="formData.client_name">
