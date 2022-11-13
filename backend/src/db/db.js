@@ -1,10 +1,11 @@
 import  Sequelize  from "sequelize"
 import dotenv from 'dotenv/config'
-import { database, username, password, host, dialect} from '../helpers/helper.js'
+import { database, username, password, host, dialect, port} from '../helpers/helper.js'
 
 
-export const db = new Sequelize("delivery1", "delivery", "delivery123", {
-    host:'delivery.caidmnar18ph.us-east-1.rds.amazonaws.com',
-    dialect:'mysql',
+export const db = new Sequelize(database, username, password, {
+    host,
+    dialect,
+    port
   })
 
