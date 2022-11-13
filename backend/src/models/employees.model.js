@@ -10,28 +10,28 @@ const { STRING, INTEGER } = DataTypes
             id: {type: INTEGER, primaryKey: true, autoIncrement: true},
             name: {
                 type: STRING,
-                allowNull: false
+                allowNull: true
             },
             address: {
                 type: STRING,
-                allowNull: false
+                allowNull: true
             },
             email: {
                 type: STRING,
-                allowNull: false
+                allowNull: true
             },
             phoneNumber: {
                 type: STRING,
-                allowNull: false
+                allowNull: true
             },
             password:{
                 type: STRING,
-                allowNull: false
+                allowNull: true
             },
 
             role_id: {
                 type: INTEGER,
-                allowNull: false
+                allowNull: true
             },
 
 
