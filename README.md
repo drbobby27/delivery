@@ -18,31 +18,10 @@ Después de clonar el repositorio, abra la terminal con la ruta raíz del proyec
 cd frontend && npm install
 ```
 
-### Regrese a la ruta raíz del proyecto  con el siguiente comando: 
-
-```bash
-cd ..
-```
-### Ingrese ahora a la carpeta backend e instale las dependencias requeridas para su funcionamiento  con el siguiente comando:
-
-```bash
-cd backend && npm install
-```
-
-### Una vez termine la instalación de depencias del backend, inicie el servidor con el siguiente comando:
-
-```bash
-npm start
-```
-### Regrese a la ruta raíz con el siguiente comando:  
-
-```bash
-cd ..
-```
 ### Ahora corra la aplicacion con el siguiente comando:  
 
 ```bash
-cd frontend && npm run dev
+npm run dev
 ```
 
 ## Tecnologias usadas
