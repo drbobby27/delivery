@@ -25,7 +25,7 @@ npm run dev
 ```
 
 ## Tecnologias usadas
-`VUEJS / PINIA / VUE-ROUTER / VUELIDATE / NODEJS / SEQUELIZE / EXPRESS / CLOUDINARY / BOOTSTRAP / CSS`
+`VUEJS / PINIA / VUE-ROUTER / VUELIDATE / BOOTSTRAP / CSS / NODEJS / SEQUELIZE / EXPRESS / CLOUDINARY / RAILWAY`
 
 ## Back Log
 [https://dtorof.atlassian.net/jira/software/projects/RMA/boards/4](https://dtorof.atlassian.net/jira/software/projects/DEL/boards/4)
