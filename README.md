@@ -18,7 +18,7 @@ Después de clonar el repositorio, abra la terminal con la ruta raíz del proyec
 cd frontend && npm install
 ```
 
-### Ahora corra la aplicacion con el siguiente comando:  
+### Una vez terminada la instalación de dependencias, corra la aplicacion con el siguiente comando:  
 
 ```bash
 npm run dev
