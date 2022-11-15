@@ -10,7 +10,7 @@ import View_Administration  from "./module_administration/View_Administration.vu
 
 
 // import View_Administration  from "./module_administration/View_Administration.vue"
-import Home from '../src/module_home/Home.vue'
+// import Home from '../src/module_home/Home.vue'
 
 </script>
 
@@ -23,7 +23,7 @@ import Home from '../src/module_home/Home.vue'
  <!-- <Table/> -->
  <!-- <Home/> -->
 <!-- <View_Administration/> -->
- <Home/>
+ <!-- <Home/> -->
 <!-- <Router-View/> -->
 </template>
 

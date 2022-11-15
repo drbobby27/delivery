@@ -1,37 +1,54 @@
 <script setup>
 import { reactive, ref, onMounted, computed } from "vue";
 
-const totalVentas = ref([]);
 const dataVentas = ref([]);
-const totalVentasLocal = ref([]);
 const dataVentasLocal = ref([]);
+const array = ref([]);
+
 
 const data = async () => {
-  const urlData = "https://delivery-production-8572.up.railway.app/api/v1/purchase"; 
-  await fetch(urlData)
-    .then((resp) => resp.json())
-    .then((data) => (totalVentas.value = data));
-};
-const data1 = async () => {
   const urlData = "https://delivery-production-8572.up.railway.app/api/v1/detail-purchase"; 
   await fetch(urlData)
     .then((resp) => resp.json())
     .then((data) => (dataVentas.value = data));
+    localStorage1()
+   
 };
 
+const totalF =ref(0)
 
-  const localStorage1 = () => {
-  
-  localStorage.setItem("totalVentas",JSON.stringify(totalVentas.value));
-  totalVentasLocal.value = JSON.parse(localStorage.getItem("totalVentas"));
-  
+const localStorage1 = () => {
+
   localStorage.setItem("dataVentas",JSON.stringify(dataVentas.value));
   dataVentasLocal.value = JSON.parse(localStorage.getItem("dataVentas"));
+
+dataVentasLocal.value.forEach(element => {
+
+     array.value.push(element.total)
+
+});
+
+
+const initialValue = ref(0);
+const sumWithInitial = ref(0)
+
+ sumWithInitial.value = array.value.reduce(
+  (previousValue, currentValue) => previousValue + currentValue,
+  initialValue.value
+);
+
+totalF.value =sumWithInitial.value
+
+console.log(totalF.value);
+
 }
+
+
 
 onMounted(() => {
   data();
-  data1();
+
+  
 });
 
 </script>
@@ -62,11 +79,11 @@ onMounted(() => {
                                         </tr>
                                     </tbody>
                                     <tfoot>
-                                        <tr>
+                                        <tr >
                                             <th id="bordeTable"></th>
                                             <th class="bordeB">Cantidad Total</th>
 
-                                            <th class="bordeB" v-text="totalVentasLocal.total_value"></th>
+                                            <th class="bordeB" v-text="totalF" ></th>
                                         </tr>
                                     </tfoot>
 
