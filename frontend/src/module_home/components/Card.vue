@@ -1,11 +1,21 @@
 <script setup>
-
+     const emits = defineEmits({
+        handleClic: String,
+        handleUpdateQty: String
+    })
   defineProps({
        dataProducts: {
         type: Array,
         required: true,
      }
 })
+const handleClick = (data, item) => {
+    return emits('handleClic',data);
+}
+
+// const handleClickUpdate = (data, item) => {
+//     return emits('handleUpdateQty',data);
+// }
 </script>
 <template>
     <div class="row px-5">
@@ -24,14 +34,14 @@
                         <p>{{item.long_desc}}</p>
                     </div>
                     <div class="card-quantity">
-                        <!-- <button type="button" :disabled="handleInput <= 1" @click="updateQty('remove', item.id)">-</button> -->
+                        <button type="button" :disabled="item.qty <= 1" @click="emits('handleClic',item)">-</button>
                         <!-- <input id="medio" type="number" :value="handleInput" @change="(e) =>$emit('update:handleInput',e.target.value)"> -->
-                        <!-- <input class="input" :id="item.id" type="number" v-model="handleInput" >
-                        <button type="button" @click="updateQty('add', item.id)">+</button> -->
+                        <input class="input" :id="item.id" type="number" v-model="item.qty" >
+                        <button type="button" @click="emits('handleClic',item)">+</button> 
                     </div>
                 </div>
                 <div class="card-footer bg-transparent">
-                    <button type="button" class="btn" @click="addProductCart(item, qty)">
+                    <button type="button" class="btn" @click="emits('handleClic',item)">
                     Agregar
                     </button>
                 </div>  

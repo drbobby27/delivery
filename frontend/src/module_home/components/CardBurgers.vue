@@ -10,11 +10,13 @@ const handleInput = ref(1)
 const ErrorQty = false
 
 const getProducts = () => {
+        let qty = 1
         const urlData = "https://delivery-production-8572.up.railway.app/api/v1/product"
         fetch(urlData)
-        .then(resp => resp.json())
-        .then(data => products.value= data)
-        // console.log(products)
+        .then(resp => resp.json())   
+        // .then(data => products.value= data)
+        .then(data => products.value= data.map((prod, i)=> prod[i] = { ...prod,qty}))
+        console.log(products)   
    };
 
 onMounted(() => {
@@ -35,6 +37,7 @@ const addProductCart = (item, qty) => {
         product_name: item.product_name,
         price: item.price,
         long_desc: item.long_desc,
+        short_desc: item.short_desc,
         image_url: item.image_url,
         category_id: item.category_id,
         quantity: handleInput.value,

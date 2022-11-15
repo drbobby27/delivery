@@ -1,59 +1,71 @@
 <script setup>
-import { reactive, ref, unref, onMounted, toRefs} from 'vue'
+import { reactive, ref, onMounted} from 'vue'
 import { useShoppingCartStore } from '../../stores/shoppingCart';
 import Card from '../components/Card.vue'
 
 const shopping_cart = useShoppingCartStore(); 
 
-const dataProducts = ref([]);
-// const dataProducts = [];
-const products = ref([])
+const productsBurger = ref([])
+const productsHotDog = ref([])
+let qty = 1
+
 const handleInput = ref(1)
 const ErrorQty = false
-const getProducts = () => {
-        const urlData = "http://localhost:7000/api/v1/product"
+
+const getProductsBurger = () => {
+        const urlData = "https://delivery-production-8572.up.railway.app/api/v1/product"
         fetch(urlData)
         .then(resp => resp.json())
-        .then(data => dataProducts.value= data)
-        console.log("😎...", unref(dataProducts))
-   };
+        .then(data => productsBurger.value= data.filter((prod)=> prod.category.type === "Hamburguesa").map((prod, i)=> prod[i] = { ...prod,qty}))
+        console.log(productsBurger)    
+};
 
+const getProductsHotDog = () => {
+        const urlData = "https://delivery-production-8572.up.railway.app/api/v1/product"
+        fetch(urlData)
+        .then(resp => resp.json())
+        .then(data => productsHotDog.value= data.filter((prod)=> prod.category.type === "Perro Caliente").map((prod, i)=> prod[i] = { ...prod,qty}))
+        console.log(productsHotDog)   
+};
 
 onMounted(() => {
-  getProducts(); 
+  getProductsBurger();
+  getProductsHotDog(); 
 })
-const {product_name,price, long_desc, short_desc, image_url, category_id, category} = toRefs(dataProducts)
-console.log("🧔🏿...", product_name,price, long_desc, short_desc, image_url, category_id, category)
+
 console.log(handleInput);
+
 const updateQty = (action) => {
     handleInput.value  = action === "add" ? handleInput.value + 1 : handleInput.value - 1; 
     console.log(handleInput) 
     return handleInput   
 }
-// const category = () => {
- 
-// }
-
+const validation = () => {
+  
+}
 const addProductCart = (item, qty) => {
   let product = {
         id: item.id,
         product_name: item.product_name,
         price: item.price,
         long_desc: item.long_desc,
+        short_desc: item.short_desc,
         image_url: item.image_url,
         category_id: item.category_id,
         quantity: handleInput.value,
         subTotal: handleInput.value * item.price,
   }
-  shopping_cart.create(dataProducts)
+  shopping_cart.addCart(product) 
   shopping_cart.totalToPay();
+  shopping_cart.descriptionOrden()
 }
+
 </script>
 <template>
 <div>
-    {{dataProducts}}
- <Card :dataProducts="dataProducts" />  
- <!-- <Card :dataProducts="dataProducts" v-if="dataProducts.category.type === 'Hamburguesa'"/>   -->
-
+ <h2 class="text-muted text-center my-5">Hamburguesa</h2>
+ <Card @handleClic="addProductCart" :dataProducts="productsBurger" /> 
+ <h2 class="text-muted text-center my-5">Perro Caliente</h2> 
+ <Card @handleClic="addProductCart" :dataProducts="productsHotDog" />  
 </div>
  </template>

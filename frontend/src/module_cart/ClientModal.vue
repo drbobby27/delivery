@@ -1,71 +1,113 @@
 <script setup>
 import { reactive, ref, onMounted} from 'vue'
 import { useVuelidate } from '@vuelidate/core'
-import { required } from '@vuelidate/validators'
+import { required, maxLength, minValue, numeric,alpha, helpers } from '@vuelidate/validators'
 import {  useOrderStore } from '../stores/order';
 import { useShoppingCartStore } from '../stores/shoppingCart';
 import {computed} from 'vue'
 
 const orders =  useOrderStore(); 
 const shopping_cart = useShoppingCartStore(); 
-// const leng = computed(() => orders.getQuantityOrders);
+
 
 let orden = ref({})
 
-const formData = reactive({
+const formOrder = reactive({
   client_name: "",
   address: "",
   phone_number: "",
 }); 
+
+
+
 const rules = computed (() =>{
   return {
-    client_name: { required },
-    address: { required },
-    phone_number: {required },
+    client_name: { 
+      required:helpers.withMessage("El campo nombre es obligatorio", required ), 
+      alpha: helpers.withMessage("Solo acepta caracteres alfabéticos", alpha )
+    },
+    address: {
+       required:helpers.withMessage("El campo dirección es obligatorio", required ) 
+    },
+    phone_number: {
+      required:helpers.withMessage("El campo teléfono es obligatorio,debe tener 7 caracteres min y max 10", required ),
+      numeric,minValue: minValue(7),
+      maxLength: maxLength(10)
+    },
   }
 });
 //inicializar para ver el la data dentro del componente
-const v$ = useVuelidate(rules, formData)
+const v$ = useVuelidate(rules, formOrder)
 
 const submitForm = async () => {
   const result = await v$.value.$validate();
   if(result) {
     addOrden();
-    message(
-    "center",
-    "Creación completada",
-    "Se ha creado correctamente el producto",
-    1500
-  );
-   clear();
-   shopping_cart.clearsCart();
+    console.log(shopping_cart.registerPurchase())
+    console.log(shopping_cart.getProducts)
+    console.log("detailfactura👸🏻",shopping_cart.detailPurchase())
+    // registerPurchase();
+    // registerOrder();
   } else {
-    alert("error, form not submitted!");
+    messageError("Verifique que todos los campos este llenos");
   }
 };
+
 const addOrden = () => {
   let description = shopping_cart.getDescriptionOrden
-  orden = { ...formData,description}; 
+  orden = { ...formOrder,description}; 
   orders.createOrden(orden)
 }
 
-const sendOrden = async () => {
-  const urlDB = `https://delivery-production-8572.up.railway.app/api/v1/order`;
+const registerPurchase = async () => {
+  const urlDB = `https://delivery-production-8572.up.railway.app/api/v1/purchase`;
   await fetch(urlDB, {
     method: "POST",
-    body: orden,
+    body: shopping_cart.registerPurchase(),
   })
-    .then((response) => console.log(response))
+    .then((response) => response)
     .then((response) => {})
     .catch((error) => {
       console.error("Error:", error);
     });
-};
-const clear=() =>{
-   formData.client_name = '';
-   formData.address = '';
-   formData.phone_number = '';
 }
+const DetailPurchase = async () => {
+  const urlDB = `https://delivery-production-8572.up.railway.app/api/v1/detail-purchase`;
+  await fetch(urlDB, {
+    method: "POST",
+    body: orden,
+  })
+    .then((response) => response)
+    .then((response) => {})
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
+// const registerOrder = async () => {
+//   const urlDB = `https://delivery-production-8572.up.railway.app/api/v1/order`;
+//   await fetch(urlDB, {
+//     method: "POST",
+//     body: formOrder,
+//   })
+//     .then((response) => response)
+//     .then((response) => {})
+//     .catch((error) => {
+//       console.error("Error:", error);
+//     });
+//      message(
+//     "center",
+//     "Creación completada",
+//     "Se ha creado correctamente el producto",
+//     1500
+//   );
+//    clear();
+//    shopping_cart.clearsCart();
+// };
+// const clear=() =>{
+//    formOrder.client_name = '';
+//    formOrder.address = '';
+//    formOrder.phone_number = '';
+// }
 // const  handleSubmit = () => fieldValidations()? error : createPerson();
 
 const message = (position, title, text, time) => {
@@ -78,6 +120,14 @@ const message = (position, title, text, time) => {
     timer: time,
   });
 };
+const messageError = ( text) => {
+  Swal.fire({
+    icon: "error",
+    title: "Oops...",
+    text: text,
+  });
+};
+
 
 </script>
 <template>
@@ -92,19 +142,19 @@ const message = (position, title, text, time) => {
         <form @submit.prevent="submitForm"> 
                 <div class="row mt-2">
                   <label class="form-label">Nombre</label>
-                  <input class="form-control" type="text" v-model="formData.client_name">
+                  <input class="form-control" type="text" v-model="formOrder.client_name">
                   <span v-for="error in v$.client_name.$errors" .key="error.$uid"  style="color: red;">{{error.$message}}</span>
                   <!-- <span class="error" v-if="error_client_name" style="color: red;">Por favor ingresa tu nombre</span> -->
                 </div>
                 <div class="row mt-2">
                   <label class="form-label">Teléfono</label>
-                  <input class="form-control" type="text" v-model="formData.phone_number">
+                  <input class="form-control" type="text" v-model="formOrder.phone_number">
                   <span v-for="error in v$.phone_number.$errors" .key="error.$uid"  style="color: red;">{{error.$message}}</span>
                   <!-- <span class="error" v-if="error_phone_number" style="color: red;">Por favor ingresa tu teléfono</span> -->
                 </div>
                 <div class="row mt-2">
                   <label class="form-label">Dirección</label>
-                  <input class="form-control" type="text" v-model="formData.address">
+                  <input class="form-control" type="text" v-model="formOrder.address">
                    <span v-for="error in v$.address.$errors" .key="error.$uid"  style="color: red;">{{error.$message}}</span>
                   <!-- <span class="error" v-if="error_address" style="color: red;">Por favor ingresa tu dirección</span> -->
                 </div>
