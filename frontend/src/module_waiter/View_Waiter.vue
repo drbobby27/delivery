@@ -3,21 +3,26 @@ import { reactive, ref, onMounted} from 'vue'
 import {  useOrderStore } from '../stores/order';
 
 const employee_orders = useOrderStore(); 
-
+// const domiciliary = useOrderStore(); 
+let optionDomiciliary = ref("")
 const domiciliarys = ref([])
 
-// const getDomiciliary = () => {
-//         const urlData = "http://http://localhost:7000/api/v1/deliverman"
-//         console.log(urlData)
-//         fetch(urlData)
-//         .then(resp => resp.json())
-//         .then(data => domiciliarys.value= data)
-//         console.log(domiciliarys)
-//    };
 
-// onMounted(() => {
-//   getDomiciliary(); 
-// })
+const getDomiciliary = () => {
+        const urlData = "https://delivery-production-8572.up.railway.app/api/v1/deliverman"
+        fetch(urlData)
+        .then(resp => resp.json())
+        .then(data => domiciliarys.value= data)
+        console.log(domiciliarys)
+   };
+
+onMounted(() => {
+  getDomiciliary(); 
+})
+
+function handleClick(i) {
+    employee_orders.clearEmployeeOrders(i)
+}
 </script>
 <template>
   <div class="container mx-4">
@@ -28,22 +33,23 @@ const domiciliarys = ref([])
                   <table class="table table-bordered mt-4 table-strip text-center">
                     <thead class="table table-header">
                       <tr>
-                        <th class="col-3 table99">Número pedido</th>
-                        <th class="col-3 table99">Descripción</th>
-                        <th class="col-3 table99">Domiciliario</th>
-                          <th class="col-3 table99">Opción</th>
+                        <th class="col-3">Número pedido</th>
+                        <th class="col-3">Descripción</th>
+                        <th class="col-3">Domiciliario</th>
+                          <th class="col-3">Opción</th>
                       </tr>
                     </thead>
                     <tbody v-if="employee_orders.getEmployeeOrders.length">
-                      <tr class="body" v-for="(item) in employee_orders.getEmployeeOrders" :key="item.id">
-                        <td></td>
-                        <td>{{item.description}}</td>
+                      <tr class="body" v-for="(item, i) in employee_orders.getEmployeeOrders" :key="i">
+                        <td>{{}}</td>
+                        <td>{{item.description.join()}}</td>
                         <td> 
-                            <!-- <select name="seleccionProducto" id="seleccionProducto" class="form-select  text-center" v-model="dbOrdersEmployee[index].domiciliary">
-                                <option v-for="(item, index) in domiciliarys" v-text="item.full_name">Seleccione domiciliario</option>
-                            </select> -->
+                            <select name="seleccionProducto" id="seleccionProducto" class="form-select text-center" v-model="employee_orders.getEmployeeOrders[i].domiciliary">
+                                <option disabled value="">Seleccione una opción</option>
+                                <option v-for="(item, index) in domiciliarys" v-text="item.full_name"  :value="item.full_name"></option>
+                            </select>
                         </td>
-                        <td><button class="btn" @click="sendOrder(i)">Listo</button></td>
+                        <td><button class="btn" @click="handleClick(i)">Listo</button></td>
                       </tr>
                     </tbody>
                     <tbody v-else>

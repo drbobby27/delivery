@@ -9,6 +9,8 @@ import View_Administration  from "./module_administration/View_Administration.vu
 // import Home from '../src/module_home/Home.vue'
 
 
+// import View_Administration  from "./module_administration/View_Administration.vue"
+import Home from '../src/module_home/Home.vue'
 
 </script>
 
@@ -20,6 +22,8 @@ import View_Administration  from "./module_administration/View_Administration.vu
  <!-- <Home/> -->
  <!-- <Table/> -->
  <!-- <Home/> -->
+<!-- <View_Administration/> -->
+ <Home/>
 <!-- <Router-View/> -->
 </template>
 

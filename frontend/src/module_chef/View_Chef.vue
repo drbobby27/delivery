@@ -1,7 +1,14 @@
 <script setup>
+import { reactive, ref, onMounted} from 'vue'
 import {  useOrderStore } from '../stores/order';
 
 const chefs_orders = useOrderStore(); 
+let domiciliary = "";
+
+function handleClick(i) {
+    chefs_orders.clearChefsOrders(i,domiciliary)
+}
+
 </script>
 <template>
    <div class="container mx-4">
@@ -12,16 +19,16 @@ const chefs_orders = useOrderStore();
                   <table class="table table-bordered mt-4 table-strip text-center">
                     <thead class="table table-header">
                       <tr>
-                        <th class="col-3 table99">Número pedido</th>
-                        <th class="col-3 table99">Descripción</th>
-                        <th class="col-3 table99">Opción</th>
+                        <th class="col-3">Número pedido</th>
+                        <th class="col-3">Descripción</th>
+                        <th class="col-3">Opción</th>
                       </tr>
                     </thead>
                     <tbody v-if="chefs_orders.getChefsOrders.length">
-                      <tr class="body" v-for="(item) in chefs_orders.getChefsOrders" :key="item.id">
+                      <tr class="body" v-for="(item,i) in chefs_orders.getChefsOrders" :key="item.i">
                         <td></td>
                         <td>{{item.description.join()}}</td>
-                        <td><button class="btn" @click="sendOrder(i)">Listo</button></td> 
+                        <td><button class="btn" @click="handleClick(i)">Listo</button></td> 
                       </tr>
                     </tbody>
                     <tbody v-else>

@@ -1,4 +1,12 @@
 <script setup>
+import {  useOrderStore } from '../stores/order';
+
+const domiciliary_orders = useOrderStore(); 
+ 
+
+function handleClick(i) {
+    domiciliary_orders.clearDomiciliaryOrders(i)
+}
 
 </script>
 <template>
@@ -10,27 +18,31 @@
                   <table class="table table-bordered mt-4 table-strip text-center">
                     <thead class="table table-header">
                       <tr>
-                        <th class="col-3 table99">Número pedido</th>
-                        <th class="col-3 table99">Descripción</th>
-                        <th class="col-3 table99">Nombre usuario</th>
-                        <th class="col-3 table99">Teléfono</th>
-                        <th class="col-3 table99">Nombre domiciliario</th>
-                        <th class="col-3 table99">Dirección</th>
-                          <th class="col-3 table99">Opción</th>
+                        <th class="col-3">Número pedido</th>
+                        <th class="col-3">Descripción</th>
+                        <th class="col-3">Nombre usuario</th>
+                        <th class="col-3">Teléfono</th>
+                        <th class="col-3">Dirección</th>
+                        <th class="col-3">Nombre domiciliario</th>
+                        <th class="col-3">Opción</th>
                       </tr>
                     </thead>
-                    <!-- <tbody v-if="valores.length">
-                      <tr class="body" v-for="(item) in valores" :key="item.id">
-                        <td>{{item.product_name}}</td>
-                        <td>{{item.quantity}}</td>
-                        <td>{{item.subTotal}}</td> 
+                    <tbody v-if="domiciliary_orders.getDomiciliaryOrders.length">
+                      <tr class="body" v-for="(item, i) in domiciliary_orders.getDomiciliaryOrders" :key="item.i">
+                        <td>{{}}</td>
+                        <td>{{item.description.join()}}</td>
+                        <td>{{item.client_name}}</td>
+                        <td>{{item.phone_number}}</td>
+                        <td>{{item.address}}</td>
+                        <td>{{item.domiciliary}}</td>
+                        <td><button class="btn" @click="handleClick(i)">Listo</button></td>
                       </tr>
                     </tbody>
                     <tbody v-else>
                       <tr>
                         <td colspan="5" class="text-center justify-content-center">Sin lista de Domicilios...</td>
                       </tr>
-                    </tbody> -->
+                    </tbody>
                   </table>
                 </div>
               </div>

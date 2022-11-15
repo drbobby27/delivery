@@ -6,6 +6,7 @@ import Card from "./components/Card.vue";
 import Footer from "./components/Footer.vue";
 import Products from "./components/Products.vue"
 import Login from "./components/Login.vue";
+
 </script>
 
 <template>
@@ -14,6 +15,9 @@ import Login from "./components/Login.vue";
   <Carrusel /> -->
   <Card />
    <Products/>
+  <!-- <login /> -->
+  <!-- <Carrusel /> -->
+  <Products/>
   <Footer />
   <!-- <RouterView /> -->
 </template>
