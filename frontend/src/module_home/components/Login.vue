@@ -66,6 +66,7 @@ const sendData = async () => {
     })
     .then(function (data) {
       dateLogin.value=data
+      console.log(dateLogin.value);
       if(dateLogin.value.validLogin==true){
         routing();
         message(

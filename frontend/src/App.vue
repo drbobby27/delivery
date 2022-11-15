@@ -1,6 +1,14 @@
 <script setup>
 // import { RouterLink, RouterView } from 'vue-router'
 
+import View_Administration  from "./module_administration/View_Administration.vue"
+// import Home from '../src/module_home/Home.vue'
+// import View_Administration  from "./module_administration/View_Administration.vue"
+// import Table from '../src/components/Table.vue'
+// import ClientModal from '../src/module_cart/ClientModal.vue'
+// import Home from '../src/module_home/Home.vue'
+
+
 // import View_Administration  from "./module_administration/View_Administration.vue"
 import Home from '../src/module_home/Home.vue'
 
@@ -9,6 +17,11 @@ import Home from '../src/module_home/Home.vue'
 <template>
 
 
+<View_Administration/>
+
+ <!-- <Home/> -->
+ <!-- <Table/> -->
+ <!-- <Home/> -->
 <!-- <View_Administration/> -->
  <Home/>
 <!-- <Router-View/> -->
