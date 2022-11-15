@@ -1,11 +1,12 @@
 <script setup>
+import { reactive, ref, onMounted} from 'vue'
 import {  useOrderStore } from '../stores/order';
 
 const chefs_orders = useOrderStore(); 
+let domiciliary = "";
 
 function handleClick(i) {
-    console.log("👩🏻‍🦰",i)
-    chefs_orders.clearChefsOrders(i)
+    chefs_orders.clearChefsOrders(i,domiciliary)
 }
 
 </script>

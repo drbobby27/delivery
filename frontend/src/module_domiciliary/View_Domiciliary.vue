@@ -34,7 +34,7 @@ function handleClick(i) {
                         <td>{{item.client_name}}</td>
                         <td>{{item.phone_number}}</td>
                         <td>{{item.address}}</td>
-                        <td>{{}}</td>
+                        <td>{{item.domiciliary}}</td>
                         <td><button class="btn" @click="handleClick(i)">Listo</button></td>
                       </tr>
                     </tbody>

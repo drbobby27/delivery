@@ -4,7 +4,7 @@ import {  useOrderStore } from '../stores/order';
 
 const employee_orders = useOrderStore(); 
 // const domiciliary = useOrderStore(); 
-let domiciliary = ref("")
+let optionDomiciliary = ref("")
 const domiciliarys = ref([])
 
 
@@ -41,11 +41,12 @@ function handleClick(i) {
                     </thead>
                     <tbody v-if="employee_orders.getEmployeeOrders.length">
                       <tr class="body" v-for="(item, i) in employee_orders.getEmployeeOrders" :key="i">
-                        <td></td>
+                        <td>{{}}</td>
                         <td>{{item.description.join()}}</td>
                         <td> 
-                            <select name="seleccionProducto" id="seleccionProducto" class="form-select text-center" v-model="domiciliary">
-                                <option v-for="(item, index) in domiciliarys" v-text="item.full_name"></option>
+                            <select name="seleccionProducto" id="seleccionProducto" class="form-select text-center" v-model="employee_orders.getEmployeeOrders[i].domiciliary">
+                                <option disabled value="">Seleccione una opción</option>
+                                <option v-for="(item, index) in domiciliarys" v-text="item.full_name"  :value="item.full_name"></option>
                             </select>
                         </td>
                         <td><button class="btn" @click="handleClick(i)">Listo</button></td>
