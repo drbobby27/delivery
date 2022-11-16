@@ -6,16 +6,14 @@ import Footer from "./components/Footer.vue";
 import Products from "./components/Products.vue"
 import Login from "./components/Login.vue";
 
-// import Login from "./components/Login.vue";
 </script>
 
 <template>
   <Navbar />
   <login />
-  <Carrusel /> -->
+  <Carrusel /> 
   <Card />
    <Products/>
-  <!-- <login /> -->
   <Carrusel />
   <Products/>
 
