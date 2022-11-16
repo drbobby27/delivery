@@ -8,10 +8,13 @@ const products = ref([])
 const handleInput = ref(1)
 const ErrorQty = false
 const getProducts = () => {
+        let qty = 1
         const urlData = "https://delivery-production-8572.up.railway.app/api/v1/product"
         fetch(urlData)
-        .then(resp => resp.json())
-        .then(data => products.value= data)
+        .then(resp => resp.json())   
+        // .then(data => products.value= data)
+        .then(data => products.value= data.map((prod, i)=> prod[i] = { ...prod,qty}))
+        console.log(products)  
         // console.log(products)
    };
 
@@ -19,14 +22,24 @@ onMounted(() => {
   getProducts(); 
 })
 console.log(handleInput);
-const updateQty = (action) => {
-    handleInput.value  = action === "add" ? handleInput.value + 1 : handleInput.value - 1; 
-    console.log(handleInput) 
-    return handleInput   
+// const updateQty = (action) => {
+//     handleInput.value  = action === "add" ? handleInput.value + 1 : handleInput.value - 1; 
+//     console.log(handleInput) 
+//     return handleInput   
+// }
+const updateQty = (action, id) => {
+    const product = products.value.find(product => product.id === id)
+    console.log("👩🏻‍🦰...",product)
+    console.log(action, id)
+      if(product.qty >=0){
+        const qty = product.qty;
+        product.qty = action === "add" ? qty + 1 : qty - 1;
+      }else{
+        const qty = product.qty;
+        product.qty = action === "remove" ? qty + 1 : qty - 0;
+      }
 }
-const validation = () => {
-  
-}
+
 const addProductCart = (item, qty) => {
   let product = {
         id: item.id,
@@ -61,10 +74,10 @@ const addProductCart = (item, qty) => {
                     <div class="card-desc">
                         <p>{{item.long_desc}}</p>
                     </div>
-                    <div class="card-quantity">
-                        <button type="button" :disabled="handleInput <= 1" @click="updateQty('remove', item.id)">-</button>
+                     <div class="card-quantity">
+                        <button type="button" :disabled="item.qty <= 1" @click="updateQty('remove', item.id)">-</button>
                         <!-- <input id="medio" type="number" :value="handleInput" @change="(e) =>$emit('update:handleInput',e.target.value)"> -->
-                        <input class="input" :id="item.id" type="number" v-model="handleInput" >
+                        <input class="input" :id="item.id" type="number" v-model="item.qty" >
                         <button type="button" @click="updateQty('add', item.id)">+</button>
                     </div>
                 </div>

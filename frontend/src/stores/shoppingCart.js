@@ -7,7 +7,10 @@ export const useShoppingCartStore = defineStore('shoppingCartStore', {
         total_payment: 0,
         description_orden: [],
         purchase: {},
-        detail_purchase:{}
+        detail_purchase:{},
+        purchaseDB: [],
+        // purchase_Id: 0
+        // detail_purchaseDB:[]
         
     }),
     getters: {
@@ -33,7 +36,6 @@ export const useShoppingCartStore = defineStore('shoppingCartStore', {
             return  this.total_payment
         },
         descriptionOrden(){
-            // this.description_orden = this.shopping_cart.map(prod => prod)
             this.description_orden = this.shopping_cart.map(prod => `${prod.quantity}-${prod.product_name}`)
             return this.description_orden
         },
@@ -43,8 +45,29 @@ export const useShoppingCartStore = defineStore('shoppingCartStore', {
               }
               return this.purchase
         },
-        detailPurchase(){
-         
+        getPurchase(){ 
+            const urlData = "https://delivery-production-8572.up.railway.app/api/v1/purchase"
+            fetch(urlData)
+            .then(resp => resp.json())   
+            .then(data => this.purchaseDB.value= data)
+            console.log(this.purchaseDB)   
+            return this.purchaseDB
+        },
+        // getdetailPurchase(){ 
+        //     const urlData = "https://delivery-production-8572.up.railway.app/api/v1/detail-purchase"
+        //     fetch(urlData)
+        //     .then(resp => resp.json())   
+        //     .then(data => this.detail_purchaseDB.value= data)
+        //     console.log(this.detail_purchaseDB)   
+        //     return this.detail_purchaseDB
+        // },
+        detailPurchase(purchase_Id){
+            for (let product of this.shopping_cart) {
+                 const {id, quantity,subTotal} = product
+                 this.detail_purchase = {purchase_id: purchase_Id,product_id: id,amount: quantity, total: subTotal}
+            }
+            console.log("🎅🏻...", this.detail_purchase)
+            return this.detail_purchase
         },
         loadShoppingCart() {
             this.shopping_cart = this.shopping_cart;

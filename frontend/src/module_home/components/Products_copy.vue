@@ -9,8 +9,8 @@ const productsBurger = ref([])
 const productsHotDog = ref([])
 let qty = 1
 
-const handleInput = ref(1)
-const ErrorQty = false
+// const handleInput = ref(1)
+
 
 const getProductsBurger = () => {
         const urlData = "https://delivery-production-8572.up.railway.app/api/v1/product"
@@ -33,33 +33,47 @@ onMounted(() => {
   getProductsHotDog(); 
 })
 
-console.log(handleInput);
+// console.log(handleInput);
 
-const updateQty = (action) => {
-    handleInput.value  = action === "add" ? handleInput.value + 1 : handleInput.value - 1; 
-    console.log(handleInput) 
-    return handleInput   
-}
-const validation = () => {
+// const updateQty = (action) => {
+//     handleInput.value  = action === "add" ? handleInput.value + 1 : handleInput.value - 1; 
+//     console.log(handleInput) 
+//     return handleInput   
+// }
+// const validation = () => {
   
-}
-const addProductCart = (item, qty) => {
+// }
+const addProductCart = (item) => {
   let product = {
-        id: item.id,
+         id: item.id,
         product_name: item.product_name,
         price: item.price,
         long_desc: item.long_desc,
         short_desc: item.short_desc,
         image_url: item.image_url,
         category_id: item.category_id,
-        quantity: handleInput.value,
-        subTotal: handleInput.value * item.price,
+        quantity: item.qty,
+        subTotal: item.qty * item.price,
   }
   shopping_cart.addCart(product) 
   shopping_cart.totalToPay();
   shopping_cart.descriptionOrden()
 }
-
+// const updateQty = (action, id) => {
+//     const product = productsBurger.value.find(product => product.id === id) || productsHotDog.value.find(product => product.id === id)
+//     console.log("👩🏻‍🦰...",product)
+//     console.log(action, id)
+//       if(product.qty >=0){
+//         const qty = product.qty;
+//         product.qty = action === "add" ? qty + 1 : qty - 1;
+//       }else{
+//         const qty = product.qty;
+//         product.qty = action === "remove" ? qty + 1 : qty - 0;
+//       }
+// }
+// const updateQty = () => {
+//   alert("Hola...")
+// }
 </script>
 <template>
 <div>
