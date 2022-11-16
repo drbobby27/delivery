@@ -1,8 +1,10 @@
 <script setup>
 import { reactive, ref, onMounted} from 'vue'
 import { useShoppingCartStore } from '../../stores/shoppingCart';
+import BaseInput from '../../components/BaseInput.vue'
 
 const shopping_cart = useShoppingCartStore(); 
+const detail_purchase = useShoppingCartStore(); 
 
 const products = ref([])
 
@@ -23,10 +25,22 @@ onMounted(() => {
   getProducts(); 
 })
 console.log(handleInput);
-const updateQty = (action) => {
-    handleInput.value  = action === "add" ? handleInput.value + 1 : handleInput.value - 1; 
-    console.log(handleInput) 
-    return handleInput   
+// const updateQty = (action) => {
+//     qty = action === "add" ? qty + 1 : qty - 1; 
+//     console.log(qty) 
+//     return qty  
+// }
+const updateQty = (action, id) => {
+    const product = products.value.find(product => product.id === id)
+    console.log("👩🏻‍🦰...",product)
+    console.log(action, id)
+      if(product.qty >=0){
+        const qty = product.qty;
+        product.qty = action === "add" ? qty + 1 : qty - 1;
+      }else{
+        const qty = product.qty;
+        product.qty = action === "remove" ? qty + 1 : qty - 0;
+      }
 }
 const validation = () => {
   
@@ -40,14 +54,17 @@ const addProductCart = (item, qty) => {
         short_desc: item.short_desc,
         image_url: item.image_url,
         category_id: item.category_id,
-        quantity: handleInput.value,
-        subTotal: handleInput.value * item.price,
+        quantity: item.qty,
+        subTotal: item.qty * item.price,
   }
   shopping_cart.addCart(product) 
   shopping_cart.totalToPay();
   shopping_cart.descriptionOrden()
+//   detail_purchase.detailPurchase(product)
 }
-
+const saveValue = value => {
+    console.log(value)
+}
 </script>
 <template>
     <div class="row px-5">
@@ -67,9 +84,10 @@ const addProductCart = (item, qty) => {
                         <p>{{item.long_desc}}</p>
                     </div>
                     <div class="card-quantity">
-                        <button type="button" :disabled="handleInput <= 1" @click="updateQty('remove', item.id)">-</button>
+                        <button type="button" :disabled="item.qty <= 1" @click="updateQty('remove', item.id)">-</button>
                         <!-- <input id="medio" type="number" :value="handleInput" @change="(e) =>$emit('update:handleInput',e.target.value)"> -->
-                        <input class="input" :id="item.id" type="number" v-model="handleInput" >
+                        <!-- <input class="input" :id="item.id" type="number" v-model="item.qty" > -->
+                         <BaseInput type="number" @update="saveValue" :value="item.qty"/> 
                         <button type="button" @click="updateQty('add', item.id)">+</button>
                     </div>
                 </div>

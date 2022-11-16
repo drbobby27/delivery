@@ -8,16 +8,20 @@ import {computed} from 'vue'
 
 const orders =  useOrderStore(); 
 const shopping_cart = useShoppingCartStore(); 
+const detail_purchase = useShoppingCartStore(); 
+const purchaseDB = useShoppingCartStore(); 
+// const detail_purchaseDB = useShoppingCartStore(); 
+// let purchase_Id = useShoppingCartStore();
 
-
+let purchase = ref(0);
 let orden = ref({})
+let ordenDB = ref({})
 
 const formOrder = reactive({
   client_name: "",
   address: "",
   phone_number: "",
 }); 
-
 
 
 const rules = computed (() =>{
@@ -43,11 +47,15 @@ const submitForm = async () => {
   const result = await v$.value.$validate();
   if(result) {
     addOrden();
+    console.log("purchaseDB...🍠",purchaseDB.getPurchase())
     console.log(shopping_cart.registerPurchase())
     console.log(shopping_cart.getProducts)
     console.log("detailfactura👸🏻",shopping_cart.detailPurchase())
-    // registerPurchase();
-    // registerOrder();
+    //  console.log("detail_purchaseDB...🍚",detail_purchaseDB.getdetailPurchase())
+    console.log(detail_purchase.detailPurchase())
+    registerPurchase();
+    DetailPurchase();
+    registerOrder();
   } else {
     messageError("Verifique que todos los campos este llenos");
   }
@@ -65,8 +73,18 @@ const registerPurchase = async () => {
     method: "POST",
     body: shopping_cart.registerPurchase(),
   })
-    .then((response) => response)
-    .then((response) => {})
+   .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      purchase.value= data.createRegister.id
+      ordenDB = { ...formOrder, purchase_id: purchase.value}
+      detail_purchase.detailPurchase(purchase.value)
+      console.log(ordenDB)
+      console.log("funciono el purchase...",purchase.value)
+    })
+    // .then((response) => response)
+    // .then((response) => {})
     .catch((error) => {
       console.error("Error:", error);
     });
@@ -75,39 +93,47 @@ const DetailPurchase = async () => {
   const urlDB = `https://delivery-production-8572.up.railway.app/api/v1/detail-purchase`;
   await fetch(urlDB, {
     method: "POST",
-    body: orden,
+    body: detail_purchase.detailPurchase(),
   })
-    .then((response) => response)
-    .then((response) => {})
+     .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log("soy data detalle...", data)
+    })
     .catch((error) => {
       console.error("Error:", error);
     });
 }
-// const registerOrder = async () => {
-//   const urlDB = `https://delivery-production-8572.up.railway.app/api/v1/order`;
-//   await fetch(urlDB, {
-//     method: "POST",
-//     body: formOrder,
-//   })
-//     .then((response) => response)
-//     .then((response) => {})
-//     .catch((error) => {
-//       console.error("Error:", error);
-//     });
-//      message(
-//     "center",
-//     "Creación completada",
-//     "Se ha creado correctamente el producto",
-//     1500
-//   );
-//    clear();
-//    shopping_cart.clearsCart();
-// };
-// const clear=() =>{
-//    formOrder.client_name = '';
-//    formOrder.address = '';
-//    formOrder.phone_number = '';
-// }
+const registerOrder = async () => {
+  const urlDB = `https://delivery-production-8572.up.railway.app/api/v1/order`;
+  await fetch(urlDB, {
+    method: "POST",
+    body: ordenDB,
+  })
+   .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log(data)
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+     message(
+    "center",
+    "Creación completada",
+    "Se ha creado correctamente el producto",
+    1500
+  );
+   clear();
+   shopping_cart.clearsCart();
+};
+const clear=() =>{
+   formOrder.client_name = '';
+   formOrder.address = '';
+   formOrder.phone_number = '';
+}
 // const  handleSubmit = () => fieldValidations()? error : createPerson();
 
 const message = (position, title, text, time) => {

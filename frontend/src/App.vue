@@ -4,6 +4,7 @@
 // import View_Administration  from "./module_administration/View_Administration.vue"
 import Home from '../src/module_home/Home.vue'
 
+
 </script>
 
 <template>
@@ -11,6 +12,8 @@ import Home from '../src/module_home/Home.vue'
 
 <!-- <View_Administration/> -->
  <Home/>
+ <!-- <Table/> -->
+ <!-- <Home/> -->
 <!-- <Router-View/> -->
 </template>
 
