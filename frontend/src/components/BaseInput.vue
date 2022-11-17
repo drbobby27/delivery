@@ -1,12 +1,6 @@
 <script setup>
 defineProps(['type'])
-// defineProps({
-//     type: {
-//         type:Number,
-//         default: 0,
-//         // validator: value => ['number'].includes(value)
-//     }
-// })
+
 
 const emit = defineEmits(['update'])
 const saveValue = event =>{

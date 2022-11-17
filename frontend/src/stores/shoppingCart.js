@@ -3,12 +3,13 @@ import { defineStore } from 'pinia';
 export const useShoppingCartStore = defineStore('shoppingCartStore', {
     state: () => ({
         shopping_cart: [],
-        quantity_products: 0,
+        // quantity_products: 0,
         total_payment: 0,
         description_orden: [],
         purchase: {},
         detail_purchase:{},
         purchaseDB: [],
+        quantity_products: 0,
         // purchase_Id: 0
         // detail_purchaseDB:[]
         
@@ -17,9 +18,14 @@ export const useShoppingCartStore = defineStore('shoppingCartStore', {
        getProducts : (state) =>  state.shopping_cart,
        getTotalPayment : (state) => state.total_payment,
        getQuantityProducts:(state) => state.shopping_cart.length,
-       getDescriptionOrden: (state) => state.description_orden
+       getDescriptionOrden: (state) => state.description_orden,
+       getQuantity: (state) => state.quantity_products
     },
     actions: {
+        addQuantity(quantity) { 
+            this.quantity_products = quantity;
+            return  this.quantity_products
+        },
         addCart(product) {
             const existentProduct = this.shopping_cart.find(prod => prod.product_name === product.product_name);
             if (existentProduct){     
@@ -50,7 +56,7 @@ export const useShoppingCartStore = defineStore('shoppingCartStore', {
             fetch(urlData)
             .then(resp => resp.json())   
             .then(data => this.purchaseDB.value= data)
-            console.log(this.purchaseDB)   
+            // console.log(this.purchaseDB)   
             return this.purchaseDB
         },
         // getdetailPurchase(){ 
@@ -66,7 +72,7 @@ export const useShoppingCartStore = defineStore('shoppingCartStore', {
                  const {id, quantity,subTotal} = product
                  this.detail_purchase = {purchase_id: purchase_Id,product_id: id,amount: quantity, total: subTotal}
             }
-            console.log("🎅🏻...", this.detail_purchase)
+            // console.log("🎅🏻...", this.detail_purchase)
             return this.detail_purchase
         },
         loadShoppingCart() {

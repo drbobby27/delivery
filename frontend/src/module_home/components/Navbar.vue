@@ -24,23 +24,29 @@ const  leng = computed(() => shopping.getQuantityProducts);
                 <div class="collapse navbar-collapse" id="mynavbar">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="javascript:void(0)">Hamburguesas</a>
+                            <a class="nav-link" href="#burger">Hamburguesas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="javascript:void(0)">Perros calientes</a>
+                            <a class="nav-link" href="#hotdog">Perros calientes</a>
                         </li>
                         <li class="nav-item">
                             <a data-bs-toggle="modal" data-bs-target="#exampleModal22"  class="nav-link" href="javascript:void(0)">Iniciar Sesión</a>
                         </li>
                         <li class="nav-item">
-                            <a  id="car" class=" nav-link btn" type="button" data-bs-toggle="modal" data-bs-target="#cartModal">
-                                <!-- <span class="px-2">0</span> -->
+                            <a id="car" class=" nav-link btn" type="button" data-bs-toggle="modal" data-bs-target="#cartModal" v-if="leng>=0">
                                 <span class="position-absolute top-50  right-4 translate-middle badge rounded-pill badge bg-light text-muted">{{leng}}</span>
+                                <!-- <span class="px-2">0</span> -->
                                 <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-basket2" viewBox="0 0 16 16">
                                     <path d="M4 10a1 1 0 0 1 2 0v2a1 1 0 0 1-2 0v-2zm3 0a1 1 0 0 1 2 0v2a1 1 0 0 1-2 0v-2zm3 0a1 1 0 1 1 2 0v2a1 1 0 0 1-2 0v-2z"/>
                                     <path d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15.5a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-.623l-1.844 6.456a.75.75 0 0 1-.722.544H3.69a.75.75 0 0 1-.722-.544L1.123 8H.5a.5.5 0 0 1-.5-.5v-1A.5.5 0 0 1 .5 6h1.717L5.07 1.243a.5.5 0 0 1 .686-.172zM2.163 8l1.714 6h8.246l1.714-6H2.163z"/>
                                 </svg>
                             </a>
+                            <a id="car" class=" nav-link btn" type="button" data-bs-toggle="modal" data-bs-target="#cartModal" v-else>
+                              <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-basket2-fill" viewBox="0 0 16 16">
+                                  <path d="M5.929 1.757a.5.5 0 1 0-.858-.514L2.217 6H.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h.623l1.844 6.456A.75.75 0 0 0 3.69 15h8.622a.75.75 0 0 0 .722-.544L14.877 8h.623a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1.717L10.93 1.243a.5.5 0 1 0-.858.514L12.617 6H3.383L5.93 1.757zM4 10a1 1 0 0 1 2 0v2a1 1 0 1 1-2 0v-2zm3 0a1 1 0 0 1 2 0v2a1 1 0 1 1-2 0v-2zm4-1a1 1 0 0 1 1 1v2a1 1 0 1 1-2 0v-2a1 1 0 0 1 1-1z"/>
+                              </svg>
+                            </a>
+
                         </li>
                         <CartModal/>
                         <!-- <CartModal :products="shopping_cart"/> -->
