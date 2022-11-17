@@ -1,43 +1,22 @@
 <script setup>
-import BaseInput from '../../components/BaseInput.vue'
+import BaseButton from '../../components/BaseButton.vue'
 
-//  const emits = defineEmits({
-//         handleClic: String,
-//         handleUpdateQty: String
-//     })
- const emits = defineEmits(['handleClic', 'handleUpdateQty'])
+ const emits = defineEmits(['handleClic'])
+//  const props = defineProps(['qty']);
   defineProps({
        dataProducts: {
         type: Array,
         required: true,
      }
 })
-const handleClick = (data, item) => {
+const handleClick = (data) => {
     return emits('handleClic',data);
 }
 
-const handleClickUpdate = (data, item) => {
-    return emits('handleUpdateQty',data);
-}
-// const updateQty = (action, id) => {
-//     const product = dataProducts.value.find(product => product.id === id) 
-//     console.log("👩🏻‍🦰...",product)
-//     console.log(action, id)
-//       if(product.qty >=0){
-//         const qty = product.qty;
-//         product.qty = action === "add" ? qty + 1 : qty - 1;
-//       }else{
-//         const qty = product.qty;
-//         product.qty = action === "remove" ? qty + 1 : qty - 0;
-//       }
-// }
-const saveValue = value => {
-    console.log(value)
-}
+
 </script>
 <template>
     <div class="row px-5">
-        <!-- <h2 class="text-muted text-center my-5">Productos</h2> -->
         <div class="products">
             <div v-for="item in dataProducts" :key="item.id">
               <div class="card-header bg-transparent">
@@ -51,17 +30,8 @@ const saveValue = value => {
                     <div class="card-desc">
                         <p>{{item.long_desc}}</p>
                     </div>
-                    <div class="card-quantity">
-                        <button type="button" :disabled="item.qty <= 1" @click="handleClick('remove', item.id)">-</button>
-                        <!-- <input id="medio" type="number" :value="handleInput" @change="(e) =>$emit('update:handleInput',e.target.value)"> -->
-                        <!-- <input class="input" :id="item.id" type="number" v-model="item.qty" > -->
-                        <BaseInput type="number" @update="saveValue" :value="item.qty"/> 
-                        <button type="button" @click="handleClick('add', item.id)">+</button>
-                        <!-- <button type="button" :disabled="item.qty <= 1" @click="emits('handleClic',item)">-</button> -->
-                        <!-- <input id="medio" type="number" :value="handleInput" @change="(e) =>$emit('update:handleInput',e.target.value)"> -->
-                        <!-- <input class="input" :id="item.id" type="number" v-model="item.qty" >
-                        <button type="button" @click="emits('handleClic',item)">+</button>  -->
-                    </div>
+                    <BaseButton />   
+                     <!-- <h1>cantidad:{{props.qty}}</h1>    -->
                 </div>
                 <div class="card-footer bg-transparent">
                     <button type="button" class="btn" @click="emits('handleClic',item)">

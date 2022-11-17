@@ -56,9 +56,11 @@ const submitForm = async () => {
     registerPurchase();
     DetailPurchase();
     registerOrder();
+    v$.value.$reset()
   } else {
     messageError("Verifique que todos los campos este llenos");
   }
+  //  $v.value.$reset()
 };
 
 const addOrden = () => {
@@ -80,11 +82,7 @@ const registerPurchase = async () => {
       purchase.value= data.createRegister.id
       ordenDB = { ...formOrder, purchase_id: purchase.value}
       detail_purchase.detailPurchase(purchase.value)
-      console.log(ordenDB)
-      console.log("funciono el purchase...",purchase.value)
     })
-    // .then((response) => response)
-    // .then((response) => {})
     .catch((error) => {
       console.error("Error:", error);
     });
@@ -208,7 +206,7 @@ const messageError = ( text) => {
   border: 1px solid #b20837;
  }
  .form-control:focus {
-  background-color: #c77f92;
+  background-color: #e9cdd5;
    border: 1px solid #b20837 !important;
 }
 </style>
