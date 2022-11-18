@@ -1,6 +1,7 @@
 <script setup>
 import BaseButton from '../../components/BaseButton.vue'
 
+
  const emits = defineEmits(['handleClic'])
 //  const props = defineProps(['qty']);
   defineProps({
@@ -13,7 +14,9 @@ const handleClick = (data) => {
     return emits('handleClic',data);
 }
 
-
+function thousandSeparator(number = 0, decimalsQuantity = 0) {
+  return Number(number).toFixed(decimalsQuantity).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 </script>
 <template>
     <div class="row">
@@ -25,13 +28,12 @@ const handleClick = (data) => {
                 <div class="card-body">
                     <div class="card-header header my-2">
                         <h4>{{item.product_name}}</h4>
-                        <h4>${{item.price}}</h4>
+                        <h4>${{thousandSeparator(item.price)}}</h4>
                     </div>
                     <div class="card-desc">
                         <p>{{item.long_desc}}</p>
                     </div>
                     <BaseButton />   
-                     <!-- <h1>cantidad:{{props.qty}}</h1>    -->
                 </div>
                 <div class="card-footer bg-transparent">
                     <button type="button" class="btn" @click="emits('handleClic',item)">

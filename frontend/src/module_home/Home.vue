@@ -34,7 +34,7 @@ import Login from "../module_home/components/Login.vue"
         </div>
       </div>
     </div>
-  </div>
+  </div> 
 </div>
 </template>
 

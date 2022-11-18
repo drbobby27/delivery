@@ -7,6 +7,10 @@ const  shopping_cart = useShoppingCartStore();
 
 const  valores = computed(() => shopping_cart.getProducts);
 
+function thousandSeparator(number = 0, decimalsQuantity = 0) {
+  return Number(number).toFixed(decimalsQuantity).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 </script>
 
 <template>
@@ -35,7 +39,7 @@ const  valores = computed(() => shopping_cart.getProducts);
                       <tr class="body" v-for="(item) in valores" :key="item.id">
                         <td>{{item.product_name}}</td>
                         <td>{{item.quantity}}</td>
-                        <td>{{item.subTotal}}</td> 
+                        <td><span>$</span>{{thousandSeparator(item.subTotal)}}</td> 
                       </tr>
                     </tbody>
                     <tbody v-else>
@@ -47,7 +51,7 @@ const  valores = computed(() => shopping_cart.getProducts);
                       <tr>
                         <th id="bordeTable"></th>
                         <th class="bordeB">Total a pagar</th>
-                        <th class="bordeB">{{shopping_cart.getTotalPayment}}</th>
+                        <th class="bordeB"><span>$</span>{{thousandSeparator(shopping_cart.getTotalPayment)}}</th>
                       </tr>
                     </tfoot>
                   </table>
