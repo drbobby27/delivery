@@ -47,14 +47,24 @@ const addProductCart = (item) => {
 
 </script>
 <template>
-  <div>
-    <section id="burger">
+  <div class="container">
+    <section id="burger" class="mt-5">
       <h2 class="text-muted text-center my-5">Hamburguesa</h2>
       <Card @handleClic="addProductCart" :dataProducts="productsBurger" /> 
     </section>
-    <section id="hotdog">
+    <section id="hotdog" class="mt-5">
       <h2 class="text-muted text-center my-5">Perro Caliente</h2> 
       <Card @handleClic="addProductCart" :dataProducts="productsHotDog" />
     </section>  
   </div>
  </template>
+ <style scoped>
+
+
+@media (min-width: 1023px) {
+  .contents {
+  background: greenyellow;
+  margin: 0 auto;
+}
+} 
+</style>

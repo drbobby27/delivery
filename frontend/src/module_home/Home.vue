@@ -7,10 +7,12 @@ import Footer from "./components/Footer.vue";
 // import Products from "./components/Products.vue"
 import Products_copy from "../module_home/components/Products_copy.vue"
 // import Login from "./components/Login.vue";
+
 </script>
 
 <template>
-  <Navbar />
+  <Navbar/>
+
   <!-- <login /> -->
   <Carrusel />
   <!-- <Products/> -->

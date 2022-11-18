@@ -14,6 +14,10 @@ const  valores = computed(() => shopping_cart.getProducts);
      <div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false"  id="cartModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-xl">
         <div class="modal-content">
+        <div class="modal-header title">
+        <h1 class="modal-title  fs-5" id="exampleModalLabel">Pedido</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
           <div class="modal-body">
             <!--Inicio tabla-->
             <div class="row" id="tabla">
@@ -68,7 +72,31 @@ const  valores = computed(() => shopping_cart.getProducts);
    </div>
 </template>
 <style scoped>
-.table-header, .btn {
+/* .modal-dialog {
+  background-color: red;
+  position: relative;
+  z-index: 30;
+} */
+.backdrop {
+    /* --bs-backdrop-zindex: 1050;
+    --bs-backdrop-bg: #000;
+    --bs-backdrop-opacity: 0.5; */
+    position: relative !important;
+    /* top: 0;
+    left: 0; */
+    z-index: 2;
+    /* width: 100vw;
+    height: 100vh;
+    background-color: var(--bs-backdrop-bg); */
+}
+.table-header {
+  /* background-color: #292728; */
+  background-color: #c2385f;
+  /* opacity: 0.9; */
+  font-size: 1rem;
+  color: #f0e9cb;
+}
+.title, .btn {
     background: #b20837;
     font-size: 1.5rem;
     color: #f0e9cb;

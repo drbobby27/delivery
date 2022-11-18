@@ -13,7 +13,7 @@ const  leng = computed(() => shopping.getQuantityProducts);
         <nav class="navbar navbar-expand-sm navbar-main">
             <div class="container-fluid">
                 <a class="navbar-brand" href="javascript:void(0)">
-                    <img src="https://img.icons8.com/emoji/48/null/taco-emoji.png"/>
+                    <img class="align-top" src="https://img.icons8.com/emoji/48/null/taco-emoji.png"/>
                     <span class="logo">Food App</span>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
@@ -21,7 +21,7 @@ const  leng = computed(() => shopping.getQuantityProducts);
                         <path fill-rule="#b08338" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
                     </svg>
                 </button>
-                <div class="collapse navbar-collapse" id="mynavbar">
+                <div class="collapse navbar-collapse justify-content-center" id="mynavbar">
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link" href="#burger">Hamburguesas</a>
@@ -34,7 +34,7 @@ const  leng = computed(() => shopping.getQuantityProducts);
                         </li>
                         <li class="nav-item">
                             <a id="car" class=" nav-link btn" type="button" data-bs-toggle="modal" data-bs-target="#cartModal" v-if="leng>=0">
-                                <span class="position-absolute top-50  right-4 translate-middle badge rounded-pill badge bg-light text-muted">{{leng}}</span>
+                                <span class="badge rounded-pill badge bg-light text-muted">{{leng}}</span>
                                 <!-- <span class="px-2">0</span> -->
                                 <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-basket2" viewBox="0 0 16 16">
                                     <path d="M4 10a1 1 0 0 1 2 0v2a1 1 0 0 1-2 0v-2zm3 0a1 1 0 0 1 2 0v2a1 1 0 0 1-2 0v-2zm3 0a1 1 0 1 1 2 0v2a1 1 0 0 1-2 0v-2z"/>
@@ -46,10 +46,8 @@ const  leng = computed(() => shopping.getQuantityProducts);
                                   <path d="M5.929 1.757a.5.5 0 1 0-.858-.514L2.217 6H.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h.623l1.844 6.456A.75.75 0 0 0 3.69 15h8.622a.75.75 0 0 0 .722-.544L14.877 8h.623a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1.717L10.93 1.243a.5.5 0 1 0-.858.514L12.617 6H3.383L5.93 1.757zM4 10a1 1 0 0 1 2 0v2a1 1 0 1 1-2 0v-2zm3 0a1 1 0 0 1 2 0v2a1 1 0 1 1-2 0v-2zm4-1a1 1 0 0 1 1 1v2a1 1 0 1 1-2 0v-2a1 1 0 0 1 1-1z"/>
                               </svg>
                             </a>
-
                         </li>
                         <CartModal/>
-                        <!-- <CartModal :products="shopping_cart"/> -->
                     </ul>
                 </div>
             </div>
@@ -58,7 +56,13 @@ const  leng = computed(() => shopping.getQuantityProducts);
 </template>
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap");
-
+/* .navbar{
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 0
+} */
 .navbar-brand {
   color: #f0e9cb;
 }
@@ -88,7 +92,15 @@ const  leng = computed(() => shopping.getQuantityProducts);
 .logo {
   color: #b20837;
   font-family: "Luckiest Guy", cursive;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
+}
+.bi {
+  position: relative;
+   left: -10px;
+}  
+.btn {
+  text-align: start;
+  /* position: absolute; */
 }
 @media (min-width: 481px) {
   .nav-link {
@@ -97,23 +109,42 @@ const  leng = computed(() => shopping.getQuantityProducts);
     font-size: 0.8rem;
   }
 }
-@media (min-width: 768px) {
-  .nav-link {
-    width: 90%;
-    margin: 2px 34px;
-    font-size: 0.9rem;
-  }
-}
-@media (min-width: 1023px) {
+@media (min-width: 576px) {
   .navbar-collapse {
-    width: 80%;
-    flex-basis: 0%;
     flex-grow: 0;
     align-items: flex-end;
   }
   .nav-link {
     width: 100%;
-    margin: 5px 40px;
+    margin: 2px 0px;
+    font-size: 0.7rem;
+  }
+  .bi {
+  top: 1px;
+}  
+   .logo {
+    font-size: 1.4rem;
+  }
+  .navbar-expand-sm {
+    flex-wrap: nowrap;
+    /* justify-content: flex-start; */
+  }
+}
+@media (min-width: 768px) {
+  .navbar-collapse {
+    flex-grow: 0;
+    align-items: flex-end;
+  }
+  .nav-link {
+    width: 100%;
+    margin: 5px 1px;
+    font-size: 1.2rem;
+  }
+}
+@media (min-width: 1023px) {
+  .nav-link {
+    width: 100%;
+    margin: 5px 10px;
   }
   .nav-link {
     font-size: 1.4rem;
@@ -122,5 +153,5 @@ const  leng = computed(() => shopping.getQuantityProducts);
   .logo {
     font-size: 2.3rem;
   }
-}
+} 
 </style>

@@ -34,6 +34,7 @@ export const useShoppingCartStore = defineStore('shoppingCartStore', {
                 return 
             }   
             this.shopping_cart.push(product);
+            console.log(this.shopping_cart)
         },
         totalToPay() {  
             let payData = this.shopping_cart.map((prod)=> {return prod.subTotal})
