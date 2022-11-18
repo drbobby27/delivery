@@ -1,5 +1,6 @@
 <script setup>
 import {  useOrderStore } from '../stores/order';
+import NavbarG from '../components/NavbarG.vue';
 
 const domiciliary_orders = useOrderStore(); 
  
@@ -10,6 +11,7 @@ function handleClick(i) {
 
 </script>
 <template>
+  <NavbarG title="Domiciliario"/>
  <div class="container mx-4">
     <h1 class="title mt-5 mb-3">Domiciliario</h1>
     <div class="row" id="tabla">

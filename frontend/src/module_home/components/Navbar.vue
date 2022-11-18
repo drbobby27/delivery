@@ -10,6 +10,7 @@ const  leng = computed(() => shopping.getQuantityProducts);
 </script>
 <template>
     <header>
+      <Login/>
         <nav class="navbar navbar-expand-sm navbar-main">
             <div class="container-fluid">
                 <a class="navbar-brand" href="javascript:void(0)">
@@ -30,7 +31,7 @@ const  leng = computed(() => shopping.getQuantityProducts);
                             <a class="nav-link" href="#hotdog">Perros calientes</a>
                         </li>
                         <li class="nav-item">
-                            <a data-bs-toggle="modal" data-bs-target="#exampleModal22"  class="nav-link" href="javascript:void(0)">Iniciar Sesión</a>
+                            <a  data-bs-toggle="modal" data-bs-target="#exampleModal1"  class="nav-link" >Iniciar Sesión</a>
                         </li>
                         <li class="nav-item">
                             <a id="car" class=" nav-link btn" type="button" data-bs-toggle="modal" data-bs-target="#cartModal" v-if="leng>=0">
