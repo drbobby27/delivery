@@ -15,11 +15,15 @@ const updateQty = (action) => {
   }
 }
 
+const getQty = (evt)=> {
+       qty.value = evt.target.value;
+      shopping_cart.addQuantity(qty.value)
+}
 </script>
 <template>
-     <div class="card-quantity" >
+     <div class="card-quantity" :qyt="qty">
         <button type="button" class="button" :disabled="qty <= 1" @click="updateQty('remove')">-</button>
-        <input type="number" class="input" v-model="qty"/> 
+        <input type="number" class="input"  @input="getQty($event)" v-model="qty"/> 
         <button type="button" class="button" @click="updateQty('add')">+</button>                  
     </div>
 </template>

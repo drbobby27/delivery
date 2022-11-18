@@ -28,6 +28,7 @@ onMounted(() => {
   getProductsHotDog(); 
 })
 
+
 const addProductCart = (item) => {
   let product = {
     id: item.id,
@@ -38,11 +39,12 @@ const addProductCart = (item) => {
     image_url: item.image_url,
     category_id: item.category_id,
     quantity: quantity_products.getQuantity,
-    subTotal: quantity_products.getQuantity * item.price,
+    subTotal:quantity_products.getQuantity * item.price,
   }
-  shopping_cart.addCart(product) 
+  shopping_cart.addCart(product); 
   shopping_cart.totalToPay();
-  shopping_cart.descriptionOrden()
+  shopping_cart.descriptionOrden();
+  shopping_cart.clearsQuantity();
 }
 
 </script>
@@ -63,8 +65,8 @@ const addProductCart = (item) => {
 
 @media (min-width: 1023px) {
   .contents {
-  background: greenyellow;
-  margin: 0 auto;
+    background: greenyellow;
+    margin: 0 auto;
 }
 } 
 </style>

@@ -3,13 +3,12 @@ import { defineStore } from 'pinia';
 export const useShoppingCartStore = defineStore('shoppingCartStore', {
     state: () => ({
         shopping_cart: [],
-        // quantity_products: 0,
         total_payment: 0,
         description_orden: [],
         purchase: {},
         detail_purchase:{},
         purchaseDB: [],
-        quantity_products: 0,
+        quantity_products: 1,
         // purchase_Id: 0
         // detail_purchaseDB:[]
         
@@ -34,7 +33,7 @@ export const useShoppingCartStore = defineStore('shoppingCartStore', {
                 return 
             }   
             this.shopping_cart.push(product);
-            console.log(this.shopping_cart)
+            console.log("this.shopping_cart🍤...",this.shopping_cart)
         },
         totalToPay() {  
             let payData = this.shopping_cart.map((prod)=> {return prod.subTotal})
@@ -51,7 +50,7 @@ export const useShoppingCartStore = defineStore('shoppingCartStore', {
                 total_value : this.total_payment
               }
               return this.purchase
-        },
+        }, 
         getPurchase(){ 
             const urlData = "https://delivery-production-8572.up.railway.app/api/v1/purchase"
             fetch(urlData)
@@ -78,6 +77,9 @@ export const useShoppingCartStore = defineStore('shoppingCartStore', {
         },
         loadShoppingCart() {
             this.shopping_cart = this.shopping_cart;
+        },
+        clearsQuantity() {
+            this.quantity_products = 1
         },
         clearsCart() {
             this.shopping_cart = [];
