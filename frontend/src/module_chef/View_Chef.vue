@@ -2,10 +2,13 @@
 import { reactive, ref, onMounted} from 'vue'
 import {  useOrderStore } from '../stores/order';
 import NavbarG from '../components/NavbarG.vue';
+import ErrorLogin from "../components/ErrorLogin.vue";
+
 
 const chefs_orders = useOrderStore(); 
 let domiciliary = "";
 const loginData = ref([]);
+let stateLocal = ref(false)
 
 const data = () => {
   
@@ -22,10 +25,14 @@ const deleteUser =()  =>{
 }
 
 onMounted(() => {
+
 data()
+stateLocal.value = JSON.parse(localStorage.getItem("stateLocal"));
+
 });
 </script>
 <template>
+  <div v-if="stateLocal">
   <NavbarG title="Chef"  :name="`${loginData.name}`" @some-event="deleteUser" />
 
    <div class="container mx-4">
@@ -58,8 +65,14 @@ data()
               </div>
             </div>
    </div>
+  </div>
+
+  <div v-else class="wrapper" >
+    <ErrorLogin/>
+ </div>
 </template>
 <style scoped>
+
 .table-header, .btn {
     background: #b20837;
     font-size: 1.5rem;

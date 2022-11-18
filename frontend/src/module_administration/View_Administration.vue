@@ -2,10 +2,17 @@
 import Navbar from "../module_administration/components/Nabvar.vue";
 import Contents from "../module_administration/components/Contents.vue"
 import { onMounted, ref } from "vue";
+import ErrorLogin from "../components/ErrorLogin.vue";
+
+const view = ref(true)
+
+let stateLocal = ref(false)
 
 
 
-const loginData = ref([]);
+
+
+const loginData = ref([{name:"No registrado"}]);
 
 const data = () => {
   
@@ -19,18 +26,30 @@ const deleteUser =()  =>{
 
 onMounted(() => {
 data()
+stateLocal.value = JSON.parse(localStorage.getItem("stateLocal"));
 });
 </script>
 
 <template>
-  <Navbar :name="`${loginData.name}`" @some-event="deleteUser" />
- 
-  <!-- <Contents/> -->
+  <div v-if="stateLocal">
+
+    <Navbar :name="`${loginData.name}`" @some-event="deleteUser" />
+<div v-if="view">
+  <Contents/>
+</div>
+
+  </div>
+  <div v-else class="wrapper" >
+    <ErrorLogin/>
+  </div>
 
   
 </template>
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap");
+
+
+
 
 .navbar {
   font-size: 130%;
