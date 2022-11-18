@@ -47,15 +47,15 @@ const submitForm = async () => {
   const result = await v$.value.$validate();
   if(result) {
     addOrden();
-    console.log("purchaseDB...🍠",purchaseDB.getPurchase())
-    console.log(shopping_cart.registerPurchase())
-    console.log(shopping_cart.getProducts)
-    console.log("detailfactura👸🏻",shopping_cart.detailPurchase())
-    //  console.log("detail_purchaseDB...🍚",detail_purchaseDB.getdetailPurchase())
-    console.log(detail_purchase.detailPurchase())
-    registerPurchase();
-    DetailPurchase();
-    registerOrder();
+    // console.log("purchaseDB...🍠",purchaseDB.getPurchase())
+    // console.log(shopping_cart.registerPurchase())
+    // console.log(shopping_cart.getProducts)
+    // console.log("detailfactura👸🏻",shopping_cart.detailPurchase())
+    // //  console.log("detail_purchaseDB...🍚",detail_purchaseDB.getdetailPurchase())
+    // console.log(detail_purchase.detailPurchase())
+    // registerPurchase();
+    // DetailPurchase();
+    // registerOrder();
     v$.value.$reset()
   } else {
     messageError("Verifique que todos los campos este llenos");
@@ -65,68 +65,69 @@ const submitForm = async () => {
 
 const addOrden = () => {
   let description = shopping_cart.getDescriptionOrden
-  orden = { ...formOrder,description}; 
+  let totalToPay = shopping_cart.getTotalPayment
+  orden = { ...formOrder,description, totalToPay, purchase_id:1}; 
   orders.createOrden(orden)
 }
 
-const registerPurchase = async () => {
-  const urlDB = `https://delivery-production-8572.up.railway.app/api/v1/purchase`;
-  await fetch(urlDB, {
-    method: "POST",
-    body: shopping_cart.registerPurchase(),
-  })
-   .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      purchase.value= data.createRegister.id
-      ordenDB = { ...formOrder, purchase_id: purchase.value}
-      detail_purchase.detailPurchase(purchase.value)
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
-}
-const DetailPurchase = async () => {
-  const urlDB = `https://delivery-production-8572.up.railway.app/api/v1/detail-purchase`;
-  await fetch(urlDB, {
-    method: "POST",
-    body: detail_purchase.detailPurchase(),
-  })
-     .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      console.log("soy data detalle...", data)
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
-}
-const registerOrder = async () => {
-  const urlDB = `https://delivery-production-8572.up.railway.app/api/v1/order`;
-  await fetch(urlDB, {
-    method: "POST",
-    body: ordenDB,
-  })
-   .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      console.log(data)
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
-     message(
-    "center",
-    "Creación completada",
-    "Se ha creado correctamente el producto",
-    1500
-  );
-   clear();
-   shopping_cart.clearsCart();
-};
+// const registerPurchase = async () => {
+//   const urlDB = `https://delivery-production-8572.up.railway.app/api/v1/purchase`;
+//   await fetch(urlDB, {
+//     method: "POST",
+//     body: shopping_cart.registerPurchase(),
+//   })
+//    .then(function (response) {
+//       return response.json();
+//     })
+//     .then(function (data) {
+//       purchase.value= data.createRegister.id
+//       ordenDB = { ...formOrder, purchase_id: purchase.value}
+//       detail_purchase.detailPurchase(purchase.value)
+//     })
+//     .catch((error) => {
+//       console.error("Error:", error);
+//     });
+// }
+// const DetailPurchase = async () => {
+//   const urlDB = `https://delivery-production-8572.up.railway.app/api/v1/detail-purchase`;
+//   await fetch(urlDB, {
+//     method: "POST",
+//     body: detail_purchase.detailPurchase(),
+//   })
+//      .then(function (response) {
+//       return response.json();
+//     })
+//     .then(function (data) {
+//       console.log("soy data detalle...", data)
+//     })
+//     .catch((error) => {
+//       console.error("Error:", error);
+//     });
+// }
+// const registerOrder = async () => {
+//   const urlDB = `https://delivery-production-8572.up.railway.app/api/v1/order`;
+//   await fetch(urlDB, {
+//     method: "POST",
+//     body: ordenDB,
+//   })
+//    .then(function (response) {
+//       return response.json();
+//     })
+//     .then(function (data) {
+//       console.log(data)
+//     })
+//     .catch((error) => {
+//       console.error("Error:", error);
+//     });
+//      message(
+//     "center",
+//     "Creación completada",
+//     "Se ha creado correctamente el producto",
+//     1500
+//   );
+//    clear();
+//    shopping_cart.clearsCart();
+// };
 const clear=() =>{
    formOrder.client_name = '';
    formOrder.address = '';

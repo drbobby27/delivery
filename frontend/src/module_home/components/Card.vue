@@ -16,14 +16,14 @@ const handleClick = (data) => {
 
 </script>
 <template>
-    <div class="row px-5">
+    <div class="row">
         <div class="products">
-            <div v-for="item in dataProducts" :key="item.id">
+            <div class="card-container" v-for="item in dataProducts" :key="item.id">
               <div class="card-header bg-transparent">
                     <img :src="item.image_url" class="img-fluid rounded-start" :alt="item.name"> 
                 </div>
                 <div class="card-body">
-                    <div class="card-header">
+                    <div class="card-header header my-2">
                         <h4>{{item.product_name}}</h4>
                         <h4>${{item.price}}</h4>
                     </div>
@@ -60,7 +60,10 @@ const handleClick = (data) => {
 .card-body { 
     position: relative;
 }
-
+.card-container {
+    width: 90%;
+    /* background: red; */
+}
 .products .card {
   height: 28rem;
   transition: all .5s ease-out;
@@ -83,16 +86,28 @@ const handleClick = (data) => {
 
 .products .card img {
     width: 180%;
-    height: 11rem;
+    /* height: 11rem; */
+    height: 20rem;
     object-fit: cover;
     transition: all .3s ease-in-out;    
     transform: scale(1);
 }
-
+.img-fluid {
+    max-width: 100%;
+    height: 12rem;
+}
+.card-desc {
+    height: 6rem;
+}
 .card-header {
     display: flex;
     justify-content: space-between;
     padding: 0;
+   
+}
+.header {
+    border-style: 1px solid #cacbce;
+    background-color: #e9eaeb;
 }
 .card-quantity{
     display: flex;
@@ -118,7 +133,19 @@ const handleClick = (data) => {
 .footer-cta button {
     border: none !important;
 }
-
+@media (min-width: 1023px) {
+    .img-fluid {
+        max-width: 100%;
+        height: 22rem;
+    }
+    .card-container {
+        width: 100%;
+    /* background: red; */
+    }
+    .card-desc {
+        height: 5rem;
+    }
+} 
 </style>
 
 
