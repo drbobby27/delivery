@@ -268,7 +268,7 @@ const prueba1 =() => {
       <div class="col">
         <div class="row">
           <div class="row mt-1 mb-1 text-center">
-            <h3>Productos creados</h3>
+            <h3 class="title">Productos creados</h3>
           </div>
         </div>
         <div class="row">
@@ -632,5 +632,8 @@ const prueba1 =() => {
 .font{
   background: #b20837;
   color: white;
+}
+.title {
+    color: #b20837;
 }
 </style>
