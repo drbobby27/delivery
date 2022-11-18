@@ -43,11 +43,14 @@ const rules = computed(() => {
 
 const $v = useVuelidate(rules, state);
 
+console.log($v);
+
 const submit = async () => {
   const result = await $v.value.$validate();
   if (result) {
     sendData();
-    $v.value.$reset()
+ 
+    
   } else {
     message1(
       "Verifique que todos los campos este llenos",
@@ -56,6 +59,7 @@ const submit = async () => {
 };
 
 const sendData = async () => {
+  
   const formData = new FormData();
   formData.append("name", state.name);
   formData.append("phoneNumber", state.phoneNumber);
@@ -70,7 +74,7 @@ const sendData = async () => {
     body: formData,
   })
     .then((response) => response)
-    .then((response) => {})
+    .then((response) => { $v.value.$reset()})
     .catch((error) => {
       console.error("Error:", error);
     });
@@ -85,7 +89,7 @@ const sendData = async () => {
   create.value = false;
   create1.value = true;
   
-  $v.value.$reset()
+ 
 };
 
 const submit1 = async () => {
@@ -106,6 +110,7 @@ const submit1 = async () => {
     })
       .then((response) => response)
       .then((response) => {
+        $v.value.$reset()
         data();
         message(
           "center",
@@ -121,7 +126,7 @@ const submit1 = async () => {
       .catch((error) => {
         console.error("Error:", error);
       });
-      $v.value.$reset()
+      
   } else {
     message1(
       "Verifique que todos los campos este llenos",
@@ -217,6 +222,7 @@ const employeesDelete = () => {
 onMounted(() => {
   data();
   data1();
+  
 });
 
 const prueba = (data, action1) => {
@@ -235,6 +241,7 @@ const prueba = (data, action1) => {
   }
 };
 const view = () => {
+  // console.log("Este",$v);
   create.value = true;
   create1.value = false;
   // action.value = true;
