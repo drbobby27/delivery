@@ -5,14 +5,28 @@ import NavbarG from '../components/NavbarG.vue';
 
 const chefs_orders = useOrderStore(); 
 let domiciliary = "";
+const loginData = ref([]);
+
+const data = () => {
+  
+  loginData.value = JSON.parse(localStorage.getItem("dataUser"));
+  console.log(loginData.value);
+}
 
 function handleClick(i) {
     chefs_orders.clearChefsOrders(i,domiciliary)
 }
 
+const deleteUser =()  =>{
+  localStorage.removeItem('dataUser');
+}
+
+onMounted(() => {
+data()
+});
 </script>
 <template>
-  <NavbarG title="Chef"/>
+  <NavbarG title="Chef"  :name="`${loginData.name}`" @some-event="deleteUser" />
 
    <div class="container mx-4">
     <h1 class="title mt-5 mb-3">Chef</h1>

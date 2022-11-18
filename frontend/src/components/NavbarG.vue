@@ -3,13 +3,17 @@
 
     defineProps({
         title:String,
+        name:{
+          type:String,
+          default:"No registrado",
+        }
     })
 </script>
 <template>
     <nav class="navbar navbar-expand-lg navbar-light p-2" >
        
        <a id="color" class="navbar-brand" href="#"
-         ><span class="icon">{{title}}</span
+         ><span class="icon name">{{title}}</span
          ><i class="fa-solid fa-gears"></i
        ></a>
        <button
@@ -27,11 +31,16 @@
        <div class="collapse navbar-collapse" id="navbarNavDropdown">
          <!-- separarlo -->
          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-           
+          
+          <li class="nav-item mt-2">
+             <a  class="nav-link active" href="#"
+               ><strong class="name">{{name}} </strong></a>
+           </li>
+
            <li class="nav-item">
              <router-link to="/"  class="nav-link active" href="#"
-               ><strong>Cerrar Sesión </strong><i class="fa-solid fa-right-from-bracket"></i
-             ></router-link>
+               ><strong><i class="fa-solid fa-right-from-bracket icon1"></i
+             ></strong></router-link>
            </li>
          </ul>
        </div>
@@ -69,7 +78,19 @@
    .navbar-light .navbar-brand:hover {
      color: #000;
    }
-   #color{
+   #color {
     color: #b20837;
    }
+   .icon1 {
+  font-size: 2.5rem;
+  color: #b20837;
+}
+.icon {
+  font-size: 2rem;
+  color: #b20837;
+}
+/* .name{
+  color: #b20837;
+} */
+
    </style>
