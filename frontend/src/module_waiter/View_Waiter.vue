@@ -1,6 +1,7 @@
 <script setup>
 import { reactive, ref, onMounted} from 'vue'
 import {  useOrderStore } from '../stores/order';
+import NavbarG from '../components/NavbarG.vue';
 
 const employee_orders = useOrderStore(); 
 // const domiciliary = useOrderStore(); 
@@ -25,6 +26,7 @@ function handleClick(i) {
 }
 </script>
 <template>
+  <NavbarG title="Empleado"/>
   <div class="container mx-4">
     <h1 class="title mt-5 mb-3">Empleados</h1>
     <div class="row" id="tabla">
