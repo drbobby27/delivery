@@ -136,14 +136,16 @@ const handleClick = (data) => {
 @media (min-width: 1023px) {
     .img-fluid {
         max-width: 100%;
-        height: 22rem;
+        height: 12rem;
     }
     .card-container {
-        width: 100%;
+        width: 18rem;
+        padding: 1px 1rem;
+
     /* background: red; */
     }
     .card-desc {
-        height: 5rem;
+        height: 9rem;
     }
 } 
 </style>
