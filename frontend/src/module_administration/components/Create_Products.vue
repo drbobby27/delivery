@@ -17,7 +17,7 @@ const state = reactive({
   price: "",
   long_desc: "",
   short_desc: "",
-  image_url: "",
+  image_url: null,
   category_id: "",
 });
 
@@ -268,7 +268,7 @@ const prueba1 =() => {
       <div class="col">
         <div class="row">
           <div class="row mt-1 mb-1 text-center">
-            <h3>Productos creados</h3>
+            <h3 class="title">Productos creados</h3>
           </div>
         </div>
         <div class="row">
@@ -285,7 +285,7 @@ const prueba1 =() => {
             <table
               class="table table-bordered border-dark table-white table-striped"
             >
-              <thead>
+              <thead class="font">
                 <tr class="text-center">
                   <th class="col-3">Imagen</th>
                   <th class="col-3">Nombre</th>
@@ -628,5 +628,12 @@ const prueba1 =() => {
 #preview img {
   max-width: 100%;
   max-height: 500px;
+}
+.font{
+  background: #b20837;
+  color: white;
+}
+.title {
+    color: #b20837;
 }
 </style>

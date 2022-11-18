@@ -2,20 +2,17 @@
 import { onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
-
 const route = useRoute();
 const router = useRouter();
-
 
 let email = ref("");
 let password = ref("");
 let dateLogin = ref([]);
 
-
-
 const login = ref([]);
 const loginLocal = ref([]);
 
+let close = ref(false);
 let error1 = ref(false);
 let error2 = ref(false);
 
@@ -46,7 +43,6 @@ const validation = () => {
   console.log(login.value);
   getError();
   if (error1.value == true || error2.value == true) {
-    console.log("hola feo");
   } else {
     sendData();
   }
@@ -65,63 +61,48 @@ const sendData = async () => {
       return response.json();
     })
     .then(function (data) {
-      dateLogin.value=data
+      dateLogin.value = data;
       console.log(dateLogin.value);
-      if(dateLogin.value.validLogin==true){
+      if (dateLogin.value.validLogin == true) {
         routing();
-        message(
-          "center",
-          "Ingreso correctamente",
-          "Ha iniciado sesión",
-          1500
-        );
-      }else{
-        message(
-          "center",
-          "Ingreso fallido",
-          "Verifique sus datos",
-          1500
-        );
+        message("center", "Ingreso correctamente", "Ha iniciado sesión", 1500);
+      } else {
+        message("center", "Ingreso fallido", "Verifique sus datos", 1500);
       }
     })
     .catch((error) => {
       console.error("Error:", error);
-      
     });
 };
 
 const routing = () => {
-  
-  localStorage.setItem("dataUser",JSON.stringify(dateLogin.value.user));
+  localStorage.setItem("dataUser", JSON.stringify(dateLogin.value.user));
   loginLocal.value = JSON.parse(localStorage.getItem("dataUser"));
-  
-  console.log(loginLocal.value.role_id);
-  
-  if(loginLocal.value.role_id == 1){
-    
-    router.push("/Chef")}
-  
-  if(loginLocal.value.role_id == 2){
-    router.push("/Empleado")}
-   
-  if(loginLocal.value.role_id == 3){
-    router.push("/Domiciliario")}
-    
-  if(loginLocal.value.role_id == 4){
-    router.push("/Administración")}
-      
-      
-     
-  console.log("final");
-  
-}
 
+  if (loginLocal.value.role_id == 1) {
+    router.push("/Chef");
+  }
 
+  if (loginLocal.value.role_id == 2) {
+    router.push("/Empleado");
+  }
+
+  if (loginLocal.value.role_id == 3) {
+    router.push("/Administracion");
+  }
+
+  if (loginLocal.value.role_id == 4) {
+    router.push("/Domiciliario");
+  }
+
+  let closeModal = document.getElementById("close2");
+  closeModal.click();
+};
 </script>
 <template>
   <div
     class="modal fade"
-    id="exampleModal22"
+    id="exampleModal1"
     tabindex="-1"
     aria-labelledby="exampleModalLabel"
     aria-hidden="true"
@@ -134,9 +115,16 @@ const routing = () => {
               <div class="col text-center">
                 <h3>Inicio de sesión</h3>
               </div>
+              <div class="col" v-show="close">
+                <button id="close2"  type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
             </div>
             <div class="row" id="user">
-              <img class="user"  src="https://i.ibb.co/0FXdxnM/user2-0.png" alt="user2-0">
+              <img
+                class="user"
+                src="https://i.ibb.co/0FXdxnM/user2-0.png"
+                alt="user2-0"
+              />
             </div>
             <div class="row">
               <div class="col">
@@ -162,9 +150,10 @@ const routing = () => {
             </div>
             <button
               @click="validation()"
-              id="loginb"
+              id="close2"
               type="button"
               class="btn btn-1 mt-3 aling-text-center"
+              
             >
               Inicio de sesión
             </button>
@@ -173,9 +162,78 @@ const routing = () => {
       </div>
     </div>
   </div>
+  <!-- 
+  <div
+    class="modal fade"
+    id="exampleModal1"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="container">
+            <div class="row">
+              <div class="col text-center">
+                <h3>Inicio de sesión</h3>
+              </div>
+            </div>
+            <div class="row" id="user">
+              <img
+                class="user"
+                src="https://i.ibb.co/0FXdxnM/user2-0.png"
+                alt="user2-0"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-body">
+          <div class="row">
+            <div class="col">
+              <label class="form-label">Correo</label>
+              <input v-model="email" class="form-control" type="email" />
+              <span class="error" v-if="error1" style="color: red"
+                >Por favor ingrese el correo</span
+              >
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <label class="form-label">Contraseña</label>
+              <input v-model="password" class="form-control" type="password" />
+              <span class="error" v-if="error2" style="color: red"
+                >Por favor ingrese la contraseña</span
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button
+              @click="validation()"
+              id="close2"
+              type="button"
+              class="btn btn-1 mt-3 aling-text-center"
+              data-bs-dismiss="modal"
+            >
+              Inicio de sesión
+            </button>
+        </div>
+      </div>
+    </div>
+  </div> -->
 </template>
 <style scoped>
-#user .user {
+.user {
   width: 55vh;
   height: 30vh;
   display: block;

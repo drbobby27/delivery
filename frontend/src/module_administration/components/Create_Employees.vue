@@ -47,6 +47,7 @@ const submit = async () => {
   const result = await $v.value.$validate();
   if (result) {
     sendData();
+    $v.value.$reset()
   } else {
     message1(
       "Verifique que todos los campos este llenos",
@@ -83,6 +84,8 @@ const sendData = async () => {
 
   create.value = false;
   create1.value = true;
+  
+  $v.value.$reset()
 };
 
 const submit1 = async () => {
@@ -112,10 +115,13 @@ const submit1 = async () => {
         );
         create.value = false;
         create1.value = true;
+
+        $v.value.$reset()
       })
       .catch((error) => {
         console.error("Error:", error);
       });
+      $v.value.$reset()
   } else {
     message1(
       "Verifique que todos los campos este llenos",
@@ -250,7 +256,7 @@ const try11 = () => {
       <div class="col">
         <div class="row">
           <div class="row mt-1 mb-1 text-center">
-            <h3>Empleados creados</h3>
+            <h3 class="title">Empleados creados</h3>
           </div>
         </div>
         <div class="row">
@@ -267,7 +273,7 @@ const try11 = () => {
             <table
               class="table table-bordered border-dark table-white table-striped"
             >
-              <thead>
+              <thead class="font">
                 <tr class="text-center">
                   <th class="col-3">Nombre</th>
                   <th class="col-3">Rol</th>
@@ -542,12 +548,12 @@ const try11 = () => {
         </div>
 
         <div class="row m-1">
-          <button v-if="action" class="custom-btn btn-9" type="submit">
+          <button v-if="action"   class="custom-btn btn-9" type="submit">
             Guardar
           </button>
           <button
             v-else
-           
+            
             class="custom-btn btn-8"
             type="submit"
           >
@@ -614,5 +620,12 @@ const try11 = () => {
   border-width: 1px;
   background-color: var(--blanco);
   color: var(--negro);
+}
+.font{
+  background: #b20837;
+  color: white;
+}
+.title {
+    color: #b20837;
 }
 </style>

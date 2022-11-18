@@ -10,14 +10,14 @@ const router = createRouter({
       component: Home,
     },
     {
-      path: "/Administración",
-      name: "Administración",
+      path: "/Administracion",
+      name: "Administracion",
       component: () =>
         import("../module_administration/View_Administration.vue"),
       children:[
         {
           path: "/CrearEmpleados",
-          name: "Empleados",
+          name: "CrearEmpleados",
           component: () =>
             import("../module_administration/components/Create_Employees.vue"),
         },
@@ -35,15 +35,17 @@ const router = createRouter({
         },
       ]
     },
+   
+    
     {
       path: "/Empleado",
-      name: "empleado",
+      name: "Empleado",
       component: () =>
         import("../module_waiter/View_Waiter.vue"),
     },
     {
       path: "/Domiciliario",
-      name: "empleado",
+      name: "Domiciliario",
       component: () =>
         import("../module_domiciliary/View_Domiciliary.vue"),
     },

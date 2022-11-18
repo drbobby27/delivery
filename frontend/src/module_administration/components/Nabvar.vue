@@ -2,53 +2,53 @@
 </script>
 
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light p-2" >
+ <nav class="navbar navbar-expand-lg navbar-light p-2" >
     
-      <a  class="navbar-brand" href="#"
-        ><span class="icon">Administración</span
-        ><i class="fa-solid fa-gears"></i
-      ></a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarNavDropdown"
-        aria-controls="navbarNavDropdown"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
+    <router-link to="/Administracion"  class="navbar-brand" href="#"
+      ><span class="icon">Administración</span
+      ><i class="fa-solid fa-gears"></i
+    ></router-link>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-      <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <!-- separarlo -->
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <router-link to="/Empleados" class="nav-link active" href="#"
-              >Crear Empleados</router-link
-            >
-          </li>
-          <li class="nav-item">
-            <router-link to="/Productos" class="nav-link active" href="#"
-              >Crear Productos</router-link
-            >
-          </li>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <!-- separarlo -->
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <router-link to="/CrearEmpleados" class="nav-link active" href="#"
+            ><strong>Crear Empleados</strong></router-link
+          >
+        </li>
+        <li class="nav-item">
+          <router-link to="/CrearProductos" class="nav-link active" href="#"
+            ><strong>Crear Productos</strong></router-link
+          >
+        </li>
 
-          <li class="nav-item">
-            <router-link to="/Historial" class="nav-link active" href="#"
-              >Historial Ventas</router-link
-            >
-          </li>
-          <li class="nav-item">
-            <a  class="nav-link active" href="#"
-              >Cerrar Sesión <i class="fa-solid fa-right-from-bracket"></i
-            ></a>
-          </li>
-        </ul>
-      </div>
-    
-  </nav>
-  <RouterView />
+        <li class="nav-item">
+          <router-link to="/Historial" class="nav-link active" href="#"
+            ><strong>Historial Ventas</strong></router-link
+          >
+        </li>
+        <li class="nav-item">
+          <router-link to="/"  class="nav-link active" href="#"
+            ><strong>Cerrar Sesión</strong> <i class="fa-solid fa-right-from-bracket"></i
+          ></router-link>
+        </li>
+      </ul>
+    </div>
+  
+</nav>
+<RouterView />
 </template>
 
 
@@ -60,7 +60,7 @@
   background-color: rgb(169, 173, 173);
 }
 .router-link-exact-active {
-  color: rgb(255, 115, 0) !important;
+  color: #b20837 !important;
 }
 
 * {
