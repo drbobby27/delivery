@@ -17,7 +17,7 @@ const state = reactive({
   price: "",
   long_desc: "",
   short_desc: "",
-  image_url: null,
+  image_url: "",
   category_id: "",
 });
 
@@ -50,6 +50,7 @@ const createProducts = async () => {
   const result = await $v.value.$validate();
   if (result) {
     sendData();
+    console.log("por aca");
   } else {
     message1(
       "Verifique que todos los campos este llenos",
@@ -65,7 +66,7 @@ const sendData = async () => {
   formData.append("short_desc", state.short_desc);
   formData.append("image_url", state.image_url);
   formData.append("category_id", state.category_id);
-
+console.log("data");
   const urlDB = `https://delivery-production-8572.up.railway.app/api/v1/product`;
   await fetch(urlDB, {
     method: "POST",
@@ -84,9 +85,9 @@ const sendData = async () => {
     "Se ha creado correctamente el producto",
     1500
   );
-  clear();   //////////////////////////////////////// todo rojo
-  create.value = false;
+ create.value = false;
   create1.value = true;
+  
 };
 
 const edit = async () => {
@@ -108,6 +109,7 @@ const edit = async () => {
       .then((response) => response)
       .then((response) => {
         data();
+        clear();
         message(
           "center",
           "Actualización completada",
@@ -187,6 +189,8 @@ onMounted(() => {
 });
 
 const clear = () => {
+  $v.value.$reset() // ayuda a que no este todo en rojo
+  console.log('limpiando');
   state.category_id= "";
   state.product_name= "";
   state.price= "";

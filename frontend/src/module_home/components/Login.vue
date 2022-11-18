@@ -5,8 +5,8 @@ import { useRoute, useRouter } from "vue-router";
 const route = useRoute();
 const router = useRouter();
 
-let email = ref("");
-let password = ref("");
+let email = ref("cassasdadsandra@gmail.com");
+let password = ref("123");
 let dateLogin = ref([]);
 
 const login = ref([]);
@@ -15,6 +15,9 @@ const loginLocal = ref([]);
 let close = ref(false);
 let error1 = ref(false);
 let error2 = ref(false);
+
+let state = ref(false);
+let stateLocal = ref(false);
 
 const message = (position, title, text, time) => {
   Swal.fire({
@@ -62,11 +65,13 @@ const sendData = async () => {
     })
     .then(function (data) {
       dateLogin.value = data;
+      state.value=true;
       console.log(dateLogin.value);
       if (dateLogin.value.validLogin == true) {
         routing();
         message("center", "Ingreso correctamente", "Ha iniciado sesión", 1500);
       } else {
+        localStorage.setItem("stateLocal", false);
         message("center", "Ingreso fallido", "Verifique sus datos", 1500);
       }
     })
@@ -78,6 +83,9 @@ const sendData = async () => {
 const routing = () => {
   localStorage.setItem("dataUser", JSON.stringify(dateLogin.value.user));
   loginLocal.value = JSON.parse(localStorage.getItem("dataUser"));
+
+  localStorage.setItem("stateLocal", state.value);
+  stateLocal.value = JSON.parse(localStorage.getItem("stateLocal"));
 
   console.log(loginLocal.value);
 

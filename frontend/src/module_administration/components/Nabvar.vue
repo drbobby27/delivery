@@ -1,4 +1,7 @@
 <script setup>
+
+
+
 defineProps({
         name:{
           type:String,
@@ -11,7 +14,8 @@ defineProps({
 </script>
 
 <template>
- <nav class="navbar navbar-expand-lg navbar-light p-2" >
+  
+ <nav  class="navbar navbar-expand-lg navbar-light p-2" >
     
     <router-link to="/Administracion"  class="navbar-brand" href="#"
       ><span class="icon">Administración</span
@@ -62,6 +66,7 @@ defineProps({
     </div>
   
 </nav>
+
 <RouterView />
 </template>
 
