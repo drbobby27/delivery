@@ -79,6 +79,8 @@ const routing = () => {
   localStorage.setItem("dataUser", JSON.stringify(dateLogin.value.user));
   loginLocal.value = JSON.parse(localStorage.getItem("dataUser"));
 
+  console.log(loginLocal.value);
+
   if (loginLocal.value.role_id == 1) {
     router.push("/Chef");
   }
