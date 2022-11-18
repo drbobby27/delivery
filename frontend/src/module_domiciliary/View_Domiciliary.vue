@@ -1,17 +1,31 @@
 <script setup>
 import {  useOrderStore } from '../stores/order';
 import NavbarG from '../components/NavbarG.vue';
+import { ref, onMounted} from 'vue'
 
 const domiciliary_orders = useOrderStore(); 
- 
+const loginData = ref([]);
+
+const data = () => {
+  
+  loginData.value = JSON.parse(localStorage.getItem("dataUser"));
+  console.log(loginData.value);
+}
 
 function handleClick(i) {
     domiciliary_orders.clearDomiciliaryOrders(i)
 }
+const deleteUser =()  =>{
+  localStorage.removeItem('dataUser');
+}
+
+onMounted(() => {
+data()
+});
 
 </script>
 <template>
-  <NavbarG title="Domiciliario"/>
+  <NavbarG title="Domiciliario" :name="`${loginData.name}`" @some-event="deleteUser"/>
  <div class="container mx-4">
     <h1 class="title mt-5 mb-3">Domiciliario</h1>
     <div class="row" id="tabla">

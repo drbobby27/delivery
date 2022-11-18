@@ -1,10 +1,30 @@
 <script setup>
 import Navbar from "../module_administration/components/Nabvar.vue";
 import Contents from "../module_administration/components/Contents.vue"
+import { onMounted, ref } from "vue";
+
+
+
+const loginData = ref([]);
+
+const data = () => {
+  
+  loginData.value = JSON.parse(localStorage.getItem("dataUser"));
+  console.log(loginData.value);
+}
+const deleteUser =()  =>{
+  localStorage.removeItem('dataUser');
+}
+
+
+onMounted(() => {
+data()
+});
 </script>
 
 <template>
-  <Navbar />
+  <Navbar :name="`${loginData.name}`" @some-event="deleteUser" />
+ 
   <!-- <Contents/> -->
 
   
@@ -42,5 +62,6 @@ import Contents from "../module_administration/components/Contents.vue"
 .navbar-light .navbar-brand:hover {
   color: #000;
 }
+
 
 </style>
