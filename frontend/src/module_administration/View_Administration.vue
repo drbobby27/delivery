@@ -1,16 +1,13 @@
 <script setup>
-import Navbar from '../module_administration/components/Nabvar.vue';
-
-
-
-
+import Navbar from "../module_administration/components/Nabvar.vue";
+import Contents from "../module_administration/components/Contents.vue"
 </script>
 
 <template>
+  <Navbar />
+  <!-- <Contents/> -->
 
-<Navbar/>
-    
-
+  
 </template>
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap");
@@ -18,6 +15,9 @@ import Navbar from '../module_administration/components/Nabvar.vue';
 .navbar {
   font-size: 130%;
   background-color: rgb(169, 173, 173);
+}
+.text{
+  color: #b20837 ;
 }
 .router-link-exact-active {
   color: #b20837 !important;
@@ -42,4 +42,5 @@ import Navbar from '../module_administration/components/Nabvar.vue';
 .navbar-light .navbar-brand:hover {
   color: #000;
 }
+
 </style>

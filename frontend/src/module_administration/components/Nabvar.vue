@@ -4,10 +4,10 @@
 <template>
  <nav class="navbar navbar-expand-lg navbar-light p-2" >
     
-    <a  class="navbar-brand" href="#"
+    <router-link to="/Administracion"  class="navbar-brand" href="#"
       ><span class="icon">Administración</span
       ><i class="fa-solid fa-gears"></i
-    ></a>
+    ></router-link>
     <button
       class="navbar-toggler"
       type="button"
@@ -25,23 +25,23 @@
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <router-link to="/CrearEmpleados" class="nav-link active" href="#"
-            >Crear Empleados</router-link
+            ><strong>Crear Empleados</strong></router-link
           >
         </li>
         <li class="nav-item">
           <router-link to="/CrearProductos" class="nav-link active" href="#"
-            >Crear Productos</router-link
+            ><strong>Crear Productos</strong></router-link
           >
         </li>
 
         <li class="nav-item">
           <router-link to="/Historial" class="nav-link active" href="#"
-            >Historial Ventas</router-link
+            ><strong>Historial Ventas</strong></router-link
           >
         </li>
         <li class="nav-item">
           <router-link to="/"  class="nav-link active" href="#"
-            >Cerrar Sesión <i class="fa-solid fa-right-from-bracket"></i
+            ><strong>Cerrar Sesión</strong> <i class="fa-solid fa-right-from-bracket"></i
           ></router-link>
         </li>
       </ul>
@@ -60,7 +60,7 @@
   background-color: rgb(169, 173, 173);
 }
 .router-link-exact-active {
-  color: rgb(255, 115, 0) !important;
+  color: #b20837 !important;
 }
 
 * {
