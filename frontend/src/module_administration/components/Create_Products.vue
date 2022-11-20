@@ -264,21 +264,25 @@ const prueba1 =() => {
   }
   
 };
+
+function thousandSeparator(number = 0, decimalsQuantity = 0) {
+  return Number(number).toFixed(decimalsQuantity).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 </script>
 
 <template>
   <div class="row usuarios m-3 justify-content-center">
     <div class="col-12 col-sm-12 col-lg-6" v-if="create1">
       <div class="col">
-        <div class="row">
-          <div class="row mt-1 mb-1 text-center">
+        <div class="row mt-3">
+          <div class="row mt-3 mb-1 text-center">
             <h3 class="title">Productos creados</h3>
           </div>
         </div>
         <div class="row">
           <div class="row mt-3 mb-4 text-center">
             <div class="col">
-              <button class="btn btn-outline-success" @click="view(), try10()">
+              <button class="btn btn2" @click="view(), try10()">
                 Crear producto
               </button>
             </div>
@@ -307,7 +311,7 @@ const prueba1 =() => {
                     />
                   </td>
                   <td v-text="item.product_name"></td>
-                  <td v-text="item.price"></td>
+                  <td >$ {{thousandSeparator(item.price)}}</td>
                   <td style="width: 120px">
                     <button
                       type="button"
@@ -585,6 +589,18 @@ const prueba1 =() => {
   </div>
 </template>
 <style scoped>
+.btn2{
+  background-color:white !important;
+  color:black !important;
+  border-color: black;
+  
+}
+.btn2:hover{
+  background-color: #c9850f !important;
+  color: white !important;
+  border: none;
+  
+}
 .form-label {
   margin-bottom: 1%;
   margin-top: 1%;
@@ -598,7 +614,7 @@ const prueba1 =() => {
 .btn-9 {
   border: none;
   color: #fff;
-  background-color: rgb(255, 115, 0);
+  background-color: #b20837;
   margin-top: 2%;
 }
 .btn-9:hover {
