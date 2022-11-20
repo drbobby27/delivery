@@ -6,7 +6,7 @@
   
   <div  class="wrapper" >
     <div class="row">
-      <router-link to="/" class="inicio"  href=""><strong>iniciar sesión</strong></router-link>
+      <router-link to="/" class="inicio"  href=""><strong>Debes iniciar sesión</strong></router-link>
     </div>
   </div>
 
