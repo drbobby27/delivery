@@ -47,12 +47,6 @@ const submitForm = async () => {
   const result = await v$.value.$validate();
   if(result) {
     addOrden();
-    // console.log("purchaseDB...🍠",purchaseDB.getPurchase())
-    // console.log(shopping_cart.registerPurchase())
-    // console.log(shopping_cart.getProducts)
-    // console.log("detailfactura👸🏻",shopping_cart.detailPurchase())
-    // //  console.log("detail_purchaseDB...🍚",detail_purchaseDB.getdetailPurchase())
-    // console.log(detail_purchase.detailPurchase())
     // registerPurchase();
     // DetailPurchase();
     // registerOrder();

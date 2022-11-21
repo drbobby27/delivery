@@ -33,7 +33,6 @@ export const useShoppingCartStore = defineStore('shoppingCartStore', {
                 return 
             }   
             this.shopping_cart.push(product);
-            console.log("this.shopping_cart🍤...",this.shopping_cart)
         },
         totalToPay() {  
             let payData = this.shopping_cart.map((prod)=> {return prod.subTotal})
@@ -72,7 +71,7 @@ export const useShoppingCartStore = defineStore('shoppingCartStore', {
                  const {id, quantity,subTotal} = product
                  this.detail_purchase = {purchase_id: purchase_Id,product_id: id,amount: quantity, total: subTotal}
             }
-            // console.log("🎅🏻...", this.detail_purchase)
+            
             return this.detail_purchase
         },
         loadShoppingCart() {

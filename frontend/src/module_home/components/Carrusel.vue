@@ -16,7 +16,6 @@ const products = ref([])
         await fetch(urlData)
         .then(resp => resp.json())
         .then(data => products.value= data)
-        console.log(products)
    };
 
 onMounted(() => {
@@ -70,8 +69,6 @@ onMounted(() => {
 .swiper-pagination-bullet {
   width: 11px;
   height: 11px;
-  /* width: var(--swiper-pagination-bullet-width,var(--swiper-pagination-bullet-size,11px));
-  height: var(--swiper-pagination-bullet-height,var(--swiper-pagination-bullet-size,11px)); */
 }
 .swiper-slide {
   text-align: center;

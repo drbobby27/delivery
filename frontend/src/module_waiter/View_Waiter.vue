@@ -20,8 +20,6 @@ let dataStorageDomiciliary = ref([])
 const data = () => {
   loginData.value = JSON.parse(localStorage.getItem("dataUser"));
   dbOrdersEmployee.value = JSON.parse(localStorage.getItem("dbOrderEmployee"))
-  console.log(dbOrdersEmployee.value)
-  console.log(loginData.value);
 };
 const deleteUser = () => {
   localStorage.removeItem("dataUser");
@@ -33,7 +31,7 @@ const getDomiciliary = () => {
   fetch(urlData)
     .then((resp) => resp.json())
     .then((data) => (domiciliarys.value = data));
-  console.log(domiciliarys);
+  // console.log(domiciliarys);
 };
 
 onMounted(() => {
@@ -50,8 +48,6 @@ function clever(index){
    if(index>=0) {
       let [serve] = dbOrdersEmployee.value.splice(index,1)
       dbOrderServe.value.push(serve)
-      console.log(dbOrderServe)
-      console.log(serve)
    }
     updateLocalStorage()
     message(
