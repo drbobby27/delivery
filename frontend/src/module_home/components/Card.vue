@@ -1,110 +1,78 @@
 <script setup>
-import { reactive, ref, onMounted} from 'vue'
-import { useShoppingCartStore } from '../../stores/shoppingCart';
+import BaseButton from '../../components/BaseButton.vue'
 
-const  shopping_cart = useShoppingCartStore(); 
 
-const products = ref([])
-const handleInput = ref(0)
-const ErrorQty = false
-const getProducts = () => {
-        const urlData = "http://localhost:7000/api/v1/product"
-        fetch(urlData)
-        .then(resp => resp.json())
-        .then(data => products.value= data)
-        // console.log(products)
-   };
-
-onMounted(() => {
-  getProducts(); 
+ const emits = defineEmits(['handleClic'])
+//  const props = defineProps(['qty']);
+  defineProps({
+       dataProducts: {
+        type: Array,
+        required: true,
+     }
 })
-console.log(handleInput);
-const updateQty = (action) => {
-    handleInput.value  = action === "add" ? handleInput.value + 1 : handleInput.value - 1; 
-    console.log(handleInput) 
-    return handleInput   
+const handleClick = (data) => {
+    return emits('handleClic',data);
 }
-const validation = () => {
-  
+
+function thousandSeparator(number = 0, decimalsQuantity = 0) {
+  return Number(number).toFixed(decimalsQuantity).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
-const addProductCart = (item, qty) => {
-  let product = {
-        id: item.id,
-        product_name: item.product_name,
-        price: item.price,
-        long_desc: item.long_desc,
-        image_url: item.image_url,
-        category_id: item.category_id,
-        quantity: handleInput.value,
-        subTotal: handleInput.value * item.price,
-  }
-  shopping_cart.create(product)
-  shopping_cart.totalToPay();
-}
-// const addCart = () => {    
-//       const existentProduct =  shopping_cart.findShoppingCart(prod => prod.name === item.product_name);
-//       if (existentProduct){     
-//         existentProduct.quantity += product.quantity; 
-//         existentProduct.subTotal =  subTotalNumber + this.productBuy.subTotalNumber 
-//         existentProduct.subTotalNumber =  (subTotalNumber) + this.productBuy.subTotalNumber
-//         return 
-//       }   
-//       this.cartData.push(this.productBuy);
-//     }
 </script>
-
 <template>
-    <div class="row m-5 px-5">
-            <h2 class="text-muted text-center my-5">Productos</h2>
-            <div class="col products">
-                <div class="card" v-for="item in products" :key="item.id">
-                    <img :src="item.image_url" class="img-fluid rounded-start" alt="...">
-                    <div class="card-body">
-                        <div class="card-header">
-                            <h4>{{item.product_name}}</h4>
-                            <h4>${{item.price}}</h4>
-                        </div>
-                        <div class="card-desc">
-                            <p>{{item.long_desc}}</p>
-                        </div>
-                        <div class="card-quantity">
-                            <button type="button"  @click="updateQty('remove', item.id)">-</button>
-                            <!-- <input id="medio" type="number" :value="handleInput" @change="(e) =>$emit('update:handleInput',e.target.value)"> -->
-                            <input class="input" :id="item.id" type="number" v-model="handleInput" >
-                            <button type="button"  @click="updateQty('add', item.id)">+</button>
-                        </div>
-                        <div class="footer-cta">
-                            <button type="button" class="btn" @click="addProductCart(item, qty)">
-                                Agregar
-                            </button>
-                        </div>
-                    </div>
+    <div class="row">
+        <div class="products">
+            <div class="card-container" v-for="item in dataProducts" :key="item.id">
+              <div class="card-header bg-transparent">
+                    <img :src="item.image_url" class="img-fluid rounded-start" :alt="item.name"> 
                 </div>
-            </div>          
-        </div>    
+                <div class="card-body">
+                    <div class="card-header header my-2">
+                        <h4>{{item.product_name}}</h4>
+                        <h4>${{thousandSeparator(item.price)}}</h4>
+                    </div>
+                    <div class="card-desc">
+                        <p>{{item.long_desc}}</p>
+                    </div>
+                    <BaseButton />   
+                </div>
+                <div class="card-footer bg-transparent">
+                    <button type="button" class="btn" @click="emits('handleClic',item)">
+                    Agregar
+                    </button>
+                </div>  
+            </div>
+        </div>
+    </div>  
 </template>
-
 <style scoped>
 
 .products {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 0.2fr));
   padding: 1rem 13px;
   gap: 36px;
   border: none !important;
   perspective: 800px; 
 }
 
+.card-footer {
+  padding:0;
+}
+
 .card-body { 
     position: relative;
 }
-
+.card-container {
+    width: 90%;
+    /* background: red; */
+}
 .products .card {
   height: 28rem;
   transition: all .5s ease-out;
   overflow: hidden;
 }
 .input {
+    width: 90%;
     text-align: center;
 }
 
@@ -120,21 +88,33 @@ const addProductCart = (item, qty) => {
 
 .products .card img {
     width: 180%;
-    height: 11rem;
+    height: 20rem;
     object-fit: cover;
     transition: all .3s ease-in-out;    
     transform: scale(1);
 }
-
+.img-fluid {
+    max-width: 100%;
+    height: 12rem;
+}
+.card-desc {
+    height: 11rem;
+}
 .card-header {
     display: flex;
     justify-content: space-between;
     padding: 0;
+   
+}
+.header {
+    border-style: 1px solid #cacbce;
+    background-color: #e9eaeb;
 }
 .card-quantity{
     display: flex;
     justify-content: space-around;
     align-items: center;
+    margin: 2px;
 }
 
 .card-quantity button {
@@ -153,7 +133,61 @@ const addProductCart = (item, qty) => {
 }
 .footer-cta button {
     border: none !important;
+}
+@media (min-width: 481px) {
+    .products {
+        grid-template-columns: repeat(auto-fit, minmax(295px, 9fr));
+    }
+    .card-container {
+        width: 100%;
+    }
+    .card-desc {
+        height: 9rem;
+    }
+}
+@media (min-width: 768px) {
+  .products {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 36px;
+ }
+ .card-container {
+    width: 100%;
+}
+.card-desc {
+    height: 9rem;
+} 
 
 }
+@media (min-width: 1023px) {
+    .products {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 0.3fr));
+        gap: 28px;
+    }
+    .card-container {
+        width: 18rem;
+        padding: 1px 1rem;
+    }
+    .card-desc {
+        height: 10rem;
+    }
+} 
+@media (min-width: 1200px) {
+    .products {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 0.1fr));
+        gap: 29px;
+        padding: 1rem 12px;
+    }
+  
+    .card-container{
+        padding: 1px 1.8rem;
+        width: 20rem;
+        
+    }
 
+     .card-desc {
+        height: 12rem;
+    }
+}
 </style>
+
+
