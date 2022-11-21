@@ -15,8 +15,6 @@ let garbage = ref([]);
 const data = () => {
   loginData.value = JSON.parse(localStorage.getItem("dataUser"));
   dbOrdersDomic.value = JSON.parse(localStorage.getItem("dbOrderDomiciliary")) 
-  console.log(loginData.value);
-  console.log( dbOrdersDomic.value)
 };
 
 function handleClick(i) {
@@ -33,7 +31,7 @@ onMounted(() => {
 function clever(index){
     if(index>=0) {
         dbOrdersDomic.value.splice(index, 1)
-        console.log(userDomic)
+       
      }
     updateLocalStorage()
      message(

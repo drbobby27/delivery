@@ -3,7 +3,7 @@ import Navbar from "./components/Navbar.vue";
 import Carrusel from "./components/Carrusel.vue";
 import Card from "./components/Card.vue";
 import Footer from "./components/Footer.vue";
-import Products_copy from "../module_home/components/Products_copy.vue"
+import Products from "../module_home/components/Products.vue"
 import Login from "../module_home/components/Login.vue"
 </script>
 
@@ -12,7 +12,7 @@ import Login from "../module_home/components/Login.vue"
   <Navbar />
   <login />
   <Carrusel />
-  <Products_copy/>
+  <Products/>
   <Footer/>
   <RouterView />
 </div>

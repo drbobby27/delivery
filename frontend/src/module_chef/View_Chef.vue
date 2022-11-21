@@ -6,16 +6,7 @@ import NavbarG from '../components/NavbarG.vue';
 import ErrorLogin from "../components/ErrorLogin.vue";
 import {computed} from 'vue'
 
-// const shopping_cart = useShoppingCartStore(); 
 
-// const orders =  useOrderStore(); 
-// const dataOrder =  useOrderStore(); 
-// const shopping_cart = useShoppingCartStore(); 
-// const chefs_orders = useOrderStore(); 
-// const getDBdataOrder = computed(() => dataOrder.getDataOrder);
-// const getDBOrden = computed(() => orders.getOrders);
-
-// const  getDBdataOrderChef = computed(() => chefs_orders.getChefsOrders);
 
 let domiciliary = "";
 const loginData = ref([]);
@@ -30,7 +21,6 @@ let dataStorageEmployee = ref("")
 const data = () => {  
   loginData.value = JSON.parse(localStorage.getItem("dataUser"));
   dbOrdersChef.value = JSON.parse(localStorage.getItem("dbOrderChef"));
-  console.log(dbOrdersChef.value)
   // console.log(loginData.value);
 }
 
@@ -44,8 +34,6 @@ function clever(index){
         let [serve] = dbOrdersChef.value.splice(index,1)
         serve.domiciliary = ""
         dbOrderServe.value.push(serve)
-        console.log(dbOrderServe)
-        console.log(dbOrdersChef)
     }
     updateLocalStorage()
     message(
