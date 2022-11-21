@@ -30,6 +30,9 @@ npm run dev
 ## Back Log
 [https://dtorof.atlassian.net/jira/software/projects/RMA/boards/4](https://dtorof.atlassian.net/jira/software/projects/DEL/boards/4)
 
+##Link Despliegue
+[https://lively-meerkat-foodapp.netlify.app/](https://lively-meerkat-foodapp.netlify.app/)
+
 ## Contribuidores
 *  [Yennifer Ortiz](https://github.com/yortizher)
 *  [Jorge Arley](https://github.com/drbobby27)
