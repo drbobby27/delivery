@@ -12,8 +12,15 @@ const domiciliarys = ref([]);
 const loginData = ref([]);
 let stateLocal = ref(false);
 
+
+let dbOrdersEmployee = ref([])
+let dbOrderServe = ref([])
+let dataStorageDomiciliary = ref([])
+
 const data = () => {
   loginData.value = JSON.parse(localStorage.getItem("dataUser"));
+  dbOrdersEmployee.value = JSON.parse(localStorage.getItem("dbOrderEmployee"))
+  console.log(dbOrdersEmployee.value)
   console.log(loginData.value);
 };
 const deleteUser = () => {
@@ -35,9 +42,40 @@ onMounted(() => {
   stateLocal.value = JSON.parse(localStorage.getItem("stateLocal"));
 });
 
-function handleClick(i) {
-  employee_orders.clearEmployeeOrders(i);
-}
+// function handleClick(i) {
+//   employee_orders.clearEmployeeOrders(i);
+// }
+
+function clever(index){
+   if(index>=0) {
+      let [serve] = dbOrdersEmployee.value.splice(index,1)
+      dbOrderServe.value.push(serve)
+      console.log(dbOrderServe)
+      console.log(serve)
+   }
+    updateLocalStorage()
+    message(
+      "center",
+      "Actividad completada",
+      "Se ha enviado correctamente su solicitud",
+      1500
+    );
+  }
+           
+  function updateLocalStorage(){
+      localStorage.setItem("dbOrderEmployee", JSON.stringify(dbOrdersEmployee.value))
+      localStorage.setItem("dbOrderDomiciliary", JSON.stringify(dbOrderServe.value))
+  }
+  const message = (position, title, text, time) => {
+  Swal.fire({
+    position: position,
+    icon: "success",
+    title: title,
+    text: text,
+    showConfirmButton: false,
+    timer: time,
+  });
+};
 </script>
 <template>
   <div v-if="stateLocal">
@@ -46,10 +84,9 @@ function handleClick(i) {
       :name="`${loginData.name}`"
       @some-event="deleteUser"
     />
-    <div class="container mx-4">
-      <h1 class="title mt-5 mb-3">Empleados</h1>
+    <div class="container my-5">
       <div class="row" id="tabla">
-        <div class="container pe-3 ps-3">
+        <div>
           <div class="table-responsive">
             <table class="table table-bordered mt-4 table-strip text-center">
               <thead class="table table-header">
@@ -60,20 +97,20 @@ function handleClick(i) {
                   <th class="col-3">Opción</th>
                 </tr>
               </thead>
-              <tbody v-if="employee_orders.getEmployeeOrders.length">
+              <tbody v-if="dbOrdersEmployee.length">
                 <tr
                   class="body"
-                  v-for="(item, i) in employee_orders.getEmployeeOrders"
+                  v-for="(item, i) in dbOrdersEmployee"
                   :key="i"
                 >
-                  <td>{{}}</td>
-                  <td>{{ item.description.join() }}</td>
+                  <td>{{ item.purchase_id}}</td>
+                  <td>{{ item.description.join()}}</td>
                   <td>
                     <select
                       name="seleccionProducto"
                       id="seleccionProducto"
                       class="form-select text-center"
-                      v-model="employee_orders.getEmployeeOrders[i].domiciliary"
+                      v-model="dbOrdersEmployee[i].domiciliary"
                     >
                       <option disabled value="">Seleccione una opción</option>
                       <option
@@ -84,7 +121,7 @@ function handleClick(i) {
                     </select>
                   </td>
                   <td>
-                    <button class="btn" @click="handleClick(i)">Listo</button>
+                    <button class="btn bg-success text-white" @click="clever(i)">Listo</button>
                   </td>
                 </tr>
               </tbody>
@@ -119,8 +156,7 @@ function handleClick(i) {
   text-align: center;
   
 }
-.table-header,
-.btn {
+.table-header {
   background: #b20837;
   font-size: 1.5rem;
   color: #f0e9cb;

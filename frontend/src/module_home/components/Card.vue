@@ -48,7 +48,7 @@ function thousandSeparator(number = 0, decimalsQuantity = 0) {
 
 .products {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 0.2fr));
   padding: 1rem 13px;
   gap: 36px;
   border: none !important;
@@ -56,7 +56,7 @@ function thousandSeparator(number = 0, decimalsQuantity = 0) {
 }
 
 .card-footer {
-    padding:0;
+  padding:0;
 }
 
 .card-body { 
@@ -88,7 +88,6 @@ function thousandSeparator(number = 0, decimalsQuantity = 0) {
 
 .products .card img {
     width: 180%;
-    /* height: 11rem; */
     height: 20rem;
     object-fit: cover;
     transition: all .3s ease-in-out;    
@@ -99,7 +98,7 @@ function thousandSeparator(number = 0, decimalsQuantity = 0) {
     height: 12rem;
 }
 .card-desc {
-    height: 6rem;
+    height: 11rem;
 }
 .card-header {
     display: flex;
@@ -135,21 +134,60 @@ function thousandSeparator(number = 0, decimalsQuantity = 0) {
 .footer-cta button {
     border: none !important;
 }
-@media (min-width: 1023px) {
-    .img-fluid {
-        max-width: 100%;
-        height: 12rem;
+@media (min-width: 481px) {
+    .products {
+        grid-template-columns: repeat(auto-fit, minmax(295px, 9fr));
     }
     .card-container {
-        width: 18rem;
-        padding: 1px 1rem;
-
-    /* background: red; */
+        width: 100%;
     }
     .card-desc {
         height: 9rem;
     }
+}
+@media (min-width: 768px) {
+  .products {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 36px;
+ }
+ .card-container {
+    width: 100%;
+}
+.card-desc {
+    height: 9rem;
 } 
+
+}
+@media (min-width: 1023px) {
+    .products {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 0.3fr));
+        gap: 28px;
+    }
+    .card-container {
+        width: 18rem;
+        padding: 1px 1rem;
+    }
+    .card-desc {
+        height: 10rem;
+    }
+} 
+@media (min-width: 1200px) {
+    .products {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 0.1fr));
+        gap: 29px;
+        padding: 1rem 12px;
+    }
+  
+    .card-container{
+        padding: 1px 1.8rem;
+        width: 20rem;
+        
+    }
+
+     .card-desc {
+        height: 12rem;
+    }
+}
 </style>
 
 

@@ -13,11 +13,18 @@ const updateQty = (action) => {
     qty.value = action === "add" ? qty.value + 1 : qty.value - 1;
     shopping_cart.addQuantity(qty.value)
   }
+  setTimeout(() => {
+     qty.value = 1;
+    }, 5000);
+  
 }
 
 const getQty = (evt)=> {
-       qty.value = evt.target.value;
-      shopping_cart.addQuantity(qty.value)
+    qty.value = evt.target.value;
+    shopping_cart.addQuantity(qty.value)
+    setTimeout(() => {
+     qty.value = 1;
+    }, 5000);
 }
 </script>
 <template>

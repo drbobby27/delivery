@@ -35,7 +35,7 @@ const  leng = computed(() => shopping.getQuantityProducts);
                         </li>
                         <li class="nav-item">
                             <a id="car" class=" nav-link btn" type="button" data-bs-toggle="modal" data-bs-target="#cartModal" v-if="leng>=0">
-                                <span class="badge rounded-pill badge bg-light text-muted">{{leng}}</span>
+                                <span class="badge rounded-pill badge bg-light text-black">{{leng}}</span>
                                 <!-- <span class="px-2">0</span> -->
                                 <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-basket2" viewBox="0 0 16 16">
                                     <path d="M4 10a1 1 0 0 1 2 0v2a1 1 0 0 1-2 0v-2zm3 0a1 1 0 0 1 2 0v2a1 1 0 0 1-2 0v-2zm3 0a1 1 0 1 1 2 0v2a1 1 0 0 1-2 0v-2z"/>
@@ -96,12 +96,16 @@ const  leng = computed(() => shopping.getQuantityProducts);
   font-size: 1.6rem;
 }
 .bi {
-  position: relative;
-   left: -10px;
+  /* position: relative;
+  left: -10px; */
+  /* z-index: 1; */
 }  
 .btn {
   text-align: start;
+  position: relative;
+  left: -19px;
   /* position: absolute; */
+  z-index: 1;
 }
 @media (min-width: 481px) {
   .nav-link {
