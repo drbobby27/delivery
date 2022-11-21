@@ -44,6 +44,10 @@ console.log(totalF.value);
 }
 
 
+function thousandSeparator(number = 0, decimalsQuantity = 0) {
+  return Number(number).toFixed(decimalsQuantity).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 
 onMounted(() => {
   data();
@@ -75,7 +79,7 @@ onMounted(() => {
                                         <tr class="body" v-for="item in  dataVentasLocal" :key="item.name">
                                             <td v-text="item.id"></td>
                                             <td >{{item.amount}}-{{item.product.product_name}}</td>
-                                            <td v-text="item.total"></td>
+                                            <td >$ {{thousandSeparator(item.total)}}</td>
                                         </tr>
                                     </tbody>
                                     <tfoot>
@@ -83,7 +87,7 @@ onMounted(() => {
                                             <th id="bordeTable"></th>
                                             <th class="bordeB">Cantidad Total</th>
 
-                                            <th class="bordeB" v-text="totalF" ></th>
+                                            <th class="bordeB">$ {{thousandSeparator(totalF)}}</th>
                                         </tr>
                                     </tfoot>
 

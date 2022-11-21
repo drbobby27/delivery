@@ -13,6 +13,17 @@ const state = reactive({
   role_id: "",
 });
 
+const clear = () => {
+  $v.value.$reset() // ayuda a que no este todo en rojo
+  state.name= "";
+  state.phoneNumber= "";
+  state.email= "";
+  state.password= "";
+  state.password1= "";
+  state.address= "";
+  state.role_id= "";
+};
+
 const rules = computed(() => {
   return {
     name: {
@@ -110,7 +121,7 @@ const submit1 = async () => {
     })
       .then((response) => response)
       .then((response) => {
-        $v.value.$reset()
+        clear();
         data();
         message(
           "center",
@@ -121,7 +132,7 @@ const submit1 = async () => {
         create.value = false;
         create1.value = true;
 
-        $v.value.$reset()
+       
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -261,15 +272,15 @@ const try11 = () => {
   <div class="row usuarios m-3 justify-content-center">
     <div class="col-12 col-sm-12 col-lg-6" v-if="create1">
       <div class="col">
-        <div class="row">
-          <div class="row mt-1 mb-1 text-center">
+        <div class="row  mt-3">
+          <div class="row mt-3 mb-1 text-center">
             <h3 class="title">Empleados creados</h3>
           </div>
         </div>
         <div class="row">
           <div class="row mt-3 mb-4 text-center">
             <div class="col">
-              <button class="btn btn-outline-success" @click="view(), try10()">
+              <button class="btn btn2" @click="view(), try10()">
                 Crear empleado
               </button>
             </div>
@@ -587,6 +598,19 @@ const try11 = () => {
   --blanco: #fff;
 }
 
+.btn2{
+  background-color:white !important;
+  color:black !important;
+  border-color: black;
+  
+}
+.btn2:hover{
+  background-color: #c9850f !important;
+  color: white !important;
+  border: none;
+  
+}
+
 .usuarios {
   color: var(--negro);
 }
@@ -602,7 +626,7 @@ const try11 = () => {
 .btn-9 {
   border: none;
   color: #fff;
-  background-color: rgb(255, 115, 0);
+  background-color: #b20837;
   margin-top: 2%;
 }
 .btn-9:hover {

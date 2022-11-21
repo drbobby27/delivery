@@ -3,10 +3,12 @@ import Navbar from "../module_administration/components/Nabvar.vue";
 import Contents from "../module_administration/components/Contents.vue"
 import { onMounted, ref } from "vue";
 import ErrorLogin from "../components/ErrorLogin.vue";
+import router from "../router/index.js"
 
 const view = ref(true)
 
 let stateLocal = ref(false)
+let URL = window.location;
 
 
 
@@ -27,6 +29,7 @@ const deleteUser =()  =>{
 onMounted(() => {
 data()
 stateLocal.value = JSON.parse(localStorage.getItem("stateLocal"));
+console.log(URL.pathname,"<xvcdfvd");
 });
 </script>
 
@@ -34,7 +37,7 @@ stateLocal.value = JSON.parse(localStorage.getItem("stateLocal"));
   <div v-if="stateLocal">
 
     <Navbar :name="`${loginData.name}`" @some-event="deleteUser" />
-<div v-if="view">
+<div v-if="URL.pathname =='/Administracion' ">
   <Contents/>
 </div>
 

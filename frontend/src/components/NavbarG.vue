@@ -53,7 +53,7 @@
    
    .navbar {
      font-size: 130%;
-     background-color: rgb(169, 173, 173);
+     background-color: #292728
    }
    .router-link-exact-active {
     color: #b20837;
@@ -61,6 +61,7 @@
    
    * {
      font-family: "Montserrat", sans-serif;
+     color: #f0e9cb;
    }
    
    .navbar-nav {

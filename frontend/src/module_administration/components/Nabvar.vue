@@ -19,7 +19,7 @@ defineProps({
     
     <router-link to="/Administracion"  class="navbar-brand" href="#"
       ><span class="icon">Administración</span
-      ><i class="fa-solid fa-gears"></i
+      ><i class="fa-solid fa-gears icon5"></i
     ></router-link>
     <button
       class="navbar-toggler"
@@ -43,7 +43,7 @@ defineProps({
         </li>
         <li class="nav-item mt-2">
           <router-link to="/CrearProductos" class="nav-link active" href="#"
-            ><strong>Crear Productos</strong></router-link
+            ><strong >Crear Productos</strong></router-link
           >
         </li>
 
@@ -74,38 +74,51 @@ defineProps({
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap");
 
+* {
+  font-family: "Montserrat", sans-serif;
+ 
+}
 .navbar {
   font-size: 130%;
-  background-color: rgb(169, 173, 173);
+  background-color: #292728;
+  
 }
+
 .router-link-exact-active {
   color: #b20837 !important;
 }
 
-* {
-  font-family: "Montserrat", sans-serif;
-}
+
 
 .navbar-nav {
   font-size: 18px;
   text-transform: uppercase;
   font-weight: 500;
+  
+  
 }
 .navbar-light .navbar-brand {
-  color: #000;
+  
   text-transform: uppercase;
   font-weight: 700;
   letter-spacing: 2px;
 }
-.navbar-light .navbar-brand:focus,
-.navbar-light .navbar-brand:hover {
-  color: #000;
-}
 .icon1 {
   font-size: 2.5rem;
+  color: #b20837;
+  
+}
+.icon {
+  font-size: 1.7rem;
   color: #b20837;
 }
 .name{
   color: #b20837;
+}
+.nav-item .nav-link{
+  color: #f0e9cb ;
+}
+.icon5{
+  color: #f0e9cb ;
 }
 </style>
