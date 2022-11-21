@@ -16,7 +16,7 @@ function thousandSeparator(number = 0, decimalsQuantity = 0) {
 <template>
     <div>
      <div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false"  id="cartModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-xl">
+      <div class="modal-dialog modal-xl w-50">
         <div class="modal-content">
         <div class="modal-header title">
         <h1 class="modal-title  fs-5" id="exampleModalLabel">Pedido</h1>

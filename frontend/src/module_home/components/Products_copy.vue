@@ -52,21 +52,43 @@ const addProductCart = (item) => {
   <div class="container">
     <section id="burger" class="mt-5">
       <h2 class="text-muted text-center my-5">Hamburguesa</h2>
-      <Card @handleClic="addProductCart" :dataProducts="productsBurger" /> 
+      <Card @handleClic="addProductCart" :dataProducts="productsBurger" class="contents"/> 
     </section>
     <section id="hotdog" class="mt-5">
       <h2 class="text-muted text-center my-5">Perro Caliente</h2> 
-      <Card @handleClic="addProductCart" :dataProducts="productsHotDog" />
+      <Card @handleClic="addProductCart" :dataProducts="productsHotDog" class="contents"/>
     </section>  
   </div>
  </template>
  <style scoped>
 
-
-@media (min-width: 1023px) {
+.contents {
+    margin: 0 25px;
+}
+@media (min-width: 481px) {
   .contents {
-    background: greenyellow;
-    margin: 0 auto;
+    margin: 0 65px;
+}
+}
+@media (min-width: 576px) {
+ .contents {
+    margin: 0 95px;
+}
+}
+
+@media (min-width: 768px) {
+  .contents {
+    margin: 0 15px;
+}
+}
+@media (min-width: 1023px) {
+.contents {
+    margin: 0 15px;
+}
+} 
+@media (min-width: 1200px) {
+.contents {
+    margin: 0;
 }
 } 
 </style>

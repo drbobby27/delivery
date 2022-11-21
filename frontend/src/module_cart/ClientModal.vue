@@ -15,7 +15,7 @@ const purchaseDB = useShoppingCartStore();
 
 let purchase = ref(0);
 let orden = ref({})
-let ordenDB = ref({})
+let ordenDB = ref([])
 
 const formOrder = reactive({
   client_name: "",
@@ -56,20 +56,33 @@ const submitForm = async () => {
     // registerPurchase();
     // DetailPurchase();
     // registerOrder();
-    v$.value.$reset()
+    message(
+      "center",
+      "Creación completada",
+      "Se ha creado correctamente el producto",
+      1500
+    );
+    clear();
+    shopping_cart.clearsCart();
   } else {
     messageError("Verifique que todos los campos este llenos");
   }
-  //  $v.value.$reset()
 };
 
 const addOrden = () => {
   let description = shopping_cart.getDescriptionOrden
   let totalToPay = shopping_cart.getTotalPayment
-  orden = { ...formOrder,description, totalToPay, purchase_id:1}; 
-  orders.createOrden(orden)
+  let numOrder = ordenDB.value.length + 1
+  orden = { ...formOrder,description, totalToPay, purchase_id: numOrder}; 
+  // orders.createOrden(orden)
+  ordenDB.value.push(orden)
+  updateLocalStorage(ordenDB)
 }
 
+function updateLocalStorage(){
+    localStorage.setItem("dbOrder", JSON.stringify(ordenDB.value))
+    localStorage.setItem("dbOrderChef", JSON.stringify(ordenDB.value))
+}
 // const registerPurchase = async () => {
 //   const urlDB = `https://delivery-production-8572.up.railway.app/api/v1/purchase`;
 //   await fetch(urlDB, {
@@ -129,6 +142,7 @@ const addOrden = () => {
 //    shopping_cart.clearsCart();
 // };
 const clear=() =>{
+   v$.value.$reset()
    formOrder.client_name = '';
    formOrder.address = '';
    formOrder.phone_number = '';

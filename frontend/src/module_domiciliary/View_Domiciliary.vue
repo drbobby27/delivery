@@ -8,10 +8,15 @@ import ErrorLogin from "../components/ErrorLogin.vue";
 let stateLocal = ref(false);
 const domiciliary_orders = useOrderStore();
 const loginData = ref([]);
+let dbOrdersDomic = ref([])
+let garbage = ref([]);
+ 
 
 const data = () => {
   loginData.value = JSON.parse(localStorage.getItem("dataUser"));
+  dbOrdersDomic.value = JSON.parse(localStorage.getItem("dbOrderDomiciliary")) 
   console.log(loginData.value);
+  console.log( dbOrdersDomic.value)
 };
 
 function handleClick(i) {
@@ -25,6 +30,32 @@ onMounted(() => {
   data();
   stateLocal.value = JSON.parse(localStorage.getItem("stateLocal"));
 });
+function clever(index){
+    if(index>=0) {
+        dbOrdersDomic.value.splice(index, 1)
+        console.log(userDomic)
+     }
+    updateLocalStorage()
+     message(
+      "center",
+      "Actividad completada",
+      "Se ha enviado correctamente su solicitud",
+      1500
+    );
+}
+function updateLocalStorage(){
+  localStorage.setItem("dbOrderDomiciliary", JSON.stringify(garbage))
+}
+const message = (position, title, text, time) => {
+  Swal.fire({
+    position: position,
+    icon: "success",
+    title: title,
+    text: text,
+    showConfirmButton: false,
+    timer: time,
+  });
+};
 </script>
 <template>
   <div v-if="stateLocal">
@@ -33,10 +64,9 @@ onMounted(() => {
       :name="`${loginData.name}`"
       @some-event="deleteUser"
     />
-    <div class="container mx-4">
-      <h1 class="title mt-5 mb-3">Domiciliario</h1>
+    <div class="container my-5">
       <div class="row" id="tabla">
-        <div class="container pe-3 ps-3">
+        <div class="">
           <div class="table-responsive">
             <table class="table table-bordered mt-4 table-strip text-center">
               <thead class="table table-header">
@@ -50,26 +80,26 @@ onMounted(() => {
                   <th class="col-3">Opción</th>
                 </tr>
               </thead>
-              <tbody v-if="domiciliary_orders.getDomiciliaryOrders.length">
+              <tbody v-if="dbOrdersDomic.length">
                 <tr
                   class="body"
-                  v-for="(item, i) in domiciliary_orders.getDomiciliaryOrders"
+                  v-for="(item, i) in dbOrdersDomic"
                   :key="item.i"
                 >
-                  <td>{{}}</td>
+                  <td>{{ item.purchase_id }}</td>
                   <td>{{ item.description.join() }}</td>
                   <td>{{ item.client_name }}</td>
                   <td>{{ item.phone_number }}</td>
                   <td>{{ item.address }}</td>
                   <td>{{ item.domiciliary }}</td>
                   <td>
-                    <button class="btn" @click="handleClick(i)">Listo</button>
+                    <button class="btn bg-success text-white" @click="clever(i)">Listo</button>
                   </td>
                 </tr>
               </tbody>
               <tbody v-else>
                 <tr>
-                  <td colspan="5" class="text-center justify-content-center">
+                  <td colspan="8" class="text-center justify-content-center">
                     Sin lista de Domicilios...
                   </td>
                 </tr>
@@ -97,8 +127,7 @@ onMounted(() => {
   text-align: center;
   
 }
-.table-header,
-.btn {
+.table-header {
   background: #b20837;
   font-size: 1.5rem;
   color: #f0e9cb;

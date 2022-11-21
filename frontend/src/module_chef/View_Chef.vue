@@ -1,44 +1,90 @@
 <script setup>
 import { reactive, ref, onMounted} from 'vue'
 import {  useOrderStore } from '../stores/order';
+import { useShoppingCartStore } from '../stores/shoppingCart';
 import NavbarG from '../components/NavbarG.vue';
 import ErrorLogin from "../components/ErrorLogin.vue";
+import {computed} from 'vue'
 
+// const shopping_cart = useShoppingCartStore(); 
 
-const chefs_orders = useOrderStore(); 
+// const orders =  useOrderStore(); 
+// const dataOrder =  useOrderStore(); 
+// const shopping_cart = useShoppingCartStore(); 
+// const chefs_orders = useOrderStore(); 
+// const getDBdataOrder = computed(() => dataOrder.getDataOrder);
+// const getDBOrden = computed(() => orders.getOrders);
+
+// const  getDBdataOrderChef = computed(() => chefs_orders.getChefsOrders);
+
 let domiciliary = "";
 const loginData = ref([]);
 let stateLocal = ref(false)
+let dbOrdersChef = ref([]) 
+let dbOrderServe = ref([])
+let dataStorageEmployee = ref("")
+//  dataChef: {}
+ 
 
-const data = () => {
-  
+
+const data = () => {  
   loginData.value = JSON.parse(localStorage.getItem("dataUser"));
-  console.log(loginData.value);
+  dbOrdersChef.value = JSON.parse(localStorage.getItem("dbOrderChef"));
+  console.log(dbOrdersChef.value)
+  // console.log(loginData.value);
 }
 
-function handleClick(i) {
-    chefs_orders.clearChefsOrders(i,domiciliary)
-}
+// function handleClick(i) {
+//      chefs_orders.clearChefsOrders(i,domiciliary)
+// }
 
+function clever(index){
+  console.log(index)
+    if(index>=0) {
+        let [serve] = dbOrdersChef.value.splice(index,1)
+        serve.domiciliary = ""
+        dbOrderServe.value.push(serve)
+        console.log(dbOrderServe)
+        console.log(dbOrdersChef)
+    }
+    updateLocalStorage()
+    message(
+      "center",
+      "Actividad completada",
+      "Se ha enviado correctamente su solicitud",
+      1500
+    );
+}
+function updateLocalStorage(){ 
+    localStorage.setItem("dbOrderChef", JSON.stringify(dbOrdersChef.value))
+    localStorage.setItem("dbOrderEmployee", JSON.stringify(dbOrderServe.value))
+}
 const deleteUser =()  =>{
   localStorage.removeItem('dataUser');
 }
 
 onMounted(() => {
-
-data()
-stateLocal.value = JSON.parse(localStorage.getItem("stateLocal"));
-
+  data()
+  stateLocal.value = JSON.parse(localStorage.getItem("stateLocal"));
 });
+const message = (position, title, text, time) => {
+  Swal.fire({
+    position: position,
+    icon: "success",
+    title: title,
+    text: text,
+    showConfirmButton: false,
+    timer: time,
+  });
+};
 </script>
 <template>
   <div v-if="stateLocal">
   <NavbarG title="Chef"  :name="`${loginData.name}`" @some-event="deleteUser" />
 
-   <div class="container mx-4">
-    <h1 class="title mt-5 mb-3">Chef</h1>
+   <div class="container my-5">
     <div class="row" id="tabla">
-              <div class="container pe-3 ps-3">
+              <div class="">
                 <div class="table-responsive">
                   <table class="table table-bordered mt-4 table-strip text-center">
                     <thead class="table table-header">
@@ -48,11 +94,11 @@ stateLocal.value = JSON.parse(localStorage.getItem("stateLocal"));
                         <th class="col-3">Opción</th>
                       </tr>
                     </thead>
-                    <tbody v-if="chefs_orders.getChefsOrders.length">
-                      <tr class="body" v-for="(item,i) in chefs_orders.getChefsOrders" :key="item.i">
-                        <td></td>
+                    <tbody v-if="dbOrdersChef.length">
+                      <tr class="body" v-for="(item,i) in dbOrdersChef" :key="item.i">
+                        <td>{{item.purchase_id}}</td>
                         <td>{{item.description.join()}}</td>
-                        <td><button class="btn" @click="handleClick(i)">Listo</button></td> 
+                        <td><button class="btn bg-success text-white" @click="clever(i)">Listo</button></td> 
                       </tr>
                     </tbody>
                     <tbody v-else>
@@ -73,7 +119,7 @@ stateLocal.value = JSON.parse(localStorage.getItem("stateLocal"));
 </template>
 <style scoped>
 
-.table-header, .btn {
+.table-header{
     background: #b20837;
     font-size: 1.5rem;
     color: #f0e9cb;
