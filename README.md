@@ -31,7 +31,7 @@ npm run dev
 [https://dtorof.atlassian.net/jira/software/projects/RMA/boards/4](https://dtorof.atlassian.net/jira/software/projects/DEL/boards/4)
 
 ## Link Deploy
-[https://lively-meerkat-foodapp.netlify.app/](https://lively-meerkat-foodapp.netlify.app/)
+[https://delivery-x6v8.vercel.app//](https://delivery-x6v8.vercel.app//)
 
 ## Contribuidores
 *  [Yennifer Ortiz](https://github.com/yortizher)
