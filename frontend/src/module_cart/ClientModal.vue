@@ -27,8 +27,7 @@ const formOrder = reactive({
 const rules = computed (() =>{
   return {
     client_name: { 
-      required:helpers.withMessage("El campo nombre es obligatorio", required ), 
-      alpha: helpers.withMessage("Solo acepta caracteres alfabéticos", alpha )
+      required:helpers.withMessage("El campo nombre es obligatorio", required )
     },
     address: {
        required:helpers.withMessage("El campo dirección es obligatorio", required ) 

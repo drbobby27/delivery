@@ -26,11 +26,11 @@ const deleteUser = () => {
 };
 
 const getDomiciliary = () => {
-  const urlData =
-    "https://delivery-production-8572.up.railway.app/api/v1/deliverman";
+  const urlData ="https://delivery-production-8572.up.railway.app/api/v1/employees";
   fetch(urlData)
     .then((resp) => resp.json())
-    .then((data) => (domiciliarys.value = data));
+    .then((data) => (domiciliarys.value = data.filter(dat => dat.role_id === 4)));
+    
   // console.log(domiciliarys);
 };
 
@@ -111,8 +111,8 @@ function clever(index){
                       <option disabled value="">Seleccione una opción</option>
                       <option
                         v-for="(item, index) in domiciliarys"
-                        v-text="item.full_name"
-                        :value="item.full_name"
+                        v-text="item.name"
+                        :value="item.name"
                       ></option>
                     </select>
                   </td>
