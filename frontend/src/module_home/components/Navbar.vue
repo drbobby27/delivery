@@ -150,11 +150,9 @@ const  leng = computed(() => shopping.getQuantityProducts);
   .nav-link {
     width: 100%;
     margin: 5px 10px;
-  }
-  .nav-link {
     font-size: 1.4rem;
   }
-
+ 
   .logo {
     font-size: 2.3rem;
   }

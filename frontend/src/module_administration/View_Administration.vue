@@ -10,10 +10,6 @@ const view = ref(true)
 let stateLocal = ref(false)
 let URL = window.location;
 
-
-
-
-
 const loginData = ref([{name:"No registrado"}]);
 
 const data = () => {
@@ -35,12 +31,10 @@ console.log(URL.pathname,"<xvcdfvd");
 
 <template>
   <div v-if="stateLocal">
-
     <Navbar :name="`${loginData.name}`" @some-event="deleteUser" />
-<div v-if="URL.pathname =='/Administracion' ">
-  <Contents/>
-</div>
-
+    <div v-if="URL.pathname =='/Administracion' ">
+        <Contents/>
+    </div>
   </div>
   <div v-else class="wrapper" >
     <ErrorLogin/>
