@@ -62,7 +62,7 @@ function clever(index, item){
                     </tbody>
                     <tbody v-else>
                       <tr>
-                        <td colspan="5" class="text-center justify-content-center">Sin pedidos...</td>
+                        <td colspan="6" class="text-center justify-content-center">Sin pedidos...</td>
                       </tr>
                     </tbody>
                     <tfoot>
