@@ -134,6 +134,11 @@ function thousandSeparator(number = 0, decimalsQuantity = 0) {
 .footer-cta button {
     border: none !important;
 }
+@media (min-width: 384px) {
+   .products {
+       grid-template-columns: repeat(auto-fit, minmax(340px, 0.2fr));
+    }
+}
 @media (min-width: 481px) {
     .products {
         grid-template-columns: repeat(auto-fit, minmax(295px, 9fr));
@@ -144,6 +149,11 @@ function thousandSeparator(number = 0, decimalsQuantity = 0) {
     .card-desc {
         height: 9rem;
     }
+}
+@media (min-width: 496px) {
+   .img-fluid {
+    height: 15rem;
+}
 }
 @media (min-width: 768px) {
   .products {
@@ -156,7 +166,9 @@ function thousandSeparator(number = 0, decimalsQuantity = 0) {
 .card-desc {
     height: 9rem;
 } 
-
+   .img-fluid {
+    height: 14rem;
+}
 }
 @media (min-width: 1023px) {
     .products {
@@ -170,6 +182,9 @@ function thousandSeparator(number = 0, decimalsQuantity = 0) {
     .card-desc {
         height: 10rem;
     }
+      .img-fluid {
+    height: 11rem;
+}
 } 
 @media (min-width: 1200px) {
     .products {
