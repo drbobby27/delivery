@@ -58,6 +58,10 @@ export const useShoppingCartStore = defineStore('shoppingCartStore', {
             // console.log(this.purchaseDB)   
             return this.purchaseDB
         },
+        cleverShopping(index, item) {
+            this.shopping_cart.splice(index,1)
+            this.total_payment -= item.subTotal
+        },
         // getdetailPurchase(){ 
         //     const urlData = "https://delivery-production-8572.up.railway.app/api/v1/detail-purchase"
         //     fetch(urlData)
