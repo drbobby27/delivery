@@ -1,7 +1,7 @@
 <script setup>
 import { useOrderStore } from "../stores/order";
 import NavbarG from "../components/NavbarG.vue";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import ErrorLogin from "../components/ErrorLogin.vue";
 
 
@@ -12,14 +12,21 @@ let dbOrdersDomic = ref([])
 let garbage = ref([]);
  
 
+
 const data = () => {
   loginData.value = JSON.parse(localStorage.getItem("dataUser"));
   dbOrdersDomic.value = JSON.parse(localStorage.getItem("dbOrderDomiciliary")) 
 };
 
+const filterOrdersDomic = computed(() => {
+  return dbOrdersDomic.value.filter(dom => dom.domiciliary === loginData.value.name)
+});
+
+
 function handleClick(i) {
   domiciliary_orders.clearDomiciliaryOrders(i);
 }
+
 const deleteUser = () => {
   localStorage.removeItem("dataUser");
 };
@@ -81,7 +88,7 @@ const message = (position, title, text, time) => {
               <tbody v-if="dbOrdersDomic.length">
                 <tr
                   class="body"
-                  v-for="(item, i) in dbOrdersDomic"
+                  v-for="(item, i) in filterOrdersDomic"
                   :key="item.i"
                 >
                   <td>{{ item.purchase_id }}</td>
